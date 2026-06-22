@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome | UNPLAN Village Hakuba</title>
+<meta name="description" content="UNPLAN Village Hakuba | 宿泊情報と白馬ローカルガイド。Welcome to UNPLAN Village Hakuba.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #eeeeee;
+    --surface: #ffffff;
+    --ink: #000000;
+    --ink-soft: #555555;
+    --ink-muted: #999999;
+    --line: #dddddd;
+    --shadow: 0 4px 20px rgba(0,0,0,.06);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Outfit', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Outfit', 'Noto Sans JP', sans-serif;
+    font-weight: 700; letter-spacing: -.01em;
+  }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+  /* NAV */
+  .nav {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 50;
+    padding: 24px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav.scrolled {
+    position: fixed; background: rgba(255,255,255,.96);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    padding: 14px 32px; box-shadow: var(--shadow);
+    transition: all .3s;
+  }
+  .logo {
+    font-family: 'Outfit', sans-serif; font-weight: 700;
+    font-size: 14px; letter-spacing: .12em; color: white;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav.scrolled .logo { color: var(--ink); }
+  .nav-right { display: flex; align-items: center; gap: 18px; }
+  .lang-switch {
+    display: flex; gap: 2px; font-size: 12px;
+    color: rgba(255,255,255,.8); letter-spacing: .08em;
+  }
+  .nav.scrolled .lang-switch { color: var(--ink-soft); }
+  .lang-switch button { padding: 4px 8px; transition: opacity .2s; }
+  .lang-switch button:hover { opacity: 1; }
+  .lang-switch button.active { color: white; opacity: 1; font-weight: 600; }
+  .nav.scrolled .lang-switch button.active { color: var(--ink); }
+  .lang-switch button:not(.active) { opacity: .6; }
+  .lang-switch .divider { opacity: .4; padding: 0 2px; }
+  .book-btn {
+    background: white; color: var(--ink);
+    padding: 10px 22px; border-radius: 3px;
+    font-size: 12px; font-weight: 600; letter-spacing: .14em;
+    transition: all .2s;
+  }
+  .nav.scrolled .book-btn { background: var(--ink); color: white; }
+  .book-btn:hover { transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    position: relative; height: 100vh; min-height: 600px;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.1) 0%, rgba(0,0,0,.4) 100%),
+      url('images/hero-welcome.jpg') center/cover;
+  }
+  .hero-content {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 0 32px 80px; color: white;
+    max-width: 1280px; margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
+    opacity: .9; margin-bottom: 18px; font-weight: 500;
+  }
+  .hero-title {
+    font-size: clamp(40px, 7vw, 92px); line-height: 1.0; font-weight: 700;
+    letter-spacing: -.02em; margin-bottom: 20px; max-width: 800px;
+  }
+  .hero-sub {
+    font-size: clamp(14px, 1.6vw, 17px); opacity: .9; max-width: 540px;
+    font-weight: 400; line-height: 1.6;
+  }
+  .scroll-cue {
+    position: absolute; bottom: 32px; right: 32px;
+    font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
+    opacity: .7; color: white;
+    writing-mode: vertical-rl; transform: rotate(180deg);
+  }
+  @media (max-width: 720px) {
+    .scroll-cue { display: none; }
+    .hero-content { padding: 0 24px 50px; }
+    .nav { padding: 18px 24px; }
+  }
+
+  /* SECTIONS */
+  .feature-section {
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 80vh;
+    background: var(--bg);
+  }
+  @media (max-width: 900px) { .feature-section { grid-template-columns: 1fr; min-height: auto; } }
+  .feature-img {
+    background-size: cover; background-position: center;
+    min-height: 480px;
+  }
+  .feature-body {
+    padding: 80px 60px; display: flex; flex-direction: column; justify-content: center;
+    background: white;
+  }
+  .feature-section.reverse .feature-img { order: 2; }
+  @media (max-width: 900px) {
+    .feature-section.reverse .feature-img { order: -1; }
+    .feature-body { padding: 50px 32px; }
+  }
+  .section-eyebrow {
+    font-size: 11px; letter-spacing: .25em; text-transform: uppercase;
+    color: var(--ink-soft); font-weight: 500; margin-bottom: 16px;
+  }
+  .section-title {
+    font-size: clamp(32px, 4vw, 48px); line-height: 1.05; font-weight: 700;
+    letter-spacing: -.02em; margin-bottom: 22px;
+  }
+  .section-body {
+    font-size: 15px; color: var(--ink-soft); line-height: 1.8;
+    margin-bottom: 32px; max-width: 480px;
+  }
+  .section-btn {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: var(--ink); color: white;
+    padding: 14px 28px; border-radius: 3px;
+    font-size: 12px; font-weight: 600; letter-spacing: .16em;
+    transition: all .2s; width: fit-content;
+  }
+  .section-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,.15); }
+  .section-btn::after { content: '→'; transition: transform .2s; }
+  .section-btn:hover::after { transform: translateX(4px); }
+  .section-btn.disabled {
+    background: #ccc; color: var(--ink-soft); cursor: not-allowed;
+  }
+  .section-btn.disabled:hover { transform: none; box-shadow: none; }
+
+  /* QUICK INFO */
+  .quick {
+    padding: 80px 32px; background: white; border-top: 1px solid var(--line);
+  }
+  .quick-wrap { max-width: 1100px; margin: 0 auto; }
+  .quick-eyebrow {
+    font-size: 11px; letter-spacing: .25em; text-transform: uppercase;
+    color: var(--ink-soft); font-weight: 500; margin-bottom: 12px;
+  }
+  .quick-title {
+    font-size: clamp(26px, 3vw, 36px); margin-bottom: 40px; font-weight: 700;
+  }
+  .quick-grid {
+    display: grid; grid-template-columns: 1fr; gap: 0;
+    border-top: 1px solid var(--line);
+  }
+  @media (min-width: 720px) { .quick-grid { grid-template-columns: repeat(3, 1fr); } }
+  .quick-item {
+    padding: 32px 28px; border-bottom: 1px solid var(--line);
+  }
+  @media (min-width: 720px) {
+    .quick-item { border-bottom: none; border-right: 1px solid var(--line); }
+    .quick-item:last-child { border-right: none; }
+  }
+  .quick-num {
+    font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600;
+    letter-spacing: .15em; color: var(--ink-muted); margin-bottom: 16px;
+  }
+  .quick-item h3 { font-size: 18px; margin-bottom: 10px; font-weight: 600; }
+  .quick-item p { font-size: 13px; color: var(--ink-soft); line-height: 1.7; }
+  .quick-item strong { color: var(--ink); font-weight: 600; }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink); color: rgba(255,255,255,.6);
+    padding: 80px 32px 40px;
+  }
+  .footer-wrap { max-width: 1100px; margin: 0 auto; }
+  .footer-top {
+    display: grid; grid-template-columns: 1fr; gap: 40px;
+    padding-bottom: 50px; border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+  @media (min-width: 720px) { .footer-top { grid-template-columns: 1fr 2fr; } }
+  .footer-logo {
+    font-family: 'Outfit', sans-serif; font-weight: 700;
+    font-size: 24px; letter-spacing: .2em; color: white;
+    margin-bottom: 16px; display: block;
+  }
+  .footer-tagline { font-size: 13px; line-height: 1.8; }
+  .footer-links {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;
+  }
+  @media (min-width: 720px) { .footer-links { grid-template-columns: repeat(3, 1fr); } }
+  .footer-col h4 {
+    font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+    color: white; font-weight: 600; margin-bottom: 16px;
+  }
+  .footer-col a, .footer-col p {
+    display: block; font-size: 13px; color: rgba(255,255,255,.6);
+    line-height: 1.8; margin-bottom: 6px; transition: color .15s;
+  }
+  .footer-col a:hover { color: white; }
+  .footer-bottom {
+    padding-top: 30px; text-align: center; font-size: 11px;
+    color: rgba(255,255,255,.4); letter-spacing: .1em;
+  }
+
+  /* Language toggle */
+  .lang-en { display: none; }
+  body.en .lang-jp { display: none; }
+  body.en .lang-en { display: block; }
+  body.en span.lang-en, body.en .inline.lang-en { display: inline; }
+  body.en h1.lang-jp, body.en h2.lang-jp, body.en h3.lang-jp, body.en p.lang-jp, body.en div.lang-jp { display: none; }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="index.html" class="logo">UNPLAN Village Hakuba</a>
+  <div class="nav-right">
+    <div class="lang-switch">
+      <button data-lang="jp" class="active">JP</button>
+      <span class="divider">/</span>
+      <button data-lang="en">EN</button>
+    </div>
+    <a href="https://go-uvh.reservation.jp/ja" target="_blank" class="book-btn">BOOK NOW</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">UNPLAN Village Hakuba</div>
+    <h1 class="hero-title lang-jp">ようこそ、白馬へ。</h1>
+    <h1 class="hero-title lang-en">Welcome to Hakuba.</h1>
+    <p class="hero-sub lang-jp">UNPLAN Village Hakuba は、四季を通じて自然と触れ合い、様々な野外アクティビティが楽しめる長野県白馬山麓エリアにあるホステルです。</p>
+    <p class="hero-sub lang-en">UNPLAN Village Hakuba is a hostel in the Hakuba foothills of Nagano, perfect for outdoor adventures across all four seasons.</p>
+  </div>
+  <div class="scroll-cue">SCROLL</div>
+</div>
+
+<!-- YOUR STAY -->
+<section class="feature-section">
+  <div class="feature-img" style="background-image:url('https://unplan.jp/wp-content/uploads/IMG_0076-2022-03-11T10_15_36.530-scaled.jpg')"></div>
+  <div class="feature-body">
+    <div class="section-eyebrow">01 — Your Stay</div>
+    <h2 class="section-title lang-jp">宿泊のご案内</h2>
+    <h2 class="section-title lang-en">Your Stay</h2>
+    <p class="section-body lang-jp">チェックイン／アウト、Wi-Fi、アクセス、館内・アメニティ、荷物預け、リフト券、サウナのご利用方法など、UNPLAN Village Hakuba での滞在に必要な情報をまとめています。</p>
+    <p class="section-body lang-en">Everything you need for your stay — check-in/out, Wi-Fi, access, facilities, amenities, luggage storage, lift tickets, and how to use the sauna.</p>
+    <a href="stay.html" class="section-btn lang-jp">詳しく見る</a>
+    <a href="stay-en.html" class="section-btn lang-en">Learn More</a>
+  </div>
+</section>
+
+<!-- EXPLORE HAKUBA -->
+<section class="feature-section reverse">
+  <div class="feature-img" style="background-image:url('https://unplan.jp/wp-content/uploads/IMG_7141-scaled.jpg')"></div>
+  <div class="feature-body">
+    <div class="section-eyebrow">02 — Explore</div>
+    <h2 class="section-title lang-jp">白馬を、楽しむ。</h2>
+    <h2 class="section-title lang-en">Explore Hakuba.</h2>
+    <p class="section-body lang-jp">スポット、夏冬のアクティビティ、温泉、飲食、交通、E-bike まで。白馬を深く楽しむためのスタッフ厳選ローカルガイド。</p>
+    <p class="section-body lang-en">Spots, summer & winter activities, onsen, food, transport and e-bikes — your local guide curated by UNPLAN staff.</p>
+    <a href="hakuba.html" class="section-btn lang-jp">ガイドを見る</a>
+    <a href="hakuba-en.html" class="section-btn lang-en">Open Guide</a>
+  </div>
+</section>
+
+<!-- QUICK INFO -->
+<section class="quick">
+  <div class="quick-wrap">
+    <div class="quick-eyebrow">Quick Info</div>
+    <h2 class="quick-title lang-jp">困ったときは</h2>
+    <h2 class="quick-title lang-en">In case you need help</h2>
+
+    <div class="quick-grid">
+      <div class="quick-item">
+        <div class="quick-num">01 Wi-Fi</div>
+        <h3 class="lang-jp">館内 Wi-Fi</h3>
+        <h3 class="lang-en">House Wi-Fi</h3>
+        <p class="lang-jp">パスワードはフロントまたは各部屋にてご案内しています。</p>
+        <p class="lang-en">Wi-Fi password is provided at the front desk or in your room.</p>
+      </div>
+      <div class="quick-item">
+        <div class="quick-num">02 Reception</div>
+        <h3 class="lang-jp">UNPLAN フロント</h3>
+        <h3 class="lang-en">UNPLAN Front Desk</h3>
+        <p class="lang-jp">お困りごとはいつでもフロントへお声がけください。</p>
+        <p class="lang-en">For any questions, please contact the front desk anytime.</p>
+      </div>
+      <div class="quick-item">
+        <div class="quick-num">03 Emergency</div>
+        <h3 class="lang-jp">緊急時</h3>
+        <h3 class="lang-en">Emergency</h3>
+        <p class="lang-jp">救急車・火事 <strong>119</strong> ／ 警察 <strong>110</strong></p>
+        <p class="lang-en">Ambulance & Fire <strong>119</strong> ／ Police <strong>110</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-wrap">
+    <div class="footer-top">
+      <div>
+        <a href="index.html" class="footer-logo">UNPLAN Village Hakuba</a>
+        <p class="footer-tagline">Travel Guide<br>by UNPLAN Village Hakuba</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>This Guide</h4>
+          <a href="index.html">Welcome</a>
+          <a href="hakuba.html">Explore Hakuba</a>
+          <a href="green-season.html">Green Season Guide</a>
+          <a href="stay.html">Your Stay</a>
+        </div>
+        <div class="footer-col">
+          <h4>UNPLAN Hakuba</h4>
+          <a href="https://unplan.jp/hakuba" target="_blank">Official Site</a>
+          <a href="https://go-uvh.reservation.jp/ja" target="_blank">Book Now</a>
+          <a href="https://www.instagram.com/unplan_village_hakuba/" target="_blank">Instagram</a>
+          <a href="https://unplan.jp/contact" target="_blank">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>UNPLAN Group</h4>
+          <a href="https://unplan.jp" target="_blank">Grand Top</a>
+          <a href="https://unplan.jp/kagurazaka" target="_blank">Kagurazaka</a>
+          <a href="https://unplan.jp/shinjuku" target="_blank">Shinjuku</a>
+          <a href="https://unplan.jp/fukuoka" target="_blank">Fukuoka</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© UNPLAN — UNPLAN Village Hakuba, 栂池高原 / 長野県北安曇郡白馬村</div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 80);
+  });
+  document.querySelectorAll('.lang-switch button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.lang-switch button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.body.classList.toggle('en', btn.dataset.lang === 'en');
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explore Hakuba | UNPLAN Village Hakuba</title>
+<meta name="description" content="白馬のシーズン別ガイド、バス時刻表、タクシー、救急情報など、現地で必要な情報を全部。Hakuba local guide with seasonal info, transport & emergency contacts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #eeeeee;
+    --surface: #ffffff;
+    --ink: #000000;
+    --ink-soft: #555555;
+    --ink-muted: #999999;
+    --line: #dddddd;
+    --shadow: 0 4px 20px rgba(0,0,0,.06);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Outfit', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg); color: var(--ink);
+    font-size: 14px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: 'Outfit', 'Noto Sans JP', sans-serif; font-weight: 700; letter-spacing: -.01em; }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,.96);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    padding: 14px 32px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo {
+    font-family: 'Outfit', sans-serif; font-weight: 700;
+    font-size: 14px; letter-spacing: .12em; color: var(--ink);
+  }
+  .nav-right { display: flex; align-items: center; gap: 18px; }
+  .nav-links { display: none; gap: 24px; font-size: 12px; letter-spacing: .12em; }
+  .nav-links a { color: var(--ink-soft); transition: color .15s; }
+  .nav-links a:hover { color: var(--ink); }
+  @media (min-width: 720px) { .nav-links { display: flex; } }
+  .lang-switch { display: flex; gap: 2px; font-size: 12px; color: var(--ink-soft); letter-spacing: .08em; }
+  .lang-switch button { padding: 4px 8px; transition: opacity .2s; opacity: .6; }
+  .lang-switch button.active { color: var(--ink); opacity: 1; font-weight: 600; }
+  .lang-switch .divider { opacity: .4; padding: 0 2px; }
+  .book-btn {
+    background: var(--ink); color: white;
+    padding: 10px 22px; border-radius: 3px;
+    font-size: 12px; font-weight: 600; letter-spacing: .14em;
+    transition: all .2s;
+  }
+  .book-btn:hover { transform: translateY(-1px); }
+
+  /* BREADCRUMB */
+  .breadcrumb {
+    max-width: 1280px; margin: 0 auto; padding: 24px 32px 0;
+    font-size: 11px; color: var(--ink-muted); letter-spacing: .1em; text-transform: uppercase;
+  }
+  .breadcrumb a { color: var(--ink-soft); transition: color .15s; }
+  .breadcrumb a:hover { color: var(--ink); }
+  .breadcrumb .sep { margin: 0 10px; opacity: .5; }
+  .breadcrumb .current { color: var(--ink); }
+
+  /* HERO (Page header - text only) */
+  .hero {
+    padding: 70px 32px 90px; max-width: 1280px; margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--ink-soft); font-weight: 500; margin-bottom: 18px;
+  }
+  .hero-title {
+    font-size: clamp(40px, 6vw, 78px); line-height: 1.05; font-weight: 700;
+    letter-spacing: -.02em; margin-bottom: 20px; max-width: 880px;
+  }
+  .hero-sub {
+    font-size: clamp(14px, 1.5vw, 17px); color: var(--ink-soft); max-width: 640px; line-height: 1.7;
+  }
+
+  /* SEASON SECTION */
+  .season-section { background: var(--bg); padding: 50px 0 100px; }
+  .season-wrap { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+  .section-label {
+    font-size: 11px; letter-spacing: .25em; text-transform: uppercase;
+    color: var(--ink-soft); font-weight: 500; margin-bottom: 16px;
+  }
+  .section-h {
+    font-size: clamp(28px, 3.5vw, 42px); margin-bottom: 14px; font-weight: 700; letter-spacing: -.02em;
+  }
+  .section-sub { color: var(--ink-soft); font-size: 15px; max-width: 600px; margin-bottom: 40px; }
+  .season-grid {
+    display: grid; grid-template-columns: 1fr; gap: 4px;
+  }
+  @media (min-width: 720px) { .season-grid { grid-template-columns: 1fr 1fr; } }
+  .season-card {
+    position: relative; overflow: hidden;
+    aspect-ratio: 4/5; cursor: pointer;
+    transition: transform .4s ease;
+    background-size: cover; background-position: center;
+    display: flex; align-items: flex-end;
+  }
+  @media (min-width: 720px) { .season-card { aspect-ratio: 5/6; } }
+  .season-card:hover { transform: scale(1.01); }
+  .season-card.disabled { cursor: default; }
+  .season-card.disabled:hover { transform: none; }
+  .season-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,.75) 100%);
+  }
+  .season-body {
+    position: relative; z-index: 1; padding: 50px; color: white; width: 100%;
+  }
+  .season-num {
+    font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
+    opacity: .85; margin-bottom: 16px;
+  }
+  .season-title {
+    font-size: clamp(40px, 5vw, 60px); line-height: 1; margin-bottom: 14px; font-weight: 700;
+  }
+  .season-desc {
+    font-size: 14px; opacity: .85; margin-bottom: 26px; max-width: 380px; line-height: 1.7;
+  }
+  .season-link {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-size: 12px; font-weight: 600; letter-spacing: .14em;
+    padding: 12px 22px; background: white; color: var(--ink); border-radius: 3px;
+    transition: transform .2s;
+  }
+  .season-link::after { content: '→'; }
+  .season-card:not(.disabled):hover .season-link { transform: translateY(-2px); }
+  .coming-tag {
+    display: inline-block; background: rgba(255,255,255,.18);
+    backdrop-filter: blur(10px);
+    padding: 10px 18px; border-radius: 3px;
+    font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,.3);
+  }
+
+  /* TRANSIT SECTION */
+  .transit { background: white; padding: 100px 32px; border-top: 1px solid var(--line); }
+  .transit-wrap { max-width: 1280px; margin: 0 auto; }
+  details.timetable {
+    background: var(--bg);
+    border: 1px solid var(--line); margin-top: 32px; overflow: hidden;
+  }
+  details.timetable summary {
+    cursor: pointer; padding: 22px 26px; font-weight: 600; font-size: 15px;
+    list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  details.timetable summary::-webkit-details-marker { display: none; }
+  details.timetable summary::after {
+    content: '+'; font-size: 22px; color: var(--ink-muted);
+    transition: transform .3s; flex-shrink: 0;
+  }
+  details.timetable[open] summary::after { transform: rotate(45deg); }
+  .timetable-body { padding: 0 26px 26px; background: white; border-top: 1px solid var(--line); }
+  .timetable-body p {
+    margin: 24px 0 10px; font-weight: 600; color: var(--ink); font-size: 13px;
+    letter-spacing: .08em;
+  }
+  .table-wrap { overflow-x: auto; margin: 10px 0; -webkit-overflow-scrolling: touch; }
+  table {
+    border-collapse: collapse; width: 100%; min-width: 580px;
+    background: white; font-size: 12px;
+  }
+  th, td {
+    padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  th {
+    background: var(--ink); color: white; font-weight: 600;
+    font-size: 11px; letter-spacing: .08em;
+  }
+  td:first-child { font-weight: 500; color: var(--ink); }
+  td:not(:first-child) { text-align: center; color: var(--ink-soft); }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #f8f8f8; }
+  .note {
+    margin-top: 18px; padding: 14px 18px; background: #f5f5f5;
+    border-left: 3px solid var(--ink); font-size: 12px; color: var(--ink-soft);
+    line-height: 1.7;
+  }
+  .ext-link {
+    display: inline-block; margin-top: 14px; padding: 10px 20px;
+    background: var(--ink); color: white; font-size: 11px; font-weight: 600;
+    letter-spacing: .15em; border-radius: 3px;
+  }
+
+  /* TAXI CARD */
+  .taxi-section { background: var(--ink); color: white; padding: 80px 32px; }
+  .taxi-wrap { max-width: 1280px; margin: 0 auto; }
+  .taxi-section .section-label { color: rgba(255,255,255,.5); }
+  .taxi-section .section-h { color: white; margin-bottom: 40px; }
+  .taxi-grid {
+    display: grid; grid-template-columns: 1fr; gap: 1px;
+    background: rgba(255,255,255,.15);
+  }
+  @media (min-width: 720px) { .taxi-grid { grid-template-columns: 1fr 1fr; } }
+  .taxi-item {
+    background: var(--ink); padding: 28px 32px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .taxi-name { font-size: 12px; letter-spacing: .15em; color: rgba(255,255,255,.6); }
+  .taxi-tel {
+    font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 700; letter-spacing: -.01em;
+    color: white; transition: opacity .2s;
+  }
+  .taxi-tel:hover { opacity: .8; }
+  .taxi-night {
+    margin-top: 32px; padding: 22px 26px; background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.15); font-size: 13px; line-height: 1.7;
+  }
+  .taxi-night strong { color: white; }
+  .taxi-night a { color: white; border-bottom: 1px solid rgba(255,255,255,.4); }
+
+  /* CONTACT */
+  .contact { padding: 100px 32px; background: white; }
+  .contact-wrap { max-width: 1280px; margin: 0 auto; }
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr; gap: 4px; margin-top: 40px;
+  }
+  @media (min-width: 720px) { .contact-grid { grid-template-columns: 1fr 1fr; } }
+  .contact-card {
+    padding: 40px; background: var(--bg);
+  }
+  .contact-card.emergency { background: var(--ink); color: white; }
+  .contact-card h3 {
+    font-size: 22px; margin-bottom: 20px;
+  }
+  .contact-card p, .contact-card li { font-size: 13px; margin-bottom: 6px; line-height: 1.7; }
+  .contact-card a { color: var(--ink); border-bottom: 1px solid var(--ink); }
+  .contact-card.emergency a { color: white; border-bottom-color: rgba(255,255,255,.4); }
+  .contact-card.emergency p { color: rgba(255,255,255,.7); }
+  .contact-card.emergency strong { color: white; }
+  .emergency-num {
+    display: flex; align-items: baseline; gap: 12px;
+    margin: 18px 0; font-size: 13px; color: rgba(255,255,255,.7);
+  }
+  .emergency-num strong {
+    font-family: 'Outfit', sans-serif; font-size: 42px; color: white; font-weight: 700;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink); color: rgba(255,255,255,.6);
+    padding: 80px 32px 40px;
+  }
+  .footer-wrap { max-width: 1100px; margin: 0 auto; }
+  .footer-top {
+    display: grid; grid-template-columns: 1fr; gap: 40px;
+    padding-bottom: 50px; border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+  @media (min-width: 720px) { .footer-top { grid-template-columns: 1fr 2fr; } }
+  .footer-logo {
+    font-family: 'Outfit', sans-serif; font-weight: 700;
+    font-size: 24px; letter-spacing: .2em; color: white;
+    margin-bottom: 16px; display: block;
+  }
+  .footer-tagline { font-size: 13px; line-height: 1.8; }
+  .footer-links {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;
+  }
+  @media (min-width: 720px) { .footer-links { grid-template-columns: repeat(3, 1fr); } }
+  .footer-col h4 {
+    font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+    color: white; font-weight: 600; margin-bottom: 16px;
+  }
+  .footer-col a, .footer-col p {
+    display: block; font-size: 13px; color: rgba(255,255,255,.6);
+    line-height: 1.8; margin-bottom: 6px; transition: color .15s;
+  }
+  .footer-col a:hover { color: white; }
+  .footer-bottom {
+    padding-top: 30px; text-align: center; font-size: 11px;
+    color: rgba(255,255,255,.4); letter-spacing: .1em;
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="logo">UNPLAN Village Hakuba</a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="stay.html">STAY</a>
+      <a href="#seasons">SEASONS</a>
+      <a href="#transit">TRANSIT</a>
+      <a href="#contact">EMERGENCY</a>
+    </div>
+    <div class="lang-switch" style="display:flex; gap:2px; font-size:12px; color:#555; letter-spacing:.08em">
+      <a class="active" style="padding:4px 8px; font-weight:600; color:#000">JP</a><span class="divider" style="opacity:.4; padding:0 2px">/</span><a href="hakuba-en.html" style="padding:4px 8px; opacity:.6">EN</a>
+    </div>
+    <a href="https://go-uvh.reservation.jp/ja" target="_blank" class="book-btn">BOOK NOW</a>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <a href="index.html">Welcome</a>
+  <span class="sep">/</span>
+  <span class="current">Explore Hakuba</span>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Hakuba Local Guide</div>
+    <h1 class="hero-title">白馬を、深く楽しむ。</h1>
+    <p class="hero-sub">スキースノボ、ハイキング、温泉、美味しいご飯。スタッフが実際に通うおすすめスポットをまとめました。<br>Hikes, hot springs, cafés and après-ski — handpicked by UNPLAN staff.</p>
+</div>
+
+<!-- SEASON PICKER -->
+<section class="season-section" id="seasons">
+  <div class="season-wrap">
+    <div class="section-label">Choose Your Season</div>
+    <h2 class="section-h">シーズンを選んでください</h2>
+    <p class="section-sub">白馬は四季それぞれに違う表情を見せてくれます。お好きなシーズンを選んで、ガイドへ。</p>
+
+    <div class="season-grid">
+      <a class="season-card" style="background-image:url(images/hero-hakuba-view.jpg)" href="green-season.html">
+        <div class="season-body">
+          <div class="season-num">01 — Green Season</div>
+          <h3 class="season-title">Green Season</h3>
+          <p class="season-desc">トレッキング、マウンテンハーバー、涼しいカフェ、自転車で巡る絶景。Hiking, mountain harbors, and cool cafés.</p>
+          <span class="season-link">Open Green Season Guide</span>
+        </div>
+      </a>
+
+      <div class="season-card disabled" style="background-image:url(images/hero-welcome.jpg)">
+        <div class="season-body">
+          <div class="season-num">02 — Winter</div>
+          <h3 class="season-title">Winter</h3>
+          <p class="season-desc">スキー場、ナイター後の居酒屋、タトゥーOKの温泉。Ski resorts, après-ski izakaya, tattoo-friendly onsen.</p>
+          <span class="coming-tag">Coming Soon</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSIT -->
+<section class="transit" id="transit">
+  <div class="transit-wrap">
+    <div class="section-label">Getting Around</div>
+    <h2 class="section-h">アクセス・交通</h2>
+    <p class="section-sub">バスとタクシーで、車なしでも白馬は十分楽しめます。</p>
+
+    <details class="timetable">
+      <summary>🚌 路線バス 時刻表 / Local Bus Timetable</summary>
+      <div class="timetable-body">
+        <div class="note">
+          支払いは現金（お釣りのないように）／ 運賃 ¥150〜880／ 経路・停留所は Google Maps で検索可。<br>
+          <em>Pay by cash, exact change. Fare ¥150–880. Search routes & stops on Google Maps.</em>
+        </div>
+        <p>白馬駅 → 栂池高原 方面</p>
+        <div class="table-wrap">
+          <table>
+            <tr><th>停留所</th><th>特急</th><th>特急</th><th>特急</th><th>★急行</th><th>特急</th><th>特急</th><th>特急</th><th>特急</th></tr>
+            <tr><td>白馬駅</td><td>9:22</td><td>11:05</td><td>12:02</td><td>13:40</td><td>15:02</td><td>18:12</td><td>19:22</td><td>21:02</td></tr>
+            <tr><td>白馬八方バスターミナル</td><td>9:30</td><td>11:13</td><td>12:10</td><td>13:45</td><td>15:10</td><td>18:20</td><td>19:30</td><td>21:10</td></tr>
+            <tr><td>岩岳新田</td><td>9:35</td><td>11:18</td><td>12:15</td><td>13:50</td><td>15:15</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td>岩岳マウンテンリゾート</td><td>9:42</td><td>11:25</td><td>12:22</td><td>13:56</td><td>15:22</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td>栂池高原</td><td>9:52</td><td>11:35</td><td>12:32</td><td>14:07</td><td>15:32</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td>白馬乗鞍（着）</td><td>10:02</td><td>—</td><td>12:42</td><td>—</td><td>15:42</td><td>—</td><td>—</td><td>—</td></tr>
+          </table>
+        </div>
+        <p>栂池高原 → 白馬駅 方面</p>
+        <div class="table-wrap">
+          <table>
+            <tr><th>停留所</th><th>特急</th><th>特急</th><th>特急</th><th>★急行</th><th>特急</th><th>特急</th><th>特急</th></tr>
+            <tr><td>栂池高原</td><td>—</td><td>—</td><td>10:45</td><td>12:54</td><td>14:20</td><td>15:25</td><td>17:20</td></tr>
+            <tr><td>岩岳マウンテンリゾート</td><td>—</td><td>—</td><td>10:55</td><td>13:03</td><td>14:30</td><td>15:35</td><td>17:30</td></tr>
+            <tr><td>岩岳新田</td><td>—</td><td>—</td><td>11:00</td><td>13:08</td><td>14:35</td><td>15:40</td><td>17:35</td></tr>
+            <tr><td>白馬八方バスターミナル</td><td>6:30</td><td>8:20</td><td>11:10</td><td>13:18</td><td>14:45</td><td>15:50</td><td>17:45</td></tr>
+            <tr><td>白馬駅（着）</td><td>6:36</td><td>8:26</td><td>11:16</td><td>13:23</td><td>14:51</td><td>15:56</td><td>17:51</td></tr>
+          </table>
+        </div>
+        <div class="note">
+          主要停留所のみ抜粋（— ＝運行なし）。最新・全停留所は公式時刻表でご確認ください。
+        </div>
+        <a href="https://www.alpico.co.jp/traffic/local/hakuba/tsugaike/" target="_blank" class="ext-link">公式時刻表（Alpico） →</a>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- TAXI -->
+<section class="taxi-section">
+  <div class="taxi-wrap">
+    <div class="section-label">Taxi</div>
+    <h2 class="section-h">タクシー</h2>
+    <div class="taxi-grid">
+      <div class="taxi-item">
+        <div class="taxi-name">白馬観光タクシー（白馬駅前）</div>
+        <a class="taxi-tel" href="tel:0261-72-2144">0261-72-2144</a>
+      </div>
+      <div class="taxi-item">
+        <div class="taxi-name">白馬観光タクシー（八方営業所）</div>
+        <a class="taxi-tel" href="tel:0261-72-2327">0261-72-2327</a>
+      </div>
+      <div class="taxi-item">
+        <div class="taxi-name">アルプス第一交通（白馬営業所）</div>
+        <a class="taxi-tel" href="tel:0261-72-2221">0261-72-2221</a>
+      </div>
+      <div class="taxi-item">
+        <div class="taxi-name">アルピコタクシー（白馬営業所）</div>
+        <a class="taxi-tel" href="tel:0261-72-2236">0261-72-2236</a>
+      </div>
+    </div>
+    <div class="taxi-night">
+      🌙 <strong>冬期（12月中旬〜2月末）</strong>は 17:00〜23:00 に <strong>ナイトデマンドタクシー</strong>（アプリ予約）も利用可。<br>
+      問合せ：白馬村観光課 <a href="tel:0261-85-0722">0261-85-0722</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-wrap">
+    <div class="section-label">Clinic & Emergency</div>
+    <h2 class="section-h">急ぐとき・連絡先</h2>
+    <p class="section-sub">体調が悪いとき・緊急時の連絡先です。</p>
+
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h3>Hakuba International Clinic</h3>
+        <p>白馬インターナショナルクリニック</p>
+        <p style="margin:14px 0">スタッフ全員が英語対応<br><em>All staff speak English</em></p>
+        <p>📞 <a href="tel:0261-85-2264">0261-85-2264</a></p>
+        <p>📍 〒399-9301 長野県北安曇郡白馬村北城3020-1393</p>
+        <p>⏰ 10:00〜17:00</p>
+        <p style="margin-top:14px">🌐 <a href="https://hic-med.com/en/home-en/" target="_blank">hic-med.com</a></p>
+      </div>
+
+      <div class="contact-card emergency">
+        <h3>Emergency</h3>
+        <div class="emergency-num">
+          <strong>119</strong>
+          <span>救急車・火事 / Ambulance & Fire</span>
+        </div>
+        <div class="emergency-num">
+          <strong>110</strong>
+          <span>警察 / Police</span>
+        </div>
+        <p style="margin-top:18px">UNPLAN フロントへも、いつでもお声がけください。<br><em>Contact UNPLAN front desk anytime for assistance.</em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-wrap">
+    <div class="footer-top">
+      <div>
+        <a href="index.html" class="footer-logo">UNPLAN Village Hakuba</a>
+        <p class="footer-tagline">Travel Guide<br>by UNPLAN Village Hakuba</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>This Guide</h4>
+          <a href="index.html">Welcome</a>
+          <a href="hakuba.html">Explore Hakuba</a>
+          <a href="green-season.html">Green Season Guide</a>
+        </div>
+        <div class="footer-col">
+          <h4>UNPLAN Hakuba</h4>
+          <a href="https://unplan.jp/hakuba" target="_blank">Official Site</a>
+          <a href="https://go-uvh.reservation.jp/ja" target="_blank">Book Now</a>
+          <a href="https://www.instagram.com/unplan_village_hakuba/" target="_blank">Instagram</a>
+          <a href="https://unplan.jp/contact" target="_blank">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>UNPLAN Group</h4>
+          <a href="https://unplan.jp" target="_blank">Grand Top</a>
+          <a href="https://unplan.jp/kagurazaka" target="_blank">Kagurazaka</a>
+          <a href="https://unplan.jp/shinjuku" target="_blank">Shinjuku</a>
+          <a href="https://unplan.jp/fukuoka" target="_blank">Fukuoka</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© UNPLAN — UNPLAN Village Hakuba, 栂池高原 / 長野県北安曇郡白馬村</div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -180,6 +180,30 @@
   .room-en { font-size: 11px; color: var(--ink-muted); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 12px; }
   .room-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.7; }
 
+  /* PARKING MAPS */
+  .parking-maps {
+    margin-top: 18px;
+    display: grid; grid-template-columns: 1fr; gap: 14px;
+  }
+  @media (min-width: 720px) { .parking-maps { grid-template-columns: 1fr 1fr; } }
+  .parking-fig {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 3px; padding: 14px; text-align: center;
+    max-width: 100%;
+  }
+  .parking-fig a { display: block; }
+  .parking-fig img {
+    width: 100%; max-width: 100%; height: auto; max-height: 320px;
+    object-fit: contain; border-radius: 3px;
+    transition: opacity .15s;
+  }
+  .parking-fig a:hover img { opacity: .85; }
+  .parking-fig figcaption {
+    margin-top: 10px; font-size: 12px;
+    color: var(--ink-soft); letter-spacing: .04em; line-height: 1.7;
+  }
+  .parking-fig figcaption strong { color: var(--ink); }
+
   /* CONTACT BOX */
   .contact-box {
     background: var(--ink); color: white; padding: 32px;
@@ -193,6 +217,7 @@
     font-size: 12px; font-weight: 600; letter-spacing: .08em;
   }
   .contact-btn.line { background: #06c755; color: white; }
+  .contact-btn.whatsapp { background: #25d366; color: white; }
 
   /* RULES */
   .rules-list { counter-reset: rules; }
@@ -303,9 +328,28 @@
       <div class="card-body">
         UNPLAN 専用駐車場が <strong>2箇所</strong> ございます（先着順）。<br>
         ご利用時間：<strong>チェックイン日 15:00 〜 / チェックアウト日 〜10:00</strong><br>
-        満車時は徒歩10分弱の <strong>栂池第二駐車場</strong>（無料）をご利用ください。
+        満車時は徒歩10分弱の <a href="https://maps.app.goo.gl/FchDS8bFuu3u5Z6S9" target="_blank" rel="noopener" style="color:inherit; text-decoration:underline;"><strong>栂池第二駐車場</strong></a>（無料）をご利用ください。
       </div>
     </div>
+  </div>
+
+  <div class="parking-maps">
+    <figure class="parking-fig">
+      <a href="images/Parking2.jpg" target="_blank">
+        <img src="images/Parking2.jpg" alt="UNPLAN Village Hakuba 駐車場マップ（全体図）" loading="lazy">
+      </a>
+      <figcaption>
+        🗺️ <strong>全体図</strong> — チェックインは <strong>UNPLAN Village Hakuba 1（Reception）</strong>、駐車場は <strong>①</strong>（Reception横）と <strong>②</strong>（Hakuba 2前）。
+      </figcaption>
+    </figure>
+    <figure class="parking-fig">
+      <a href="images/Parking3.jpg" target="_blank">
+        <img src="images/Parking3.jpg" alt="UNPLAN Village Hakuba 駐車場（航空写真）" loading="lazy">
+      </a>
+      <figcaption>
+        📍 <strong>航空写真</strong> — 実際の駐車場位置。<strong>Parking 1</strong>（Reception横）と <strong>Parking 2</strong>（クローシュ手前）。
+      </figcaption>
+    </figure>
   </div>
 
   <div class="callout warn" style="margin-top:18px">
@@ -614,6 +658,7 @@
     <p>営業時間外のLINE・フォームからのお問い合わせはお時間をいただく場合がございます。</p>
     <div class="contact-btns">
       <a href="https://lin.ee/jKbiTud" target="_blank" class="contact-btn line">公式 LINE</a>
+      <a href="https://wa.me/819057544187" target="_blank" class="contact-btn whatsapp">WhatsApp</a>
       <a href="https://mj3doa45pxo.typeform.com/to/kLxLSeZX#pid=11654208821007&client=unplan&formvia=webform" target="_blank" class="contact-btn">お問い合わせフォーム</a>
       <a href="tel:09057544187" class="contact-btn">📞 090-5754-4187</a>
     </div>

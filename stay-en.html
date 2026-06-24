@@ -100,12 +100,21 @@
   .room-en { font-size: 11px; color: var(--ink-muted); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 12px; }
   .room-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.7; }
 
+  .parking-maps { margin-top: 18px; display: grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 720px) { .parking-maps { grid-template-columns: 1fr 1fr; } }
+  .parking-fig { background: var(--surface); border: 1px solid var(--line); border-radius: 3px; padding: 14px; text-align: center; max-width: 100%; }
+  .parking-fig a { display: block; }
+  .parking-fig img { width: 100%; max-width: 100%; height: auto; max-height: 320px; object-fit: contain; border-radius: 3px; transition: opacity .15s; }
+  .parking-fig a:hover img { opacity: .85; }
+  .parking-fig figcaption { margin-top: 10px; font-size: 12px; color: var(--ink-soft); letter-spacing: .04em; line-height: 1.7; }
+  .parking-fig figcaption strong { color: var(--ink); }
   .contact-box { background: var(--ink); color: white; padding: 32px; border-radius: 3px; text-align: center; }
   .contact-box h3 { font-size: 22px; margin-bottom: 12px; }
   .contact-box p { color: rgba(255,255,255,.7); margin-bottom: 20px; font-size: 14px; }
   .contact-btns { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
   .contact-btn { background: white; color: var(--ink); padding: 10px 18px; border-radius: 3px; font-size: 12px; font-weight: 600; letter-spacing: .08em; }
   .contact-btn.line { background: #06c755; color: white; }
+  .contact-btn.whatsapp { background: #25d366; color: white; }
 
   .rules-list { counter-reset: rules; }
   .rules-list li { list-style: none; counter-increment: rules; position: relative; padding: 14px 0 14px 38px; border-bottom: 1px solid var(--line); font-size: 14px; color: var(--ink-soft); line-height: 1.7; }
@@ -193,9 +202,28 @@
       <div class="card-body">
         UNPLAN has <strong>2 dedicated parking lots</strong> (first-come, first-served).<br>
         Available: <strong>15:00 on check-in day — 10:00 on check-out day</strong><br>
-        If full, please use the <strong>Tsugaike Daini parking</strong> (free, ~10 min walk).
+        If full, please use the <a href="https://maps.app.goo.gl/FchDS8bFuu3u5Z6S9" target="_blank" rel="noopener" style="color:inherit; text-decoration:underline;"><strong>Tsugaike Daini parking</strong></a> (free, ~10 min walk).
       </div>
     </div>
+  </div>
+
+  <div class="parking-maps">
+    <figure class="parking-fig">
+      <a href="images/Parking2.jpg" target="_blank">
+        <img src="images/Parking2.jpg" alt="UNPLAN Village Hakuba Parking Map (Overview)" loading="lazy">
+      </a>
+      <figcaption>
+        🗺️ <strong>Overview</strong> — Check-in at <strong>UNPLAN Village Hakuba 1 (Reception)</strong>. Parking lots <strong>①</strong> (next to Reception) and <strong>②</strong> (in front of Hakuba 2).
+      </figcaption>
+    </figure>
+    <figure class="parking-fig">
+      <a href="images/Parking3.jpg" target="_blank">
+        <img src="images/Parking3.jpg" alt="UNPLAN Village Hakuba Parking (Satellite)" loading="lazy">
+      </a>
+      <figcaption>
+        📍 <strong>Satellite View</strong> — Actual parking locations. <strong>Parking 1</strong> (next to Reception) and <strong>Parking 2</strong> (in front of Cloche).
+      </figcaption>
+    </figure>
   </div>
 
   <div class="callout warn" style="margin-top:18px">
@@ -497,6 +525,7 @@
     <p>Outside reception hours, LINE/form replies may be delayed. Thank you for your patience.</p>
     <div class="contact-btns">
       <a href="https://lin.ee/jKbiTud" target="_blank" class="contact-btn line">Official LINE</a>
+      <a href="https://wa.me/819057544187" target="_blank" class="contact-btn whatsapp">WhatsApp</a>
       <a href="https://mj3doa45pxo.typeform.com/to/kLxLSeZX#pid=11654208821007&client=unplan&formvia=webform" target="_blank" class="contact-btn">Contact Form</a>
       <a href="tel:09057544187" class="contact-btn">📞 090-5754-4187</a>
     </div>

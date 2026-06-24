@@ -193,6 +193,56 @@
   .quick-item h3 { font-size: 18px; margin-bottom: 10px; font-weight: 600; }
   .quick-item p { font-size: 13px; color: var(--ink-soft); line-height: 1.7; }
   .quick-item strong { color: var(--ink); font-weight: 600; }
+  .quick-tel {
+    display: inline-block; font-family: 'Outfit', sans-serif;
+    font-size: 24px; font-weight: 700; color: var(--ink);
+    letter-spacing: -.01em; margin: 6px 0 10px;
+    padding: 6px 0; text-decoration: none;
+    transition: opacity .15s;
+  }
+  .quick-tel:hover { opacity: .65; }
+  .quick-tel-sm {
+    display: inline-block; font-family: 'Outfit', sans-serif;
+    font-size: 15px; font-weight: 700; color: var(--ink);
+    text-decoration: none; margin-right: 4px;
+    transition: opacity .15s;
+  }
+  .quick-tel-sm:hover { opacity: .65; }
+  .quick-item-call { background: #fafafa; }
+  @media (min-width: 720px) { .quick-item-call { background: transparent; } }
+  .wifi-box {
+    background: #f4f4f4; border-radius: 4px; padding: 12px 14px;
+    margin-top: 8px;
+  }
+  .wifi-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 4px 0; font-size: 13px;
+  }
+  .wifi-row + .wifi-row { border-top: 1px solid #e5e5e5; }
+  .wifi-label {
+    color: var(--ink-soft); font-size: 11px; letter-spacing: .1em;
+    text-transform: uppercase; min-width: 70px;
+  }
+  .wifi-val {
+    font-family: 'Outfit', monospace; font-weight: 700;
+    color: var(--ink); font-size: 15px; letter-spacing: .02em;
+  }
+  body.en .wifi-row .wifi-label.lang-jp { display: none; }
+  body:not(.en) .wifi-row .wifi-label.lang-en { display: none; }
+  .contact-row {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
+  }
+  .contact-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 7px 12px; border-radius: 999px;
+    font-size: 12px; font-weight: 600; letter-spacing: .04em;
+    text-decoration: none; transition: opacity .15s;
+  }
+  .contact-btn:hover { opacity: .8; }
+  .contact-btn.line { background: #06c755; color: white; }
+  .contact-btn.whatsapp { background: #25d366; color: white; }
+  .contact-btn.tel { background: var(--ink); color: white; }
+  .contact-hours { font-size: 11px; color: var(--ink-muted); margin-top: 8px; letter-spacing: .04em; }
 
   /* FOOTER */
   footer {
@@ -256,8 +306,8 @@
   <div class="hero-bg"></div>
   <div class="hero-content">
     <div class="hero-eyebrow">UNPLAN Village Hakuba</div>
-    <h1 class="hero-title lang-jp">ようこそ、白馬へ。</h1>
-    <h1 class="hero-title lang-en">Welcome to Hakuba.</h1>
+    <h1 class="hero-title lang-jp">ようこそ、<br>白馬へ。</h1>
+    <h1 class="hero-title lang-en">Welcome to<br>Hakuba.</h1>
     <p class="hero-sub lang-jp">UNPLAN Village Hakuba は、四季を通じて自然と触れ合い、様々な野外アクティビティが楽しめる長野県白馬山麓エリアにあるホステルです。</p>
     <p class="hero-sub lang-en">UNPLAN Village Hakuba is a hostel in the Hakuba foothills of Nagano, perfect for outdoor adventures across all four seasons.</p>
   </div>
@@ -304,22 +354,29 @@
         <div class="quick-num">01 Wi-Fi</div>
         <h3 class="lang-jp">館内 Wi-Fi</h3>
         <h3 class="lang-en">House Wi-Fi</h3>
-        <p class="lang-jp">パスワードはフロントまたは各部屋にてご案内しています。</p>
-        <p class="lang-en">Wi-Fi password is provided at the front desk or in your room.</p>
+        <div class="wifi-box">
+          <div class="wifi-row"><span class="wifi-label lang-jp">SSID</span><span class="wifi-label lang-en">Network</span><span class="wifi-val">UNPLAN</span></div>
+          <div class="wifi-row"><span class="wifi-label lang-jp">パスワード</span><span class="wifi-label lang-en">Password</span><span class="wifi-val">stayunplan</span></div>
+        </div>
       </div>
-      <div class="quick-item">
-        <div class="quick-num">02 Reception</div>
-        <h3 class="lang-jp">UNPLAN フロント</h3>
-        <h3 class="lang-en">UNPLAN Front Desk</h3>
-        <p class="lang-jp">お困りごとはいつでもフロントへお声がけください。</p>
-        <p class="lang-en">For any questions, please contact the front desk anytime.</p>
+      <div class="quick-item quick-item-call">
+        <div class="quick-num">02 Front Desk</div>
+        <h3 class="lang-jp">フロントへのご連絡</h3>
+        <h3 class="lang-en">Contact Front Desk</h3>
+        <a href="tel:09057544187" class="quick-tel">📞 090-5754-4187</a>
+        <div class="contact-row">
+          <a href="https://line.me/R/ti/p/@125taplw?ts=01101429&oat_content=url" target="_blank" rel="noopener" class="contact-btn line">LINE</a>
+          <a href="https://wa.me/819057544187" target="_blank" rel="noopener" class="contact-btn whatsapp">WhatsApp</a>
+        </div>
+        <p class="contact-hours lang-jp">📱 LINE / WhatsApp：滞在前・滞在中（10:00〜19:00）</p>
+        <p class="contact-hours lang-en">📱 LINE / WhatsApp: Before & during stay (10:00–19:00)</p>
       </div>
       <div class="quick-item">
         <div class="quick-num">03 Emergency</div>
-        <h3 class="lang-jp">緊急時</h3>
+        <h3 class="lang-jp">緊急時 / Emergency</h3>
         <h3 class="lang-en">Emergency</h3>
-        <p class="lang-jp">救急車・火事 <strong>119</strong> ／ 警察 <strong>110</strong></p>
-        <p class="lang-en">Ambulance & Fire <strong>119</strong> ／ Police <strong>110</strong></p>
+        <p class="lang-jp"><strong>🚑 119</strong> 救急車・火事<br><strong>🚓 110</strong> 警察</p>
+        <p class="lang-en"><strong>🚑 119</strong> Ambulance & Fire<br><strong>🚓 110</strong> Police</p>
       </div>
     </div>
   </div>

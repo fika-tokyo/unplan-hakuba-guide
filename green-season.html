@@ -502,7 +502,9 @@
       <button class="filter-btn active" data-filter="all">ALL</button>
       <button class="filter-btn" data-filter="bike">🚲 BIKE OK</button>
       <button class="filter-btn" data-filter="onsen">♨️ ONSEN</button>
-      <button class="filter-btn" data-filter="cafe">☕ CAFE & REST</button>
+      <button class="filter-btn" data-filter="cafe">☕ CAFE</button>
+      <button class="filter-btn" data-filter="rest">🍽 RESTAURANT</button>
+      <button class="filter-btn" data-filter="cowork">💻 WORKING</button>
       <button class="filter-btn" data-filter="spot">⭐ SPOT</button>
     </div>
 
@@ -633,12 +635,12 @@ const UNPLAN = [36.7488, 137.8716];
 // Data sourced from Notion master DB (実位置と距離)
 const spots = [
   // 栂池エリア (UNPLAN周辺)
-  { name: 'ツガベース', icon: '🍔', cat: 'cafe', km: 0.05, area: '栂池', lat: 36.74928, lon: 137.87148, desc: 'UNPLAN Village Hakuba から徒歩で行けるハンバーガー屋さん。足湯もある。', bike: true, hours: '10:00～22:00（シーズン・曜日により変動）', tip: 'UNPLAN隣接。一番気軽に立ち寄れるグルメスポット。' },
+  { name: 'ツガベース', icon: '🍔', cat: 'rest', km: 0.05, area: '栂池', lat: 36.74928, lon: 137.87148, desc: 'UNPLAN Village Hakuba から徒歩で行けるハンバーガー屋さん。足湯もある。', bike: true, hours: '10:00～22:00（シーズン・曜日により変動）', tip: 'UNPLAN隣接。一番気軽に立ち寄れるグルメスポット。' },
   { name: '栂池高原のパノラマデッキ', icon: '⭐', cat: 'spot', km: 0.05, area: '栂池', lat: 36.74921, lon: 137.87156, desc: 'UNPLAN から徒歩2分、栂池自然園へのゴンドラ駅舎横の屋上テラス。さくっと白馬の景色を見るならまずここ。', bike: true, hp: 'https://www.tsugaike.gr.jp/', ig: '@tsugaike_kogen', hours: '通年・自由', tip: '夕焼け時間（17-18時）が最も美しい。北アルプスを背に記念撮影スポット。' },
   { name: '栂池WOW!', icon: '🌳', cat: 'spot', km: 0.07, area: '栂池', lat: 36.74938, lon: 137.87154, desc: '世界で話題の新感覚アドベンチャー。アクティブに過ごしたい方向け。', bike: true, hp: 'https://www.tsugaike.gr.jp/green/wow', ig: '@hakuba_tsugaike_wow_info', hours: '9:00～16:00（グリーンシーズン）', tip: 'マウンテンバイク、ターザン、ジップライン。大人も子供も楽しめる。' },
   { name: '栂池高原（石の前）', icon: '🌾', cat: 'spot', km: 0.13, area: '栂池', lat: 36.74958, lon: 137.87238, desc: '山並みと田んぼのコンビネーションは絶景。', bike: true, hours: '24時間', tip: 'UNPLAN徒歩圏内。田んぼ越しの北アルプスが美しい。' },
   { name: '栂池ウッドチップロード', icon: '🌲', cat: 'spot', km: 0.16, area: '栂池', lat: 36.74752, lon: 137.87107, desc: 'UNPLAN から歩いて10分！森林浴を十分に楽しめるスポット。', bike: true, hp: 'https://otarimura.com/wcr/b_tsugaike.html', hours: '24時間', tip: '早朝のお散歩一押し！' },
-  { name: 'HAKUBA BEER GARAGE', icon: '🍺', cat: 'cafe', km: 0.19, area: '栂池', lat: 36.74801, lon: 137.86973, desc: '2022年10月、栂池高原スキー場「鐘の鳴る丘」にオープン。醸造所の中にパブがありビリヤードもできる。', bike: true, hp: 'https://hakubacraft.jp/', ig: '@hakuba_beer_garage', hours: '金土日中心（時期により変動）', tip: '地元民も通うクラフトビールスポット。' },
+  { name: 'HAKUBA BEER GARAGE', icon: '🍺', cat: 'rest', km: 0.19, area: '栂池', lat: 36.74801, lon: 137.86973, desc: '2022年10月、栂池高原スキー場「鐘の鳴る丘」にオープン。醸造所の中にパブがありビリヤードもできる。', bike: true, hp: 'https://hakubacraft.jp/', ig: '@hakuba_beer_garage', hours: '金土日中心（時期により変動）', tip: '地元民も通うクラフトビールスポット。' },
   { name: '栂池パノラマ橋', icon: '🌉', cat: 'spot', km: 0.21, area: '栂池', lat: 36.74712, lon: 137.87208, desc: '2013年11月開通の新しい橋。白馬三山＋棚田を眺望できます。UNPLAN から徒歩10分。', bike: true, hp: 'https://www.tsugaike.gr.jp/', hours: '24時間', tip: '橋からの夕景が素晴らしい。' },
   { name: '鐘の鳴る丘', icon: '🔔', cat: 'spot', km: 0.49, area: '栂池', lat: 36.74897, lon: 137.86615, desc: 'とんがり帽子の白い塔。2人で鐘を鳴らすと幸せになれると言われる。', bike: true, hours: '24時間', tip: '栂池高原スキー場の象徴的なシンボル。' },
   { name: 'からすのパンやさん', icon: '🥐', cat: 'cafe', km: 1.97, area: '栂池', lat: 36.75992, lon: 137.88876, desc: 'あの絵本のカラスのパン屋さん。ドイツでパンの勉強をされた店主のお店。', bike: true, hours: '10:00～17:00（火・水定休 ※売切次第終了）', tip: 'かわいい看板。イートイン不可なのでテイクアウトを。' },
@@ -652,16 +654,16 @@ const spots = [
   { name: 'みみずくの湯', icon: '♨️', cat: 'onsen', km: 5.37, area: '八方', lat: 36.7045, lon: 137.8475, desc: '露天風呂から八方尾根をバックに白馬三山の眺めを楽しめる。', bike: true, hp: 'https://hakuba-happo-onsen.jp/mimizukunoyu/', hours: '10:00～21:30', tip: 'ぬるぬるとした美肌の湯。' },
   { name: '八方の湯', icon: '♨️', cat: 'onsen', km: 5.82, area: '八方', lat: 36.6988, lon: 137.8523, desc: '白馬八方温泉の中では最も大きな日帰り温泉で、天然水素を含む露天風呂。', bike: true, hp: 'https://hakuba-happo-onsen.jp/happonoyu/', hours: '9:00～22:00（年中無休）', tip: '八方バスターミナル徒歩2分。' },
   { name: '白馬焙煎工房', icon: '☕', cat: 'cafe', km: 6.03, area: '八方', lat: 36.69916, lon: 137.84444, desc: '自家焙煎のお洒落なコーヒー屋さん。', bike: true, hp: 'https://www.hakubabaisen.com/', hours: '10:00～18:00（火曜定休）', tip: 'お土産用にコーヒー豆も購入可能。' },
-  { name: '蕎麦酒房 膳', icon: '🍶', cat: 'cafe', km: 6.35, area: '八方', lat: 36.69491, lon: 137.84812, desc: '夜ごはん。大人気店で予約したほうがいい。十割そばは売切御免。', bike: true, hp: 'http://zen.artbi.net/', hours: '11:30～14:00 / 17:30～21:00（水曜定休）', tip: '昼の蕎麦も夜の蕎麦居酒屋も両方人気。' },
-  { name: '蕎麦処 りき', icon: '🍜', cat: 'cafe', km: 6.38, area: '八方', lat: 36.69451, lon: 137.84828, desc: '蕎麦！早く行かないと売り切れる。ごはんものもおいしい。', bike: true, hp: 'https://sobadokororiki.com/', hours: '11:30～14:30（売切次第終了・金曜定休）', tip: '行列覚悟で早めに。蕎麦定食がおすすめ。' },
-  { name: '白馬タップルーム', icon: '🍻', cat: 'cafe', km: 6.0, area: '八方', lat: 36.69902, lon: 137.84548, desc: 'ビールの種類豊富、バルの雰囲気。ハンバーガーがボリューミー。', bike: true, hp: 'https://tenguproperties.com/jp/hakuba-taproom/', ig: '@hakubataproom', hours: '16:00～23:00（冬期毎日・グリーン週末）', tip: '外国人客も多く国際的な雰囲気。' },
+  { name: '蕎麦酒房 膳', icon: '🍶', cat: 'rest', km: 6.35, area: '八方', lat: 36.69491, lon: 137.84812, desc: '夜ごはん。大人気店で予約したほうがいい。十割そばは売切御免。', bike: true, hp: 'http://zen.artbi.net/', hours: '11:30～14:00 / 17:30～21:00（水曜定休）', tip: '昼の蕎麦も夜の蕎麦居酒屋も両方人気。' },
+  { name: '蕎麦処 りき', icon: '🍜', cat: 'rest', km: 6.38, area: '八方', lat: 36.69451, lon: 137.84828, desc: '蕎麦！早く行かないと売り切れる。ごはんものもおいしい。', bike: true, hp: 'https://sobadokororiki.com/', hours: '11:30～14:30（売切次第終了・金曜定休）', tip: '行列覚悟で早めに。蕎麦定食がおすすめ。' },
+  { name: '白馬タップルーム', icon: '🍻', cat: 'rest', km: 6.0, area: '八方', lat: 36.69902, lon: 137.84548, desc: 'ビールの種類豊富、バルの雰囲気。ハンバーガーがボリューミー。', bike: true, hp: 'https://tenguproperties.com/jp/hakuba-taproom/', ig: '@hakubataproom', hours: '16:00～23:00（冬期毎日・グリーン週末）', tip: '外国人客も多く国際的な雰囲気。' },
   { name: 'どんぐりパノラマ展望台', icon: '🌳', cat: 'spot', km: 4.51, area: '八方', lat: 36.71496, lon: 137.84379, desc: '北アルプスの絶景と白馬村を一望できるとして人気。', bike: true, hours: '24時間', tip: '車でアクセス可、駐車場あり。' },
   { name: '白馬大橋', icon: '🌉', cat: 'spot', km: 4.21, area: '八方', lat: 36.7113, lon: 137.865, desc: '橋の上は白馬三山の展望スポット。', bike: true, hp: 'https://www.vill.hakuba.nagano.jp/spots/hakuba-oohashi-bridge/', hours: '24時間', tip: '早朝・夕方は人が少なく撮影しやすい。' },
   { name: '八方池', icon: '🌿', cat: 'spot', km: 9.15, area: '八方', lat: 36.6948, lon: 137.7942, desc: '水面に白馬連峰を映す神秘的な池。標高2,060m。ゴンドラ+リフト+1時間のハイキング。', bike: false, hp: 'https://www.vill.hakuba.nagano.jp/spots/happo-summer/', note: '※ ゴンドラ必須・自転車不可', tip: '朝焼け時間（5-6時）が最も美しい。歩きやすい靴必須。' },
   { name: 'Bellcoffee', icon: '☕', cat: 'cafe', km: 5.21, area: '八方', lat: 36.7022, lon: 137.865, desc: '八方ゴンドラ乗り場すぐにあるカフェ。', bike: true, ig: '@bellcoffee_hakuba', hours: '8:00～16:00（季節営業）', tip: '営業しているか事前確認推奨。' },
 
   // 岩岳エリア
-  { name: 'IWATAKE.ROCK\'S', icon: '🍔', cat: 'cafe', km: 3.61, area: '岩岳', lat: 36.7178, lon: 137.8595, desc: '岩岳スキー場ゴンドラから徒歩3分のロッジ併設のカフェ。', bike: true, hp: 'https://iwatake-rocks.nagano.info/', hours: '11:00～15:00（季節営業）', tip: 'カフェ利用もOK、おしゃれな内装。' },
+  { name: 'IWATAKE.ROCK\'S', icon: '🍔', cat: 'rest', km: 3.61, area: '岩岳', lat: 36.7178, lon: 137.8595, desc: '岩岳スキー場ゴンドラから徒歩3分のロッジ併設のカフェ。', bike: true, hp: 'https://iwatake-rocks.nagano.info/', hours: '11:00～15:00（季節営業）', tip: 'カフェ利用もOK、おしゃれな内装。' },
   { name: 'en to en', icon: '☕', cat: 'cafe', km: 3.6, area: '岩岳', lat: 36.7178, lon: 137.8598, desc: '岩岳エリアのおしゃれカフェ。', bike: true, cowork: true, hours: '10:00～16:00（不定期）', tip: '事前にSNSで営業確認推奨。' },
   { name: 'LOCARY IWATAKE', icon: '🥪', cat: 'cafe', km: 3.74, area: '岩岳', lat: 36.7165, lon: 137.86, desc: '信州地元食材のサンドイッチカフェ。白馬ハムのサンドイッチとホットドッグが名物。', bike: true, hp: 'https://hakubameshi.net/en/shop/locary-iwatake/', ig: '@locary_hakuba', cowork: true, hours: '7:30～16:00', tip: 'Square8 HAKUBA RETREAT 内。コーヒー&クラフトビールも。' },
   { name: '岩岳の湯', icon: '♨️', cat: 'onsen', km: 4.01, area: '岩岳', lat: 36.7138, lon: 137.8606, desc: '白馬姫川温泉が源泉。美肌の湯。', bike: true, hp: 'https://iwatake-mountain-resort.com/onsen', hours: '13:00～21:00（シーズン営業）', tip: 'コンパクトな日帰り温泉施設。' },
@@ -671,39 +673,39 @@ const spots = [
   { name: '青鬼の棚田', icon: '🌾', cat: 'spot', km: 3.6, area: '白馬駅周辺', lat: 36.7268, lon: 137.9013, desc: '白馬連峰を眺望する絶景は「日本の棚田百選」にも選定。', bike: true, hp: 'https://www.vill.hakuba.nagano.jp/spots/aoni/', hours: '24時間（散策は日中推奨）', tip: '集落も国の重要伝統的建造物群保存地区。早朝の朝霧が幻想的。' },
   { name: '野平の一本桜', icon: '🌸', cat: 'spot', km: 3.87, area: '白馬駅周辺', lat: 36.715, lon: 137.882, desc: '雄大な北アルプスと一本桜の撮影ポイント！', bike: true, hp: 'https://www.vill.hakuba.nagano.jp/spots/nodaira/', hours: '24時間（見頃：4月中旬～下旬）', tip: '桜の時期は混雑するので早朝が狙い目。' },
   { name: '絶景の道「天神坂」', icon: '⛰️', cat: 'spot', km: 4.38, area: '白馬駅周辺', lat: 36.7095, lon: 137.8742, desc: '白馬ハイランドホテルのスタッフが命名したと言われる「天神坂」。リフレクション＆三段紅葉の絶景スポット。', bike: true, hours: '24時間', tip: '田植え時期はリフレクション、秋は三段紅葉。' },
-  { name: 'とんかつ ちとせ', icon: '🍱', cat: 'cafe', km: 5.76, area: '白馬駅周辺', lat: 36.69883, lon: 137.85474, desc: '白馬の老舗とんかつ店。', bike: true, hours: '11:30～14:00 / 17:30～20:00', tip: '現在テイクアウトのみの場合あり、要確認。' },
+  { name: 'とんかつ ちとせ', icon: '🍱', cat: 'rest', km: 5.76, area: '白馬駅周辺', lat: 36.69883, lon: 137.85474, desc: '白馬の老舗とんかつ店。', bike: true, hours: '11:30～14:00 / 17:30～20:00', tip: '現在テイクアウトのみの場合あり、要確認。' },
   { name: 'Starbucks Coffee', icon: '☕', cat: 'cafe', km: 5.85, area: '白馬駅周辺', lat: 36.69761, lon: 137.85669, desc: '2020年4月オープン、隈研吾設計の複合施設「スノーピークランドステーション白馬」内。', bike: true, cowork: true, hours: '8:00～21:00', tip: '白馬の山々の景色とコーヒー。週末マルシェやってる。' },
   { name: 'THE NORTH FACE GRAVITY 白馬', icon: '🧥', cat: 'cafe', km: 5.82, area: '白馬駅周辺', lat: 36.69723, lon: 137.86069, desc: '白馬の山々の景色が望める好立地のカフェ＆ショップ。', bike: true, hp: 'https://www.thenorthface.jp/shoplist?id=0195', ig: '@tnf_gravity_hakuba', cowork: true, hours: '10:00～19:00（カフェ併設）', tip: '2階カフェから景色を見ながらコーヒー。' },
   { name: '珈琲 せんじゅ', icon: '☕', cat: 'cafe', km: 5.92, area: '白馬駅周辺', lat: 36.6962, lon: 137.8612, desc: '和カフェ。', bike: true, hp: 'http://coffee.senjeu.com/', ig: '@coffee_senjeu', hours: '10:00～17:00（木・第3金定休）', tip: '木のぬくもりがある静かな空間。' },
   { name: 'Hakuba Coffee Stand', icon: '☕', cat: 'cafe', km: 5.98, area: '白馬駅周辺', lat: 36.69548, lon: 137.86323, desc: 'JR白馬駅前のコーヒースタンド。', bike: true, hp: 'https://hakubacoffeestand.com/', ig: '@hakubacoffeestand', hours: '8:00～17:00（不定休）', tip: '駅前なので登山前後のチャージに。' },
-  { name: 'MENYA GOKU', icon: '🍜', cat: 'cafe', km: 5.99, area: '白馬駅周辺', lat: 36.6953, lon: 137.864, desc: '深夜まで営業しているラーメン屋さん。', bike: true, hours: '18:00～26:00（深夜営業・不定休）', tip: '遅い時間まで食べられる貴重なお店。' },
-  { name: 'おおしも食堂', icon: '🍚', cat: 'cafe', km: 6.17, area: '白馬駅周辺', lat: 36.6938, lon: 137.8625, desc: '家庭的な雰囲気の定食屋さん。', bike: true, hours: '11:00～14:00 / 17:30～20:00（不定休）', tip: '地元民が集う、家庭料理が食べられるお店。' },
-  { name: 'らー麺 とっつぁん', icon: '🍜', cat: 'cafe', km: 6.64, area: '白馬駅周辺', lat: 36.68991, lon: 137.85955, desc: '地元の人が集うラーメン屋さん。メニューも豊富でコスパ良し。', bike: true, hp: 'http://tottsuan.com/', hours: '11:30～14:00 / 17:30～22:00（月曜定休）', tip: '昼夜営業＋月以外オープン、便利。' },
+  { name: 'MENYA GOKU', icon: '🍜', cat: 'rest', km: 5.99, area: '白馬駅周辺', lat: 36.6953, lon: 137.864, desc: '深夜まで営業しているラーメン屋さん。', bike: true, hours: '18:00～26:00（深夜営業・不定休）', tip: '遅い時間まで食べられる貴重なお店。' },
+  { name: 'おおしも食堂', icon: '🍚', cat: 'rest', km: 6.17, area: '白馬駅周辺', lat: 36.6938, lon: 137.8625, desc: '家庭的な雰囲気の定食屋さん。', bike: true, hours: '11:00～14:00 / 17:30～20:00（不定休）', tip: '地元民が集う、家庭料理が食べられるお店。' },
+  { name: 'らー麺 とっつぁん', icon: '🍜', cat: 'rest', km: 6.64, area: '白馬駅周辺', lat: 36.68991, lon: 137.85955, desc: '地元の人が集うラーメン屋さん。メニューも豊富でコスパ良し。', bike: true, hp: 'http://tottsuan.com/', hours: '11:30～14:00 / 17:30～22:00（月曜定休）', tip: '昼夜営業＋月以外オープン、便利。' },
   { name: 'カフェカッカ', icon: '🍰', cat: 'cafe', km: 5.19, area: '白馬駅周辺', lat: 36.7025, lon: 137.8642, desc: '2023年1月オープン。かわいらしいお店に、アクセサリーも置いてあります。', bike: true, ig: '@cafe_ka.kka', hours: '10:00～17:00（不定休）', tip: 'SNSで営業確認推奨。' },
-  { name: 'ふきのとう', icon: '🍱', cat: 'cafe', km: 1.51, area: '白馬駅周辺', lat: 36.74066, lon: 137.85809, desc: '落倉エリアの定食屋さん。おかあさんが優しい。', bike: true, hours: '11:00～14:00 / 17:00～20:00', tip: 'UNPLAN から自転車で気軽に行ける家庭料理。' },
+  { name: 'ふきのとう', icon: '🍱', cat: 'rest', km: 1.51, area: '白馬駅周辺', lat: 36.74066, lon: 137.85809, desc: '落倉エリアの定食屋さん。おかあさんが優しい。', bike: true, hours: '11:00～14:00 / 17:00～20:00', tip: 'UNPLAN から自転車で気軽に行ける家庭料理。' },
   { name: '古民家カフェ かっぱ亭', icon: '☕', cat: 'cafe', km: 5.6, area: '白馬駅周辺', lat: 36.6985, lon: 137.875, desc: '白馬豚や信州サーモンと季節ごとの自家栽培無農薬野菜をメインにしたランチ。', bike: true, hp: 'https://kappateihakuba.wixsite.com/kappatei', ig: '@kappatei.hakuba', hours: '11:30～14:00（火水定休、冬期休業）', tip: '無農薬野菜と地元食材のランチが評判。' },
   { name: '大出公園', icon: '🏞️', cat: 'spot', km: 4.81, area: '白馬駅周辺', lat: 36.7062, lon: 137.881, desc: '古民家と吊り橋越に北アルプスを望む絶景スポット。', bike: true, hp: 'https://www.vill.hakuba.nagano.jp/spots/ooide-park/', hours: '24時間', tip: '朝霧の出る日が最も幻想的。早朝5-6時がベスト。' },
 
   // エコーランドエリア
-  { name: '焼肉 深山', icon: '🥩', cat: 'cafe', km: 5.74, area: 'エコーランド', lat: 36.69905, lon: 137.85432, desc: '深山成吉思汗の姉妹店。白馬で人気ナンバー1の焼肉店。', bike: true, hp: 'https://full-marks.com/miyama/', hours: '17:00～22:00（不定休・要予約）', tip: '人気店のため予約推奨。週末は早めに。' },
-  { name: '京華小吃 白馬店', icon: '🥟', cat: 'cafe', km: 6.6, area: 'エコーランド', lat: 36.69221, lon: 137.84924, desc: '坦々麺おいしい。臨時休業中なので訪問前要確認。', bike: true, ig: '@jinghua_official', hours: '休業中（要事前確認）', tip: '営業再開タイミング要確認。' },
-  { name: '猿楽', icon: '🍶', cat: 'cafe', km: 6.83, area: 'エコーランド', lat: 36.69148, lon: 137.84409, desc: 'エコーランドの居酒屋さん。', bike: true, ig: '@sarugaku_hakuba', hours: '18:00～23:00（不定休）', tip: 'スタッフ御用達の地元店。' },
-  { name: 'サウンズ・ライク・カフェ', icon: '🍔', cat: 'cafe', km: 6.99, area: 'エコーランド', lat: 36.69072, lon: 137.84156, desc: 'ボリューム満点のバーガーは白馬にきたなら食べるべき。', bike: true, hp: 'https://sounds-like-cafe.com/', ig: '@soundslikecafe_hakuba', hours: '8:00～17:00（季節変動）', tip: 'モーニングからランチまで。テラス席もあり。' },
+  { name: '焼肉 深山', icon: '🥩', cat: 'rest', km: 5.74, area: 'エコーランド', lat: 36.69905, lon: 137.85432, desc: '深山成吉思汗の姉妹店。白馬で人気ナンバー1の焼肉店。', bike: true, hp: 'https://full-marks.com/miyama/', hours: '17:00～22:00（不定休・要予約）', tip: '人気店のため予約推奨。週末は早めに。' },
+  { name: '京華小吃 白馬店', icon: '🥟', cat: 'rest', km: 6.6, area: 'エコーランド', lat: 36.69221, lon: 137.84924, desc: '坦々麺おいしい。臨時休業中なので訪問前要確認。', bike: true, ig: '@jinghua_official', hours: '休業中（要事前確認）', tip: '営業再開タイミング要確認。' },
+  { name: '猿楽', icon: '🍶', cat: 'rest', km: 6.83, area: 'エコーランド', lat: 36.69148, lon: 137.84409, desc: 'エコーランドの居酒屋さん。', bike: true, ig: '@sarugaku_hakuba', hours: '18:00～23:00（不定休）', tip: 'スタッフ御用達の地元店。' },
+  { name: 'サウンズ・ライク・カフェ', icon: '🍔', cat: 'rest', km: 6.99, area: 'エコーランド', lat: 36.69072, lon: 137.84156, desc: 'ボリューム満点のバーガーは白馬にきたなら食べるべき。', bike: true, hp: 'https://sounds-like-cafe.com/', ig: '@soundslikecafe_hakuba', hours: '8:00～17:00（季節変動）', tip: 'モーニングからランチまで。テラス席もあり。' },
   { name: 'Satoru Coffee', icon: '☕', cat: 'cafe', km: 7.24, area: 'エコーランド', lat: 36.68912, lon: 137.83903, desc: '内観も外観もかわいいこじんまりとしたコーヒースタンド。', bike: true, hours: '10:00～17:00（火水定休）', tip: 'のんびりした雰囲気でカフェ巡りに最適。' },
 
   // 五竜エリア
   { name: '農かふぇ 白馬そだち', icon: '🌽', cat: 'cafe', km: 9.13, area: '五竜', lat: 36.66861, lon: 137.84978, desc: '白馬産の食材を使った、白馬の農家が作る家庭料理専門店。', bike: false, hp: 'https://www.farmhakuba.jp/', ig: '@farm_hakuba', hours: '9:00～17:00（ランチ11:30〜14:00・木曜定休）', tip: 'ブルーベリー狩りやってた気がする。', note: '※ 9km超、E-bike推奨' },
-  { name: '利根川 蕎麦店', icon: '🍜', cat: 'cafe', km: 9.36, area: '五竜', lat: 36.6666, lon: 137.84883, desc: '茅葺屋根の蕎麦屋さん。', bike: false, hours: '11:00～15:00（売切次第終了・水曜定休）', tip: '建物自体が見もの。古き良き蕎麦体験。', note: '※ 9km超、E-bike推奨' },
-  { name: '自然派喫茶 Sol', icon: '🥗', cat: 'cafe', km: 10.04, area: '五竜', lat: 36.66293, lon: 137.8367, desc: 'お肉やお魚は一切使わず、グルテンフリーやビーガンにも対応できるメニューが豊富。', bike: false, hp: 'http://solorganicfood.com/', hours: '11:30～16:00（不定休・季節変動あり）', tip: 'ベジタリアン/ヴィーガンに優しい貴重なお店。', note: '※ 10km、E-bike or 車推奨' },
+  { name: '利根川 蕎麦店', icon: '🍜', cat: 'rest', km: 9.36, area: '五竜', lat: 36.6666, lon: 137.84883, desc: '茅葺屋根の蕎麦屋さん。', bike: false, hours: '11:00～15:00（売切次第終了・水曜定休）', tip: '建物自体が見もの。古き良き蕎麦体験。', note: '※ 9km超、E-bike推奨' },
+  { name: '自然派喫茶 Sol', icon: '🥗', cat: 'rest', km: 10.04, area: '五竜', lat: 36.66293, lon: 137.8367, desc: 'お肉やお魚は一切使わず、グルテンフリーやビーガンにも対応できるメニューが豊富。', bike: false, hp: 'http://solorganicfood.com/', hours: '11:30～16:00（不定休・季節変動あり）', tip: 'ベジタリアン/ヴィーガンに優しい貴重なお店。', note: '※ 10km、E-bike or 車推奨' },
   { name: 'ベアーズカフェ', icon: '🍦', cat: 'cafe', km: 6.0, area: '五竜', lat: 36.70649, lon: 137.82984, desc: 'アイスクリームに自由にトッピングできる子供心くすぐられるカフェ。', bike: true, hours: '10:00～17:00（季節変動・不定休）', tip: 'ファミリー連れに人気。' },
-  { name: '山人', icon: '🥢', cat: 'cafe', km: 10.09, area: '五竜', lat: 36.65995, lon: 137.84882, desc: '蕎麦屋、天ぷら美味しい。', bike: false, ig: '@ya.ma.n.chu', hours: '11:30～14:30 / 17:30～20:30（木定休）', note: '※ 10km超、E-bike推奨' },
+  { name: '山人', icon: '🥢', cat: 'rest', km: 10.09, area: '五竜', lat: 36.65995, lon: 137.84882, desc: '蕎麦屋、天ぷら美味しい。', bike: false, ig: '@ya.ma.n.chu', hours: '11:30～14:30 / 17:30～20:30（木定休）', note: '※ 10km超、E-bike推奨' },
   { name: '姫川源流自然探勝園', icon: '💧', cat: 'spot', km: 13.41, area: '五竜', lat: 36.62959, lon: 137.84862, desc: '千国街道のオアシス。', bike: false, hours: '24時間（散策自由）', note: '※ 遠いのでバス/車推奨' },
 
   // 中土エリア
   { name: '水仙街道', icon: '🌼', cat: 'spot', km: 6.56, area: '中土', lat: 36.69, lon: 137.865, desc: '地元住民によって植えられた集落中に咲く水仙の道。約100万株が6kmにわたって咲く。', bike: true, hp: 'https://www.vill.hakuba.nagano.jp/nature/spring', hours: '24時間（見頃：4月上旬～中旬）', tip: '春限定。桜と一緒に楽しめる時期も。' },
   { name: '喫茶 白月', icon: '☕', cat: 'cafe', km: 8.45, area: '中土', lat: 36.80846, lon: 137.93036, desc: '小谷村の山村のカフェ。2020年11月オープン。', bike: false, ig: '@kissa_hakugetsu', hours: '11:00～16:00（不定期）', tip: '営業日が限られるので Instagram で要確認。手作りスイーツ絶品。', note: '※ 8km超、E-bike推奨' },
   { name: 'cafe 十三月', icon: '🍧', cat: 'cafe', km: 9.29, area: '中土', lat: 36.82205, lon: 137.92166, desc: '夏のみ営業している古民家カフェ。かき氷がおいしい！カレーもあり。', bike: false, hp: 'https://shop.13gatsu.net/', ig: '@cafe_13gatsu', hours: '10:00〜18:00（火水定休 / 12月〜4月中旬冬期休業）', tip: '蛍から十三月の流れが最強！', note: '※ 夏限定・E-bike推奨' },
-  { name: '蕎麦屋 蛍', icon: '🍜', cat: 'cafe', km: 12.73, area: '中土', lat: 36.83832, lon: 137.96066, desc: '夏のみ営業している古民家蕎麦店。天ぷらが美味しい！', bike: false, hours: '11:30～17:00（火水定休 ※時期により夜営業あり・冬期休業）', tip: '行く価値あり！cafe十三月とセットで。', note: '※ 夏限定・車推奨' },
+  { name: '蕎麦屋 蛍', icon: '🍜', cat: 'rest', km: 12.73, area: '中土', lat: 36.83832, lon: 137.96066, desc: '夏のみ営業している古民家蕎麦店。天ぷらが美味しい！', bike: false, hours: '11:30～17:00（火水定休 ※時期により夜営業あり・冬期休業）', tip: '行く価値あり！cafe十三月とセットで。', note: '※ 夏限定・車推奨' },
 
   // 白馬乗鞍・コルチナエリア
   { name: 'コルチナ・アドベンチャーランド', icon: '🌲', cat: 'spot', km: 10.05, area: 'コルチナ', lat: 36.8013, lon: 137.7798, desc: '白馬コルチナリゾート内にあるアクティビティスポット。', bike: false, hp: 'https://www.hgp.co.jp/hakuba/green/adventureland/', ig: '@hakubacortina', hours: '9:00～17:00（グリーンシーズン）', note: '※ 10km、車推奨' },
@@ -715,33 +717,33 @@ const spots = [
 
   // 大町エリア (far south)
   { name: '中綱湖', icon: '💧', cat: 'spot', km: 18.46, area: '大町', lat: 36.5829, lon: 137.85145, desc: '長野県大町市にある仁科三湖のうち最も小さい。', bike: false, hp: 'https://kanko-omachi.gr.jp/spot/nakatsunako/', hours: '24時間', note: '※ 遠いのでバス/車推奨' },
-  { name: 'ねまるちゃテラス', icon: '🥗', cat: 'cafe', km: 22.95, area: '大町', lat: 36.5437, lon: 137.84294, desc: '木崎湖キャンプ場内のテラス。山並みや光る水面を眺めながらお食事。', bike: false, hours: '9:00～17:00（シーズン営業）', note: '※ 大町・遠い' },
+  { name: 'ねまるちゃテラス', icon: '🥗', cat: 'rest', km: 22.95, area: '大町', lat: 36.5437, lon: 137.84294, desc: '木崎湖キャンプ場内のテラス。山並みや光る水面を眺めながらお食事。', bike: false, hours: '9:00～17:00（シーズン営業）', note: '※ 大町・遠い' },
   { name: '青木湖', icon: '💧', cat: 'spot', km: 24.12, area: '大町', lat: 36.53672, lon: 137.8147, desc: '仁科三湖最大の湖。透明度が国内トップクラス。カヌーなどアクティビティも豊富。', bike: false, hp: 'https://kanko-omachi.gr.jp/spot/aokiko/', hours: '24時間', note: '※ 遠いのでバス/タクシー推奨', tip: '夏は SUP・カヌーレンタル多数。湖畔キャンプも人気。' },
-  { name: '北アルプス ブルワリー', icon: '🍻', cat: 'cafe', km: 26.96, area: '大町', lat: 36.50656, lon: 137.85839, desc: '北アルプスのおいしい水を使った、大町の地ビール工場・ビールバー。', bike: false, ig: '@n.alpsbeer', hours: '11:00～22:00（水曜定休 ※季節により変動）', note: '※ 大町・車必須', tip: 'クラフトビール好きの聖地。地ビール工場見学も。' },
-  { name: 'Kuni\'s カントリーキッチン', icon: '🥩', cat: 'cafe', km: 27.04, area: '大町', lat: 36.50848, lon: 137.82548, desc: 'ログハウスの雰囲気がいいカフェレストラン。', bike: false, hp: 'https://kanko-omachi.gr.jp/spot/countrykitchen/', ig: '@kunisrestaurant', hours: '11:00～15:00 / 17:30～21:00（木定休）', note: '※ 大町・車必須' },
+  { name: '北アルプス ブルワリー', icon: '🍻', cat: 'rest', km: 26.96, area: '大町', lat: 36.50656, lon: 137.85839, desc: '北アルプスのおいしい水を使った、大町の地ビール工場・ビールバー。', bike: false, ig: '@n.alpsbeer', hours: '11:00～22:00（水曜定休 ※季節により変動）', note: '※ 大町・車必須', tip: 'クラフトビール好きの聖地。地ビール工場見学も。' },
+  { name: 'Kuni\'s カントリーキッチン', icon: '🥩', cat: 'rest', km: 27.04, area: '大町', lat: 36.50848, lon: 137.82548, desc: 'ログハウスの雰囲気がいいカフェレストラン。', bike: false, hp: 'https://kanko-omachi.gr.jp/spot/countrykitchen/', ig: '@kunisrestaurant', hours: '11:00～15:00 / 17:30～21:00（木定休）', note: '※ 大町・車必須' },
   { name: 'UNITE COFFEE', icon: '☕', cat: 'cafe', km: 27.06, area: '大町', lat: 36.50571, lon: 137.85727, desc: '本格的自家焙煎珈琲のお店。', bike: false, hours: '11:00～17:00（火水定休）', note: '※ 大町・車必須' },
   { name: 'ジェラートショップ 花彩', icon: '🍦', cat: 'cafe', km: 28.55, area: '大町', lat: 36.49382, lon: 137.83386, desc: '信州安曇野産の低温殺菌牛乳と旬の素材を使った本格派ジェラート。', bike: false, hp: 'http://www.js-hanairo.com/', ig: '@hakubahanairo', hours: '10:00～17:00（水曜定休 ※夏期無休）', note: '※ 大町・車必須', tip: 'アイスクリームよりも低脂肪でさっぱりした中にもコク。' },
-  { name: 'カフェえんとつ', icon: '🍕', cat: 'cafe', km: 28.73, area: '大町', lat: 36.49163, lon: 137.84007, desc: '北アルプスの田園風景を眺めながら信州野菜のパスタ＆ピザ。', bike: false, hp: 'https://entotu.com/', ig: '@cafe_entotu', hours: '11:00～17:00（木・第1第3水定休）', note: '※ 大町・車必須' },
+  { name: 'カフェえんとつ', icon: '🍕', cat: 'rest', km: 28.73, area: '大町', lat: 36.49163, lon: 137.84007, desc: '北アルプスの田園風景を眺めながら信州野菜のパスタ＆ピザ。', bike: false, hp: 'https://entotu.com/', ig: '@cafe_entotu', hours: '11:00～17:00（木・第1第3水定休）', note: '※ 大町・車必須' },
   // === 新規追加：Hatago Maruhachi 推薦19件 ===
-  { name: 'そば神 白馬店', nameEn: 'Sobajin Hakuba', icon: '🍜', cat: 'cafe', km: 5.98, area: '白馬駅周辺', lat: 36.6961, lon: 137.8617, desc: '有名和食店で修行した店主のこだわり蕎麦。行列必至。', ig: '@hakuba_sobajin', bike: false, hours: '11:00-15:00（木曜定休）', tip: '天ぷら蕎麦が人気。胡桃だれもおすすめ。' },
-  { name: 'そば処 松庵', nameEn: 'Sobadokoro Shoan', icon: '🍜', cat: 'cafe', km: 5.89, area: '白馬駅周辺', lat: 36.697, lon: 137.8612, desc: '白馬駅近くの正統派お蕎麦屋さん。', ig: '@shoan_soba', bike: false, hours: 'ランチ営業', tip: '落ち着いた雰囲気でゆっくり食べられる。' },
-  { name: 'まえだそば店', nameEn: 'Maeda Soba', icon: '🍜', cat: 'cafe', km: 7.02, area: '八方', lat: 36.6928, lon: 137.8364, desc: '八方民宿街の中心にあるボリュームたっぷりの蕎麦屋。', bike: false, hours: '11:00-15:00（8月延長／冬期-21:00）', tip: 'スキー帰りにも便利。量が多いので空腹で行くべし。' },
-  { name: '手打そば 一ぷく', nameEn: 'Teuchi Soba Ippuku', icon: '🍜', cat: 'cafe', km: 5.96, area: '白馬駅周辺', lat: 36.6963, lon: 137.8615, desc: '売切れ次第終了の手打ち蕎麦。', bike: false, hours: '11:00-15:00（水木定休／売切終了）', tip: '早めの来店推奨。' },
-  { name: 'グリンデル', nameEn: 'Grindel', icon: '🍽', cat: 'cafe', km: 5.3, area: '白馬駅周辺', lat: 36.7023, lon: 137.8612, desc: 'Tabelog Yoshoku EAST『100名店2025』選定。自家製ベーコンステーキとチーズハンバーグが名物。', bike: false, hours: '11:30-14:00 / 17:00-20:30（火日ランチのみ／水定休）', tip: '白馬を代表する洋食屋。予約推奨。' },
-  { name: 'グリルこうや', nameEn: 'Grill Koya', icon: '🍽', cat: 'cafe', km: 6.82, area: '白馬駅周辺', lat: 36.69, lon: 137.852, desc: 'オムライス・パスタ・カレーが揃う小さな洋食屋。', ig: '@grillkouya', bike: false, hours: '11:30-14:00 / 17:00-20:00（不定休）', tip: 'メニュー豊富で迷っちゃう。コスパ◎' },
-  { name: '来夢来人（ライムライト）', nameEn: 'Lime Light (Raimu Raito)', icon: '🍽', cat: 'cafe', km: 5.26, area: '白馬駅周辺', lat: 36.7041, lon: 137.8541, desc: 'ほとんどの定食が1,000円以下のローカルに愛される洋食店。', ig: '@hakuba_limelight', bike: false, hours: '10:30-20:00（第2・4日曜定休）', tip: '煮込みハンバーグ定食が人気。' },
-  { name: 'ガーリック GARLIC', nameEn: 'Garlic', icon: '🍕', cat: 'cafe', km: 5.75, area: '八方', lat: 36.7005, lon: 137.85, desc: 'クリスピー生地にチーズたっぷりのローマ風ピザが自慢。', ig: '@pizza__garlic', bike: false, hours: '11:00-15:00 / 18:00-21:00（水定休）', tip: 'パスタ＆ピザどっちも美味。' },
-  { name: '白馬農場 農かふぇ キッチン＆マルシェ', nameEn: 'Hakuba Farm Nou Cafe', icon: '🥗', cat: 'cafe', km: 12.03, area: '五竜', lat: 36.643, lon: 137.846, desc: '自家農場の新鮮野菜と米を使った料理が楽しめるカフェ＆マルシェ。', hp: 'https://farmhakuba.jp/nohcafe/', ig: '@farm_hakuba', bike: false, hours: '9:00-17:00 / ランチ11:30-14:00（木定休、夏季無休）', tip: '飯森駅徒歩4分。ブルーベリー狩りシーズン要チェック。' },
-  { name: 'シェフ', nameEn: 'Chef', icon: '🍽', cat: 'cafe', km: 2.06, area: '栂池', lat: 36.7325, lon: 137.8616, desc: '信濃森上駅近くの老舗洋食店。', bike: true, hours: '10:00-15:00 / 17:00-21:30（火定休、土朝7時から）', tip: 'UNPLANから比較的近いので便利。' },
-  { name: 'グラヴィティー・ワークス Gravity Worx', nameEn: 'Gravity Worx', icon: '🍝', cat: 'cafe', km: 6.48, area: '白馬駅周辺', lat: 36.692, lon: 137.858, desc: '地場産野菜を使った人気イタリアン。', bike: false, hours: '10:00-20:00（火定休、冬・8月無休）', tip: 'ティータイムも使える。' },
-  { name: 'SANFERMO PIZZA ET BBQ', nameEn: 'Sanfermo Pizza et BBQ', icon: '🍕', cat: 'cafe', km: 7.03, area: '八方', lat: 36.6905, lon: 137.8425, desc: '精肉卸ヤザワミート手掛けの本格ピッツァとBBQ。', ig: '@sanfermo_pizzaetbbq', bike: false, hours: '平日17-23 / 土日11-15・17-23', tip: '肉も美味しい、ピザ窯本格的。' },
-  { name: '桂花', nameEn: 'Keika', icon: '🥟', cat: 'cafe', km: 4.77, area: '白馬駅周辺', lat: 36.71, lon: 137.85, desc: '白馬村の薬膳中華料理店。', bike: true, hours: '11:30-14:00 / 17:30-21:30（水定休）', tip: 'ヘルシー中華が楽しめる。' },
-  { name: 'HINABE 火鍋', nameEn: 'HINABE Hot Pot', icon: '🍲', cat: 'cafe', km: 6.74, area: 'エコーランド', lat: 36.6915, lon: 137.8485, desc: '本格四川風一人鍋。信州食材を使ったオリジナルスープ。', bike: false, hours: '17:00-23:00（木定休）', tip: '冬の体を温めるのに最適。' },
-  { name: '深山成吉思汗（ジンギスカン）', nameEn: 'Miyama Jingisukan', icon: '🐑', cat: 'cafe', km: 6.74, area: 'エコーランド', lat: 36.6915, lon: 137.8485, desc: '新鮮で美味しいジンギスカンが食べられる炭火焼の店。', ig: '@miyama_genghis', bike: false, hours: '17:00-23:00（木定休）', tip: '羊肉好きには嬉しい本格派。' },
-  { name: '焼肉 牛緒 Ushio', nameEn: 'Yakiniku Ushio', icon: '🥩', cat: 'cafe', km: 5.06, area: '白馬駅周辺', lat: 36.706, lon: 137.854, desc: '白馬三山の麓、無煙ロースター完備のこだわり焼肉店。', hp: 'https://ushio.ikidane.com/', ig: '@ushio_hakuba_yakiniku', bike: false, hours: '17:00-22:00', tip: 'お肉のクオリティ高い。家族連れにも◎' },
-  { name: 'まるかめ', nameEn: 'Marukame', icon: '🥩', cat: 'cafe', km: 6.74, area: 'エコーランド', lat: 36.6915, lon: 137.8485, desc: '白馬駅近くのアットホームな焼肉屋さん。', bike: false, hours: '17:30-23:00（木定休）', tip: 'ローカル感ある雰囲気。' },
-  { name: '鉄板Dining やまなみ', nameEn: 'Teppan Dining Yamanami', icon: '🍳', cat: 'cafe', km: 6.74, area: 'エコーランド', lat: 36.6915, lon: 137.8485, desc: '信州牛・信州サーモン・地場野菜の鉄板焼。', hp: 'https://yamanami-hakuba.style/', ig: '@yamanami2941', bike: false, hours: '17:30-21:00（日定休、季節変動）', tip: '信州プレミアム牛が看板メニュー。' },
-  { name: 'NIKU雅（にくまさ）', nameEn: 'NIKU Masa', icon: '🥩', cat: 'cafe', km: 6.87, area: '白馬駅周辺', lat: 36.692, lon: 137.8425, desc: '完全予約制の隠れ家ステーキ＆ハンバーグ店。', hp: 'https://nikumasa-hakuba.amebaownd.com/', ig: '@nikumasa_hakuba', bike: false, hours: '12:00-14:30 / 18:00-22:00（火・第3水定休）', tip: '12席のみ。予約必須。' },
+  { name: 'そば神 白馬店', nameEn: 'Sobajin Hakuba', icon: '🍜', cat: 'rest', km: 5.98, area: '白馬駅周辺', lat: 36.6961, lon: 137.8617, desc: '有名和食店で修行した店主のこだわり蕎麦。行列必至。', ig: '@hakuba_sobajin', bike: false, hours: '11:00-15:00（木曜定休）', tip: '天ぷら蕎麦が人気。胡桃だれもおすすめ。' },
+  { name: 'そば処 松庵', nameEn: 'Sobadokoro Shoan', icon: '🍜', cat: 'rest', km: 5.89, area: '白馬駅周辺', lat: 36.697, lon: 137.8612, desc: '白馬駅近くの正統派お蕎麦屋さん。', ig: '@shoan_soba', bike: false, hours: 'ランチ営業', tip: '落ち着いた雰囲気でゆっくり食べられる。' },
+  { name: 'まえだそば店', nameEn: 'Maeda Soba', icon: '🍜', cat: 'rest', km: 7.02, area: '八方', lat: 36.6928, lon: 137.8364, desc: '八方民宿街の中心にあるボリュームたっぷりの蕎麦屋。', bike: false, hours: '11:00-15:00（8月延長／冬期-21:00）', tip: 'スキー帰りにも便利。量が多いので空腹で行くべし。' },
+  { name: '手打そば 一ぷく', nameEn: 'Teuchi Soba Ippuku', icon: '🍜', cat: 'rest', km: 5.96, area: '白馬駅周辺', lat: 36.6963, lon: 137.8615, desc: '売切れ次第終了の手打ち蕎麦。', bike: false, hours: '11:00-15:00（水木定休／売切終了）', tip: '早めの来店推奨。' },
+  { name: 'グリンデル', nameEn: 'Grindel', icon: '🍽', cat: 'rest', km: 5.3, area: '白馬駅周辺', lat: 36.7023, lon: 137.8612, desc: 'Tabelog Yoshoku EAST『100名店2025』選定。自家製ベーコンステーキとチーズハンバーグが名物。', bike: false, hours: '11:30-14:00 / 17:00-20:30（火日ランチのみ／水定休）', tip: '白馬を代表する洋食屋。予約推奨。' },
+  { name: 'グリルこうや', nameEn: 'Grill Koya', icon: '🍽', cat: 'rest', km: 6.82, area: '白馬駅周辺', lat: 36.69, lon: 137.852, desc: 'オムライス・パスタ・カレーが揃う小さな洋食屋。', ig: '@grillkouya', bike: false, hours: '11:30-14:00 / 17:00-20:00（不定休）', tip: 'メニュー豊富で迷っちゃう。コスパ◎' },
+  { name: '来夢来人（ライムライト）', nameEn: 'Lime Light (Raimu Raito)', icon: '🍽', cat: 'rest', km: 5.26, area: '白馬駅周辺', lat: 36.7041, lon: 137.8541, desc: 'ほとんどの定食が1,000円以下のローカルに愛される洋食店。', ig: '@hakuba_limelight', bike: false, hours: '10:30-20:00（第2・4日曜定休）', tip: '煮込みハンバーグ定食が人気。' },
+  { name: 'ガーリック GARLIC', nameEn: 'Garlic', icon: '🍕', cat: 'rest', km: 5.75, area: '八方', lat: 36.7005, lon: 137.85, desc: 'クリスピー生地にチーズたっぷりのローマ風ピザが自慢。', ig: '@pizza__garlic', bike: false, hours: '11:00-15:00 / 18:00-21:00（水定休）', tip: 'パスタ＆ピザどっちも美味。' },
+  { name: '白馬農場 農かふぇ キッチン＆マルシェ', nameEn: 'Hakuba Farm Nou Cafe', icon: '🥗', cat: 'rest', km: 12.03, area: '五竜', lat: 36.643, lon: 137.846, desc: '自家農場の新鮮野菜と米を使った料理が楽しめるカフェ＆マルシェ。', hp: 'https://farmhakuba.jp/nohcafe/', ig: '@farm_hakuba', bike: false, hours: '9:00-17:00 / ランチ11:30-14:00（木定休、夏季無休）', tip: '飯森駅徒歩4分。ブルーベリー狩りシーズン要チェック。' },
+  { name: 'シェフ', nameEn: 'Chef', icon: '🍽', cat: 'rest', km: 2.06, area: '栂池', lat: 36.7325, lon: 137.8616, desc: '信濃森上駅近くの老舗洋食店。', bike: true, hours: '10:00-15:00 / 17:00-21:30（火定休、土朝7時から）', tip: 'UNPLANから比較的近いので便利。' },
+  { name: 'グラヴィティー・ワークス Gravity Worx', nameEn: 'Gravity Worx', icon: '🍝', cat: 'rest', km: 6.48, area: '白馬駅周辺', lat: 36.692, lon: 137.858, desc: '地場産野菜を使った人気イタリアン。', bike: false, hours: '10:00-20:00（火定休、冬・8月無休）', tip: 'ティータイムも使える。' },
+  { name: 'SANFERMO PIZZA ET BBQ', nameEn: 'Sanfermo Pizza et BBQ', icon: '🍕', cat: 'rest', km: 7.03, area: '八方', lat: 36.6905, lon: 137.8425, desc: '精肉卸ヤザワミート手掛けの本格ピッツァとBBQ。', ig: '@sanfermo_pizzaetbbq', bike: false, hours: '平日17-23 / 土日11-15・17-23', tip: '肉も美味しい、ピザ窯本格的。' },
+  { name: '桂花', nameEn: 'Keika', icon: '🥟', cat: 'rest', km: 4.77, area: '白馬駅周辺', lat: 36.71, lon: 137.85, desc: '白馬村の薬膳中華料理店。', bike: true, hours: '11:30-14:00 / 17:30-21:30（水定休）', tip: 'ヘルシー中華が楽しめる。' },
+  { name: 'HINABE 火鍋', nameEn: 'HINABE Hot Pot', icon: '🍲', cat: 'rest', km: 6.74, area: 'エコーランド', lat: 36.6915, lon: 137.8485, desc: '本格四川風一人鍋。信州食材を使ったオリジナルスープ。', bike: false, hours: '17:00-23:00（木定休）', tip: '冬の体を温めるのに最適。' },
+  { name: '深山成吉思汗（ジンギスカン）', nameEn: 'Miyama Jingisukan', icon: '🐑', cat: 'rest', km: 6.74, area: 'エコーランド', lat: 36.6915, lon: 137.8485, desc: '新鮮で美味しいジンギスカンが食べられる炭火焼の店。', ig: '@miyama_genghis', bike: false, hours: '17:00-23:00（木定休）', tip: '羊肉好きには嬉しい本格派。' },
+  { name: '焼肉 牛緒 Ushio', nameEn: 'Yakiniku Ushio', icon: '🥩', cat: 'rest', km: 5.06, area: '白馬駅周辺', lat: 36.706, lon: 137.854, desc: '白馬三山の麓、無煙ロースター完備のこだわり焼肉店。', hp: 'https://ushio.ikidane.com/', ig: '@ushio_hakuba_yakiniku', bike: false, hours: '17:00-22:00', tip: 'お肉のクオリティ高い。家族連れにも◎' },
+  { name: 'まるかめ', nameEn: 'Marukame', icon: '🥩', cat: 'rest', km: 6.74, area: 'エコーランド', lat: 36.6915, lon: 137.8485, desc: '白馬駅近くのアットホームな焼肉屋さん。', bike: false, hours: '17:30-23:00（木定休）', tip: 'ローカル感ある雰囲気。' },
+  { name: '鉄板Dining やまなみ', nameEn: 'Teppan Dining Yamanami', icon: '🍳', cat: 'rest', km: 6.74, area: 'エコーランド', lat: 36.6915, lon: 137.8485, desc: '信州牛・信州サーモン・地場野菜の鉄板焼。', hp: 'https://yamanami-hakuba.style/', ig: '@yamanami2941', bike: false, hours: '17:30-21:00（日定休、季節変動）', tip: '信州プレミアム牛が看板メニュー。' },
+  { name: 'NIKU雅（にくまさ）', nameEn: 'NIKU Masa', icon: '🥩', cat: 'rest', km: 6.87, area: '白馬駅周辺', lat: 36.692, lon: 137.8425, desc: '完全予約制の隠れ家ステーキ＆ハンバーグ店。', hp: 'https://nikumasa-hakuba.amebaownd.com/', ig: '@nikumasa_hakuba', bike: false, hours: '12:00-14:30 / 18:00-22:00（火・第3水定休）', tip: '12席のみ。予約必須。' },
 { name: '白馬ノルウェービレッジ', nameEn: 'Hakuba Norway Village', icon: '💻', cat: 'spot', km: 6.14, area: '白馬駅周辺', lat: 36.6948, lon: 137.8597, desc: '無料コワーキング施設。電源・Wi-Fi・ディスプレイ完備。1998長野五輪のノルウェーゲストハウスを活用した北欧空間。カフェUtflykt併設で自家焙煎コーヒーも。', hp: 'https://hnv.jp/', bike: false, cowork: true, hours: '平日 9:00〜17:00 / 土日 11:00〜17:00', tip: '静かな作業環境◎。カフェ併設なのでランチ/休憩も完結。' },
   { name: 'Hakuba Share（白馬シェア）', nameEn: 'Hakuba Share', icon: '💻', cat: 'spot', km: 6.02, area: '白馬駅周辺', lat: 36.6963, lon: 137.8617, desc: '白馬駅徒歩5分のMORIビル1階、コワーキング＆シェアオフィス。ドロップイン可。', bike: false, cowork: true, hours: '11:00〜19:00（水・木定休）' },
 ];
@@ -758,6 +760,7 @@ function filteredSpots() {
   return spots.filter(s => {
     if (currentFilter === 'all') return true;
     if (currentFilter === 'bike') return s.bike;
+    if (currentFilter === 'cowork') return s.cowork === true;
     return s.cat === currentFilter;
   });
 }

@@ -629,7 +629,9 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 // UNPLAN Village Hakuba 1: 〒399-9422 長野県北安曇郡小谷村千国乙 12840-1
-const UNPLAN = [36.7488, 137.8716];
+const UNPLAN = [36.7488, 137.8716  { name: '白馬ノルウェービレッジ', nameEn: 'Hakuba Norway Village', icon: '💻', cat: 'spot', km: 6.14, area: '白馬駅周辺', lat: 36.6948, lon: 137.8597, desc: '無料コワーキング施設。電源・Wi-Fi・ディスプレイ完備。1998長野五輪のノルウェーゲストハウスを活用した北欧空間。カフェUtflykt併設で自家焙煎コーヒーも。', hp: 'https://hnv.jp/', bike: false, cowork: true, hours: '平日 9:00〜17:00 / 土日 11:00〜17:00', tip: '静かな作業環境◎。カフェ併設なのでランチ/休憩も完結。' },
+  { name: 'Hakuba Share（白馬シェア）', nameEn: 'Hakuba Share', icon: '💻', cat: 'spot', km: 6.02, area: '白馬駅周辺', lat: 36.6963, lon: 137.8617, desc: '白馬駅徒歩5分のMORIビル1階、コワーキング＆シェアオフィス。ドロップイン可。', bike: false, cowork: true, hours: '11:00〜19:00（水・木定休）' },
+];
 
 // Data sourced from Notion master DB (実位置と距離)
 const spots = [
@@ -663,8 +665,8 @@ const spots = [
 
   // 岩岳エリア
   { name: 'IWATAKE.ROCK\'S', icon: '🍔', cat: 'cafe', km: 3.61, area: '岩岳', lat: 36.7178, lon: 137.8595, desc: '岩岳スキー場ゴンドラから徒歩3分のロッジ併設のカフェ。', bike: true, hp: 'https://iwatake-rocks.nagano.info/', hours: '11:00～15:00（季節営業）', tip: 'カフェ利用もOK、おしゃれな内装。' },
-  { name: 'en to en', icon: '☕', cat: 'cafe', km: 3.6, area: '岩岳', lat: 36.7178, lon: 137.8598, desc: '岩岳エリアのおしゃれカフェ。', bike: true, hours: '10:00～16:00（不定期）', tip: '事前にSNSで営業確認推奨。' },
-  { name: 'LOCARY IWATAKE', icon: '🥪', cat: 'cafe', km: 3.74, area: '岩岳', lat: 36.7165, lon: 137.86, desc: '信州地元食材のサンドイッチカフェ。白馬ハムのサンドイッチとホットドッグが名物。', bike: true, hp: 'https://hakubameshi.net/en/shop/locary-iwatake/', ig: '@locary_hakuba', hours: '7:30～16:00', tip: 'Square8 HAKUBA RETREAT 内。コーヒー&クラフトビールも。' },
+  { name: 'en to en', icon: '☕', cat: 'cafe', km: 3.6, area: '岩岳', lat: 36.7178, lon: 137.8598, desc: '岩岳エリアのおしゃれカフェ。', bike: true, cowork: true, hours: '10:00～16:00（不定期）', tip: '事前にSNSで営業確認推奨。' },
+  { name: 'LOCARY IWATAKE', icon: '🥪', cat: 'cafe', km: 3.74, area: '岩岳', lat: 36.7165, lon: 137.86, desc: '信州地元食材のサンドイッチカフェ。白馬ハムのサンドイッチとホットドッグが名物。', bike: true, hp: 'https://hakubameshi.net/en/shop/locary-iwatake/', ig: '@locary_hakuba', cowork: true, hours: '7:30～16:00', tip: 'Square8 HAKUBA RETREAT 内。コーヒー&クラフトビールも。' },
   { name: '岩岳の湯', icon: '♨️', cat: 'onsen', km: 4.01, area: '岩岳', lat: 36.7138, lon: 137.8606, desc: '白馬姫川温泉が源泉。美肌の湯。', bike: true, hp: 'https://iwatake-mountain-resort.com/onsen', hours: '13:00～21:00（シーズン営業）', tip: 'コンパクトな日帰り温泉施設。' },
   { name: '倉下の湯', icon: '♨️', cat: 'onsen', km: 4.14, area: '岩岳', lat: 36.715, lon: 137.852, desc: '深めの浴槽で開放感いっぱいの檜造り露天風呂。15人ほどは楽に浸かれる広さ。', bike: true, hp: 'https://www.kurashitanoyu.com/', hours: '10:00～21:00', tip: '茶褐色の源泉かけ流し。' },
 
@@ -673,8 +675,8 @@ const spots = [
   { name: '野平の一本桜', icon: '🌸', cat: 'spot', km: 3.87, area: '白馬駅周辺', lat: 36.715, lon: 137.882, desc: '雄大な北アルプスと一本桜の撮影ポイント！', bike: true, hp: 'https://www.vill.hakuba.nagano.jp/spots/nodaira/', hours: '24時間（見頃：4月中旬～下旬）', tip: '桜の時期は混雑するので早朝が狙い目。' },
   { name: '絶景の道「天神坂」', icon: '⛰️', cat: 'spot', km: 4.38, area: '白馬駅周辺', lat: 36.7095, lon: 137.8742, desc: '白馬ハイランドホテルのスタッフが命名したと言われる「天神坂」。リフレクション＆三段紅葉の絶景スポット。', bike: true, hours: '24時間', tip: '田植え時期はリフレクション、秋は三段紅葉。' },
   { name: 'とんかつ ちとせ', icon: '🍱', cat: 'cafe', km: 5.76, area: '白馬駅周辺', lat: 36.69883, lon: 137.85474, desc: '白馬の老舗とんかつ店。', bike: true, hours: '11:30～14:00 / 17:30～20:00', tip: '現在テイクアウトのみの場合あり、要確認。' },
-  { name: 'Starbucks Coffee', icon: '☕', cat: 'cafe', km: 5.85, area: '白馬駅周辺', lat: 36.69761, lon: 137.85669, desc: '2020年4月オープン、隈研吾設計の複合施設「スノーピークランドステーション白馬」内。', bike: true, hours: '8:00～21:00', tip: '白馬の山々の景色とコーヒー。週末マルシェやってる。' },
-  { name: 'THE NORTH FACE GRAVITY 白馬', icon: '🧥', cat: 'cafe', km: 5.82, area: '白馬駅周辺', lat: 36.69723, lon: 137.86069, desc: '白馬の山々の景色が望める好立地のカフェ＆ショップ。', bike: true, hp: 'https://www.thenorthface.jp/shoplist?id=0195', ig: '@tnf_gravity_hakuba', hours: '10:00～19:00（カフェ併設）', tip: '2階カフェから景色を見ながらコーヒー。' },
+  { name: 'Starbucks Coffee', icon: '☕', cat: 'cafe', km: 5.85, area: '白馬駅周辺', lat: 36.69761, lon: 137.85669, desc: '2020年4月オープン、隈研吾設計の複合施設「スノーピークランドステーション白馬」内。', bike: true, cowork: true, hours: '8:00～21:00', tip: '白馬の山々の景色とコーヒー。週末マルシェやってる。' },
+  { name: 'THE NORTH FACE GRAVITY 白馬', icon: '🧥', cat: 'cafe', km: 5.82, area: '白馬駅周辺', lat: 36.69723, lon: 137.86069, desc: '白馬の山々の景色が望める好立地のカフェ＆ショップ。', bike: true, hp: 'https://www.thenorthface.jp/shoplist?id=0195', ig: '@tnf_gravity_hakuba', cowork: true, hours: '10:00～19:00（カフェ併設）', tip: '2階カフェから景色を見ながらコーヒー。' },
   { name: '珈琲 せんじゅ', icon: '☕', cat: 'cafe', km: 5.92, area: '白馬駅周辺', lat: 36.6962, lon: 137.8612, desc: '和カフェ。', bike: true, hp: 'http://coffee.senjeu.com/', ig: '@coffee_senjeu', hours: '10:00～17:00（木・第3金定休）', tip: '木のぬくもりがある静かな空間。' },
   { name: 'Hakuba Coffee Stand', icon: '☕', cat: 'cafe', km: 5.98, area: '白馬駅周辺', lat: 36.69548, lon: 137.86323, desc: 'JR白馬駅前のコーヒースタンド。', bike: true, hp: 'https://hakubacoffeestand.com/', ig: '@hakubacoffeestand', hours: '8:00～17:00（不定休）', tip: '駅前なので登山前後のチャージに。' },
   { name: 'MENYA GOKU', icon: '🍜', cat: 'cafe', km: 5.99, area: '白馬駅周辺', lat: 36.6953, lon: 137.864, desc: '深夜まで営業しているラーメン屋さん。', bike: true, hours: '18:00～26:00（深夜営業・不定休）', tip: '遅い時間まで食べられる貴重なお店。' },

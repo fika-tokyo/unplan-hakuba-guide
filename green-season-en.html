@@ -629,10 +629,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 // UNPLAN Village Hakuba 1: 12840-1 Oaza Chikuni-Otsu, Otari-mura, Kitaazumi-gun, Nagano
-const UNPLAN = [36.7488, 137.8716  { name: '白馬ノルウェービレッジ', nameEn: 'Hakuba Norway Village', icon: '💻', cat: 'spot', km: 6.14, area: '白馬駅周辺', lat: 36.6948, lon: 137.8597, desc: 'Free coworking space (Wi-Fi, power, displays, tables). Repurposed Norwegian guesthouse from the 1998 Nagano Olympics with a Nordic feel. Cafe Utflykt on-site for proper coffee.', hp: 'https://hnv.jp/', bike: false, cowork: true, hours: 'Weekdays 9:00-17:00 / Weekends 11:00-17:00', tip: 'Excellent quiet workspace. Has cafe attached so you can grab coffee/lunch on-site.' },
-  { name: 'Hakuba Share', nameEn: 'Hakuba Share', icon: '💻', cat: 'spot', km: 6.02, area: '白馬駅周辺', lat: 36.6963, lon: 137.8617, desc: 'Coworking & share office, 5 min walk from Hakuba Station (MORI Building 1F). Drop-in available.', bike: false, cowork: true, hours: '11:00-19:00 (closed Wed & Thu)' },
-];
-
+const UNPLAN = [36.7488, 137.8716];
 // Data sourced from Notion master DB (actual coordinates and distances)
 const spots = [
   // Tsugaike area (near UNPLAN)
@@ -745,6 +742,8 @@ const spots = [
   { name: 'まるかめ', nameEn: 'Marukame', icon: '🥩', cat: 'cafe', km: 6.74, area: 'エコーランド', lat: 36.6915, lon: 137.8485, desc: 'Homey yakiniku place near Hakuba Station.', bike: false, hours: '17:30-23:00 (closed Thu)', tip: 'Authentic local atmosphere.' },
   { name: '鉄板Dining やまなみ', nameEn: 'Teppan Dining Yamanami', icon: '🍳', cat: 'cafe', km: 6.74, area: 'エコーランド', lat: 36.6915, lon: 137.8485, desc: 'Teppanyaki featuring Shinshu beef, Shinshu salmon, and local vegetables.', hp: 'https://yamanami-hakuba.style/', ig: '@yamanami2941', bike: false, hours: '17:30-21:00 (closed Sun; seasonal hours)', tip: 'Shinshu Premium beef is the signature.' },
   { name: 'NIKU雅（にくまさ）', nameEn: 'NIKU Masa', icon: '🥩', cat: 'cafe', km: 6.87, area: '白馬駅周辺', lat: 36.692, lon: 137.8425, desc: 'Hidden steak & hamburg spot — reservations only.', hp: 'https://nikumasa-hakuba.amebaownd.com/', ig: '@nikumasa_hakuba', bike: false, hours: '12:00-14:30 / 18:00-22:00 (closed Tue & 3rd Wed)', tip: 'Only 12 seats. Book ahead.' },
+{ name: '白馬ノルウェービレッジ', nameEn: 'Hakuba Norway Village', icon: '💻', cat: 'spot', km: 6.14, area: '白馬駅周辺', lat: 36.6948, lon: 137.8597, desc: 'Free coworking space (Wi-Fi, power, displays, tables). Repurposed Norwegian guesthouse from the 1998 Nagano Olympics with a Nordic feel. Cafe Utflykt on-site for proper coffee.', hp: 'https://hnv.jp/', bike: false, cowork: true, hours: 'Weekdays 9:00-17:00 / Weekends 11:00-17:00', tip: 'Excellent quiet workspace. Has cafe attached so you can grab coffee/lunch on-site.' },
+  { name: 'Hakuba Share', nameEn: 'Hakuba Share', icon: '💻', cat: 'spot', km: 6.02, area: '白馬駅周辺', lat: 36.6963, lon: 137.8617, desc: 'Coworking & share office, 5 min walk from Hakuba Station (MORI Building 1F). Drop-in available.', bike: false, cowork: true, hours: '11:00-19:00 (closed Wed & Thu)' },
 ];
 
 const grid = document.getElementById('spotsGrid');

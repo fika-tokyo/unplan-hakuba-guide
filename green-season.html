@@ -629,10 +629,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 // UNPLAN Village Hakuba 1: 〒399-9422 長野県北安曇郡小谷村千国乙 12840-1
-const UNPLAN = [36.7488, 137.8716  { name: '白馬ノルウェービレッジ', nameEn: 'Hakuba Norway Village', icon: '💻', cat: 'spot', km: 6.14, area: '白馬駅周辺', lat: 36.6948, lon: 137.8597, desc: '無料コワーキング施設。電源・Wi-Fi・ディスプレイ完備。1998長野五輪のノルウェーゲストハウスを活用した北欧空間。カフェUtflykt併設で自家焙煎コーヒーも。', hp: 'https://hnv.jp/', bike: false, cowork: true, hours: '平日 9:00〜17:00 / 土日 11:00〜17:00', tip: '静かな作業環境◎。カフェ併設なのでランチ/休憩も完結。' },
-  { name: 'Hakuba Share（白馬シェア）', nameEn: 'Hakuba Share', icon: '💻', cat: 'spot', km: 6.02, area: '白馬駅周辺', lat: 36.6963, lon: 137.8617, desc: '白馬駅徒歩5分のMORIビル1階、コワーキング＆シェアオフィス。ドロップイン可。', bike: false, cowork: true, hours: '11:00〜19:00（水・木定休）' },
-];
-
+const UNPLAN = [36.7488, 137.8716];
 // Data sourced from Notion master DB (実位置と距離)
 const spots = [
   // 栂池エリア (UNPLAN周辺)
@@ -745,6 +742,8 @@ const spots = [
   { name: 'まるかめ', nameEn: 'Marukame', icon: '🥩', cat: 'cafe', km: 6.74, area: 'エコーランド', lat: 36.6915, lon: 137.8485, desc: '白馬駅近くのアットホームな焼肉屋さん。', bike: false, hours: '17:30-23:00（木定休）', tip: 'ローカル感ある雰囲気。' },
   { name: '鉄板Dining やまなみ', nameEn: 'Teppan Dining Yamanami', icon: '🍳', cat: 'cafe', km: 6.74, area: 'エコーランド', lat: 36.6915, lon: 137.8485, desc: '信州牛・信州サーモン・地場野菜の鉄板焼。', hp: 'https://yamanami-hakuba.style/', ig: '@yamanami2941', bike: false, hours: '17:30-21:00（日定休、季節変動）', tip: '信州プレミアム牛が看板メニュー。' },
   { name: 'NIKU雅（にくまさ）', nameEn: 'NIKU Masa', icon: '🥩', cat: 'cafe', km: 6.87, area: '白馬駅周辺', lat: 36.692, lon: 137.8425, desc: '完全予約制の隠れ家ステーキ＆ハンバーグ店。', hp: 'https://nikumasa-hakuba.amebaownd.com/', ig: '@nikumasa_hakuba', bike: false, hours: '12:00-14:30 / 18:00-22:00（火・第3水定休）', tip: '12席のみ。予約必須。' },
+{ name: '白馬ノルウェービレッジ', nameEn: 'Hakuba Norway Village', icon: '💻', cat: 'spot', km: 6.14, area: '白馬駅周辺', lat: 36.6948, lon: 137.8597, desc: '無料コワーキング施設。電源・Wi-Fi・ディスプレイ完備。1998長野五輪のノルウェーゲストハウスを活用した北欧空間。カフェUtflykt併設で自家焙煎コーヒーも。', hp: 'https://hnv.jp/', bike: false, cowork: true, hours: '平日 9:00〜17:00 / 土日 11:00〜17:00', tip: '静かな作業環境◎。カフェ併設なのでランチ/休憩も完結。' },
+  { name: 'Hakuba Share（白馬シェア）', nameEn: 'Hakuba Share', icon: '💻', cat: 'spot', km: 6.02, area: '白馬駅周辺', lat: 36.6963, lon: 137.8617, desc: '白馬駅徒歩5分のMORIビル1階、コワーキング＆シェアオフィス。ドロップイン可。', bike: false, cowork: true, hours: '11:00〜19:00（水・木定休）' },
 ];
 
 const grid = document.getElementById('spotsGrid');

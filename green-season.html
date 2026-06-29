@@ -637,7 +637,7 @@ const spots = [
   // 栂池エリア (UNPLAN周辺)
   { name: 'ツガベース', icon: '🍔', cat: 'rest', km: 0.05, area: '栂池', lat: 36.74928, lon: 137.87148, desc: 'UNPLAN Village Hakuba から徒歩で行けるハンバーガー屋さん。足湯もある。', bike: true, hours: '10:00～22:00（シーズン・曜日により変動）', tip: 'UNPLAN隣接。一番気軽に立ち寄れるグルメスポット。' },
   { name: '栂池高原のパノラマデッキ', icon: '⭐', cat: 'spot', km: 0.05, area: '栂池', lat: 36.74921, lon: 137.87156, desc: 'UNPLAN から徒歩2分、栂池自然園へのゴンドラ駅舎横の屋上テラス。さくっと白馬の景色を見るならまずここ。', bike: true, hp: 'https://www.tsugaike.gr.jp/', ig: '@tsugaike_kogen', hours: '通年・自由', tip: '夕焼け時間（17-18時）が最も美しい。北アルプスを背に記念撮影スポット。' },
-  { name: '栂池WOW!', icon: '🌳', cat: 'spot', km: 0.07, area: '栂池', lat: 36.74938, lon: 137.87154, desc: '世界で話題の新感覚アドベンチャー。アクティブに過ごしたい方向け。', bike: true, hp: 'https://www.tsugaike.gr.jp/green/wow', ig: '@hakuba_tsugaike_wow_info', hours: '9:00～16:00（グリーンシーズン）', tip: 'マウンテンバイク、ターザン、ジップライン。大人も子供も楽しめる。' },
+  { name: '栂池WOW!', icon: '🌳', cat: 'spot', km: 0.07, area: '栂池', lat: 36.74938, lon: 137.87154, desc: '世界で話題の新感覚アドベンチャー。アクティブに過ごしたい方向け。', bike: true, hp: 'https://www.tsugaike.gr.jp/green/wow', ig: '@hakuba_tsugaike_wow_info', hours: '9:00～16:00（グリーンシーズン）', tip: 'マウンテンバイク、ターザン、ジップライン。大人も子供も楽しめる。', hidden: true },
   { name: '栂池高原（石の前）', icon: '🌾', cat: 'spot', km: 0.13, area: '栂池', lat: 36.74958, lon: 137.87238, desc: '山並みと田んぼのコンビネーションは絶景。', bike: true, hours: '24時間', tip: 'UNPLAN徒歩圏内。田んぼ越しの北アルプスが美しい。' },
   { name: '栂池ウッドチップロード', icon: '🌲', cat: 'spot', km: 0.16, area: '栂池', lat: 36.76307, lon: 137.8167, desc: 'UNPLAN から歩いて10分！森林浴を十分に楽しめるスポット。', bike: true, hp: 'https://otarimura.com/wcr/b_tsugaike.html', hours: '24時間', tip: '早朝のお散歩一押し！' },
   { name: 'HAKUBA BEER GARAGE', icon: '🍺', cat: 'rest', km: 0.19, area: '栂池', lat: 36.74801, lon: 137.86973, desc: '2022年10月、栂池高原スキー場「鐘の鳴る丘」にオープン。醸造所の中にパブがありビリヤードもできる。', bike: true, hp: 'https://hakubacraft.jp/', ig: '@hakuba_beer_garage', hours: '金土日中心（時期により変動）', tip: '地元民も通うクラフトビールスポット。' },
@@ -766,6 +766,7 @@ function categoryLabel(cat) {
 
 function filteredSpots() {
   return spots.filter(s => {
+    if (s.hidden) return false;
     if (currentFilter === 'all') return true;
     if (currentFilter === 'bike') return s.bike;
     if (currentFilter === 'cowork') return s.cowork === true;

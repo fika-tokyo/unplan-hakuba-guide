@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>白馬ガイドサイトの編集方法</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+    line-height: 1.7;
+    color: #2c2c2c;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    background: #fafaf7;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* === 印刷・PDF出力用 === */
+  @page {
+    size: A4;
+    margin: 15mm 12mm;
+  }
+  @media print {
+    body {
+      background: white;
+      padding: 0;
+      max-width: 100%;
+      font-size: 11pt;
+      line-height: 1.5;
+    }
+    h1 { font-size: 20pt; page-break-after: avoid; }
+    h2 {
+      font-size: 15pt;
+      page-break-after: avoid;
+      page-break-before: auto;
+      margin-top: 24px;
+    }
+    h3 {
+      font-size: 12pt;
+      page-break-after: avoid;
+    }
+    .step, .scope-card, .rule-ok, .rule-ng, .alert, .tip,
+    .example, .flow-box, .checklist, table, pre {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    table { page-break-inside: auto; }
+    tr { page-break-inside: avoid; }
+    a { color: #3e6644; word-break: break-all; }
+    hr { page-break-after: avoid; }
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-size: 9pt;
+    }
+    /* 背景色を確実に印刷 */
+    th, .step, .scope-card, .rule-ok, .rule-ng, .alert,
+    .tip, .example, .flow-box, .lead, .flow-step, .badge,
+    .scope-label, pre, code {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .flow-box { display: block; }
+    .flow-step { font-size: 11pt; padding: 6px 12px; }
+  }
+  h1 {
+    font-size: 28px;
+    border-bottom: 3px solid #3e6644;
+    padding-bottom: 12px;
+    margin-top: 0;
+    color: #3e6644;
+  }
+  h2 {
+    font-size: 22px;
+    margin-top: 48px;
+    padding-left: 12px;
+    border-left: 5px solid #3e6644;
+    color: #3e6644;
+  }
+  h3 {
+    font-size: 18px;
+    margin-top: 28px;
+    color: #2c5530;
+  }
+  p { margin: 12px 0; }
+  ul, ol { padding-left: 24px; }
+  li { margin: 6px 0; }
+  code {
+    background: #eef1ec;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 0.92em;
+    color: #c0392b;
+  }
+  pre {
+    background: #2c2c2c;
+    color: #e8e8e8;
+    padding: 16px 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 16px 0;
+    background: white;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  th, td {
+    border: 1px solid #e2e2dc;
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 14px;
+  }
+  th {
+    background: #3e6644;
+    color: white;
+    font-weight: 600;
+  }
+  tr:nth-child(even) td { background: #f7f7f3; }
+  .tip {
+    background: #fff8e1;
+    border-left: 4px solid #f4b400;
+    padding: 12px 16px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 14px;
+  }
+  .alert {
+    background: #fff3e0;
+    border-left: 4px solid #ff9800;
+    padding: 14px 18px;
+    margin: 14px 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 15px;
+  }
+  .rule-ok {
+    background: #e8f5e9;
+    border-left: 4px solid #43a047;
+    padding: 14px 18px;
+    margin: 14px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .rule-ng {
+    background: #fde7e7;
+    border-left: 4px solid #d32f2f;
+    padding: 14px 18px;
+    margin: 14px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .step {
+    background: white;
+    border: 1px solid #e2e2dc;
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin: 14px 0;
+  }
+  .step-title {
+    font-weight: 700;
+    color: #3e6644;
+    font-size: 17px;
+    margin-bottom: 8px;
+  }
+  .example {
+    background: #f0f4ed;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 10px 0;
+    font-size: 14px;
+  }
+  .example-title {
+    font-weight: 600;
+    color: #2c5530;
+    margin-bottom: 6px;
+  }
+  a {
+    color: #3e6644;
+    word-break: break-all;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid #d6d6cf;
+    margin: 40px 0;
+  }
+  .badge {
+    display: inline-block;
+    background: #3e6644;
+    color: white;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .small { font-size: 13px; color: #666; }
+  .lead {
+    background: linear-gradient(135deg, #f0f4ed 0%, #e8f0e3 100%);
+    padding: 18px 22px;
+    border-radius: 8px;
+    margin: 20px 0;
+    font-size: 15px;
+  }
+  .emoji { font-size: 1.2em; }
+  .flow-box {
+    background: white;
+    border: 2px solid #3e6644;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0;
+    text-align: center;
+  }
+  .flow-step {
+    display: inline-block;
+    background: #3e6644;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin: 6px;
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .flow-arrow {
+    color: #3e6644;
+    font-size: 24px;
+    margin: 0 4px;
+    font-weight: bold;
+  }
+  .scope-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 14px 0;
+    border-top: 4px solid #3e6644;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  .scope-card.alt {
+    border-top-color: #6b8e7f;
+  }
+  .scope-label {
+    display: inline-block;
+    background: #3e6644;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .scope-card.alt .scope-label {
+    background: #6b8e7f;
+  }
+</style>
+</head>
+<body>
+
+<h1>白馬ガイドサイトの編集方法</h1>
+
+<div class="lead">
+  <strong>このマニュアルでわかること</strong><br>
+  Claudeに編集を頼んで、GitHubで公開する流れ。<br>
+  <span class="small">対象サイト: UNPLAN Village（栂池） / Square8（岩岳） / 旅籠 丸八（岩岳）</span>
+</div>
+
+<h2><span class="emoji">🔄</span> 編集の流れ</h2>
+
+<div class="flow-box">
+  <div class="flow-step">①Claudeに頼む</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-step">②GitHub DesktopでPush</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-step">③1〜2分後に公開</div>
+</div>
+
+<p>これだけ。HTMLを自分で直す必要はありません。</p>
+
+<hr>
+
+<h2><span class="emoji">📋</span> 編集の種類（必ず最初に確認！）</h2>
+
+<p>編集する内容によって、反映の範囲が違います。</p>
+
+<div class="scope-card">
+  <span class="scope-label">A. スポット編集（マップ・観光情報）</span>
+  <h3 style="margin-top: 4px;">🌿 green-season（スポット一覧・マップ）の編集</h3>
+  <div class="alert">
+    <strong>⚠️ 必ず Notion DB から編集スタート</strong><br>
+    スポットの追加・削除・修正は、<strong>まずNotion DBで変更</strong>してから、Claudeに「3サイトに反映して」と頼む。
+  </div>
+  <p><strong>反映先：3サイトすべて</strong>（UNPLAN・Square8・丸八 共通）</p>
+  <p>Notion DB: <a href="https://www.notion.so/cac46318323f82158d8801efa44f22f9" target="_blank">マスターDBを開く</a></p>
+</div>
+
+<div class="scope-card alt">
+  <span class="scope-label">B. それ以外の編集（拠点ごと個別）</span>
+  <h3 style="margin-top: 4px;">🏠 宿泊ガイド・トップページ等</h3>
+  <p>各拠点ごとに内容が違うので、対象のサイトだけ編集すればOK。</p>
+  <table>
+    <tr><th>拠点</th><th>編集するリポジトリ</th></tr>
+    <tr><td>栂池 / UNPLAN Village</td><td>unplan-hakuba-guide</td></tr>
+    <tr><td>岩岳 / Square8</td><td>Square8-Hakuba-Guide</td></tr>
+    <tr><td>岩岳 / 旅籠 丸八</td><td>Maruhachi-Hakuba-Guide</td></tr>
+  </table>
+  <p><strong>反映先：該当拠点のサイトだけ</strong></p>
+  <p class="small">例：stay.html / hakuba.html / index.html などの編集</p>
+</div>
+
+<div class="tip">💡 迷ったら：「マップに載るスポット情報？」→ A（Notion経由・3サイト） / 「宿の説明やトップ画像？」→ B（拠点だけ）</div>
+
+<hr>
+
+<h2><span class="emoji">🛠</span> 最初の準備（1回だけ）</h2>
+
+<div class="step">
+  <div class="step-title"><span class="badge">1</span>GitHub Desktopをインストール</div>
+  <p><a href="https://desktop.github.com/" target="_blank">https://desktop.github.com/</a> から <strong>Mac版</strong>をダウンロード → インストール</p>
+  <p>起動したら自分のGitHubアカウントでサインイン。</p>
+</div>
+
+<div class="step">
+  <div class="step-title"><span class="badge">2</span>3つのサイトを自分のMacにコピー</div>
+  <p>GitHub Desktopで：</p>
+  <ol>
+    <li>上のメニュー <strong>File → Clone repository</strong></li>
+    <li><strong>URL</strong> タブをクリック</li>
+    <li>下のURLを1つずつ入れて Clone を押す（3回繰り返す）</li>
+  </ol>
+  <pre><code>https://github.com/fika-tokyo/unplan-hakuba-guide
+https://github.com/fika-tokyo/Square8-Hakuba-Guide
+https://github.com/fika-tokyo/Maruhachi-Hakuba-Guide</code></pre>
+  <p>保存先は <code>書類（Documents）</code> フォルダがおすすめ。</p>
+</div>
+
+<div class="step">
+  <div class="step-title"><span class="badge">3</span>Claudeを使えるようにする</div>
+  <p>Claudeデスクトップアプリ をインストールしてサインイン。</p>
+  <p>同じMacの「書類」フォルダにアクセスできるようにする。</p>
+</div>
+
+<hr>
+
+<h2><span class="emoji">🌿</span> A. スポット編集の手順</h2>
+
+<div class="alert">
+  <strong>大原則：必ずNotion DBから先に変更する</strong><br>
+  Notionが「マスター」、サイトは「コピー」です。先にサイトをいじるとデータが食い違うので絶対NG。
+</div>
+
+<div class="step">
+  <div class="step-title"><span class="badge">STEP 1</span>Notion DBで変更</div>
+  <p><a href="https://www.notion.so/cac46318323f82158d8801efa44f22f9" target="_blank">マスターDBを開く</a></p>
+  <p>例：</p>
+  <ul>
+    <li>新スポット追加 → 行を追加して情報入力 →「サイトに表示」ON</li>
+    <li>スポット削除 →「サイトに表示」OFF</li>
+    <li>営業時間変更 → 該当行を編集</li>
+    <li>座標修正 → 「Map / 地図」の場所を変更</li>
+  </ul>
+</div>
+
+<div class="step">
+  <div class="step-title"><span class="badge">STEP 2</span>Claudeに反映を頼む</div>
+  <div class="example">
+    <div class="example-title">💬 こんな感じで頼む</div>
+    「Notion DBの最新内容を3サイトに反映して」<br>
+    「Notionに新しく追加した『○○カフェ』を3サイトに追加して」<br>
+    「Notionで『サイトに表示』のチェックを外したスポットを3サイトから消して」
+  </div>
+  <p>Claudeが日英・3サイトすべてに自動反映してくれる。</p>
+</div>
+
+<div class="step">
+  <div class="step-title"><span class="badge">STEP 3</span>GitHub Desktopで3サイト全部Push</div>
+  <p>スポット編集は <strong>必ず3サイト全部</strong> にCommit & Pushする：</p>
+  <ol>
+    <li>unplan-hakuba-guide → Commit & Push</li>
+    <li>Square8-Hakuba-Guide → Commit & Push</li>
+    <li>Maruhachi-Hakuba-Guide → Commit & Push</li>
+  </ol>
+</div>
+
+<hr>
+
+<h2><span class="emoji">🏠</span> B. 宿泊ガイド・その他の編集手順</h2>
+
+<p>各拠点ごとに内容が違うので、<strong>対象のサイトだけ</strong>編集すればOK。</p>
+
+<div class="step">
+  <div class="step-title"><span class="badge">STEP 1</span>Claudeに頼む（どの拠点か明示）</div>
+  <div class="example">
+    <div class="example-title">💬 こんな感じで頼む</div>
+    「UNPLAN（栂池）のstayページのチェックイン時間を16時に変更して」<br>
+    「丸八（岩岳）のhakubaページにアクセス情報追加して」<br>
+    「Square8（岩岳）のトップ画像を新しい写真に差し替えて」
+  </div>
+  <div class="tip">💡 「○○拠点（または○○サイト）の」と必ず最初に伝える</div>
+</div>
+
+<div class="step">
+  <div class="step-title"><span class="badge">STEP 2</span>GitHub Desktopで対象サイトだけPush</div>
+  <p>該当する1サイトだけCommit & Push：</p>
+  <ul>
+    <li>例：UNPLAN（栂池）のstay修正 → unplan-hakuba-guide だけPush</li>
+    <li>例：丸八（岩岳）のhakuba修正 → Maruhachi-Hakuba-Guide だけPush</li>
+    <li>例：Square8（岩岳）のstay修正 → Square8-Hakuba-Guide だけPush</li>
+  </ul>
+</div>
+
+<hr>
+
+<h2><span class="emoji">💬</span> Claudeへの頼み方の例</h2>
+
+<h3>スポット編集（必ずNotion経由）</h3>
+<div class="example">
+  「Notion DBに新しいスポット追加したから3サイトに反映して」<br>
+  「Notionで○○の営業時間変えたから3サイト更新して」<br>
+  「Notionでサイト非表示にしたスポットを3サイトから消して」
+</div>
+
+<h3>宿泊ガイドの編集（拠点ごと）</h3>
+<div class="example">
+  「UNPLAN（栂池）のstayの料金を○○円に変更して」<br>
+  「丸八（岩岳）のhakubaにアクセス方法を追加して」<br>
+  「Square8（岩岳）のトップ画像を差し替えて」
+</div>
+
+<h3>困ったとき</h3>
+<div class="example">
+  「○○ページに○○の記載があるか確認して」<br>
+  「最近の変更履歴を教えて」
+</div>
+
+<hr>
+
+<h2><span class="emoji">⚠️</span> 大事なルール</h2>
+
+<div class="rule-ok">
+  <strong>✅ ルール1：スポット編集は必ずNotion DBから</strong>
+  <p>Notion DBがマスター。先にNotionを変更してから、Claudeにサイト反映を頼む。</p>
+</div>
+
+<div class="rule-ok">
+  <strong>✅ ルール2：スポット編集の変更は3サイトすべて反映</strong>
+  <p>green-season（マップ）の内容は3サイト共通。Pushも3回必要。</p>
+</div>
+
+<div class="rule-ok">
+  <strong>✅ ルール3：宿泊ガイド等は拠点ごと個別</strong>
+  <p>stay / hakuba / index などの拠点情報は、該当サイトだけ編集すればOK。Claudeに「どの拠点か」必ず伝える。</p>
+</div>
+
+<div class="rule-ng">
+  <strong>❌ ルール4：Netlifyは絶対使わない</strong>
+  <p>「Netlify Drop」などは使わない。公開はGitHub経由のみ。</p>
+</div>
+
+<hr>
+
+<h2><span class="emoji">🚧</span> よくあるトラブル</h2>
+
+<table>
+  <tr><th>困ったこと</th><th>対処法</th></tr>
+  <tr><td>Pushが失敗する</td><td>"Fetch origin" → "Pull origin" してからやり直し</td></tr>
+  <tr><td>サイトが反映されない</td><td>1〜2分待つ。ブラウザで <code>Cmd+Shift+R</code></td></tr>
+  <tr><td>Claudeが「ファイルが見つからない」と言う</td><td>「書類フォルダにアクセス許可ある？」と確認</td></tr>
+  <tr><td>Claudeが間違った修正をした</td><td>「○○が違うから直して」と指摘。または GitHub Desktopで <strong>"Discard changes"</strong> でやり直し</td></tr>
+  <tr><td>スポット編集なのに3サイトに反映されてない</td><td>Notion DBで変更したか確認。3サイト全部Pushしたか確認</td></tr>
+</table>
+
+<hr>
+
+<h2><span class="emoji">✅</span> 編集チェックリスト</h2>
+
+<h3>スポット編集（A）</h3>
+<div class="step">
+  <ol>
+    <li>Notion DBで先に変更した</li>
+    <li>Claudeに「3サイトに反映して」と頼んだ</li>
+    <li>GitHub Desktopで <strong>3つのリポジトリ全部</strong> をPushした</li>
+    <li>1〜2分後に3サイト公開先で反映を確認した</li>
+  </ol>
+</div>
+
+<h3>宿泊ガイド・その他編集（B）</h3>
+<div class="step">
+  <ol>
+    <li>Claudeに「どの拠点か」を明示して頼んだ</li>
+    <li>該当する1サイトだけGitHub DesktopでPushした</li>
+    <li>1〜2分後に該当サイトで反映を確認した</li>
+  </ol>
+</div>
+
+<hr>
+
+<h2><span class="emoji">📧</span> 困ったら</h2>
+
+<p>Natsuhoに連絡 → <a href="mailto:natsuho@fika.tokyo">natsuho@fika.tokyo</a></p>
+
+<hr>
+
+<h2><span class="emoji">📝</span> まとめ</h2>
+
+<table>
+  <tr>
+    <th>編集内容</th>
+    <th>流れ</th>
+    <th>反映先</th>
+  </tr>
+  <tr>
+    <td><strong>スポット</strong><br>（マップ・観光情報）</td>
+    <td>Notion編集 → Claude → 3サイトPush</td>
+    <td>3サイトすべて</td>
+  </tr>
+  <tr>
+    <td><strong>宿泊ガイド等</strong><br>（拠点情報）</td>
+    <td>Claudeに拠点指定 → 該当サイトPush</td>
+    <td>該当拠点のサイトのみ</td>
+  </tr>
+</table>
+
+<p style="text-align:center; margin-top:40px; color:#888; font-size:13px;">
+  最終更新: 2026-06-29 / fika-tokyo
+</p>
+
+</body>
+</html>

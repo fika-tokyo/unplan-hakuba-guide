@@ -637,7 +637,7 @@ const spots = [
   // Tsugaike area (near UNPLAN)
   { name: 'ツガベース', nameEn: 'Tsuga Base', icon: '🍔', cat: 'rest', km: 0.05, area: '栂池', lat: 36.74928, lon: 137.87148, desc: 'Walkable from UNPLAN. Burger joint with a foot bath.', bike: true, hours: '10:00～22:00 (varies by day/season)', tip: 'Right next to UNPLAN. The easiest food stop.' },
   { name: '栂池高原のパノラマデッキ', nameEn: 'Tsugaike Panorama Deck', icon: '⭐', cat: 'spot', km: 0.05, area: '栂池', lat: 36.74921, lon: 137.87156, desc: '2-min walk from UNPLAN. Rooftop terrace next to the Tsugaike gondola — the easiest way to take in the Hakuba view.', bike: true, hp: 'https://www.tsugaike.gr.jp/', ig: '@tsugaike_kogen', hours: 'Year-round, free access', tip: 'Most beautiful at sunset (17–18). Great photo spot with the North Alps behind.' },
-  { name: '栂池WOW!', nameEn: 'Tsugaike WOW!', icon: '🌳', cat: 'spot', km: 0.07, area: '栂池', lat: 36.74938, lon: 137.87154, desc: 'A globally-talked-about adventure park — for the active types.', bike: true, hp: 'https://www.tsugaike.gr.jp/green/wow', ig: '@hakuba_tsugaike_wow_info', hours: '9:00～16:00 (green season)', tip: 'Mountain biking, "Tarzan" swing, zipline. Fun for adults and kids alike.' },
+  { name: '栂池WOW!', nameEn: 'Tsugaike WOW!', icon: '🌳', cat: 'spot', km: 0.07, area: '栂池', lat: 36.74938, lon: 137.87154, desc: 'A globally-talked-about adventure park — for the active types.', bike: true, hp: 'https://www.tsugaike.gr.jp/green/wow', ig: '@hakuba_tsugaike_wow_info', hours: '9:00～16:00 (green season)', tip: 'Mountain biking, "Tarzan" swing, zipline. Fun for adults and kids alike.', hidden: true },
   { name: '栂池高原（石の前）', nameEn: 'Tsugaike Kogen (Ishi-no-mae)', icon: '🌾', cat: 'spot', km: 0.13, area: '栂池', lat: 36.74958, lon: 137.87238, desc: 'Stunning combo of mountains and rice paddies.', bike: true, hours: '24 hrs', tip: 'Walkable from UNPLAN. The Alps across the rice paddies is beautiful.' },
   { name: '栂池ウッドチップロード', nameEn: 'Tsugaike Woodchip Road', icon: '🌲', cat: 'spot', km: 0.16, area: '栂池', lat: 36.76307, lon: 137.8167, desc: '10-min walk from UNPLAN. Great forest-bathing spot.', bike: true, hp: 'https://otarimura.com/wcr/b_tsugaike.html', hours: '24 hrs', tip: 'Highly recommended for early-morning walks!' },
   { name: 'HAKUBA BEER GARAGE', nameEn: 'Hakuba Beer Garage', icon: '🍺', cat: 'rest', km: 0.19, area: '栂池', lat: 36.74801, lon: 137.86973, desc: 'Opened Oct 2022 at the "Kane no Naru Oka" area of Tsugaike Kogen. Pub inside a brewery, with billiards.', bike: true, hp: 'https://hakubacraft.jp/', ig: '@hakuba_beer_garage', hours: 'Fri–Sun mainly（時期により変動）', tip: 'Local-favourite craft beer spot.' },
@@ -770,6 +770,7 @@ function categoryLabel(cat) {
 
 function filteredSpots() {
   return spots.filter(s => {
+    if (s.hidden) return false;
     if (currentFilter === 'all') return true;
     if (currentFilter === 'bike') return s.bike;
     if (currentFilter === 'cowork') return s.cowork === true;

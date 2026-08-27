@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>คู่มือ Green Season | UNPLAN Village Hakuba</title>
+<meta name="description" content="คู่มือ Green Season ฮาคุบะ — เส้นทางเดินป่า จุดชมวิว ออนเซ็น คาเฟ่และร้านอาหารคัดสรร อาหารท้องถิ่น และเส้นทางปั่นจักรยาน">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+  :root { --bg:#eeeeee; --surface:#ffffff; --ink:#000000; --ink-soft:#555555; --ink-muted:#999999; --line:#dddddd; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  body { font-family:'Outfit','Noto Sans Thai','Noto Sans JP',-apple-system,BlinkMacSystemFont,sans-serif; background:var(--bg); color:var(--ink); font-size:14px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  body.locked { overflow:hidden; }
+  h1,h2,h3,h4 { font-family:'Outfit','Noto Sans Thai','Noto Sans JP',sans-serif; font-weight:700; letter-spacing:-.01em; }
+  img { display:block; max-width:100%; height:auto; }
+  a { color:inherit; text-decoration:none; }
+  button { font:inherit; cursor:pointer; border:none; background:none; color:inherit; }
+  .nav { position:sticky; top:0; z-index:50; background:rgba(255,255,255,.96); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); padding:14px 32px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; }
+  .logo { font-family:'Outfit',sans-serif; font-weight:700; font-size:14px; letter-spacing:.12em; color:var(--ink); }
+  .nav-right { display:flex; align-items:center; gap:18px; }
+  .nav-links { display:none; gap:24px; font-size:12px; letter-spacing:.12em; }
+  .nav-links a { color:var(--ink-soft); transition:color .15s; }
+  .nav-links a:hover { color:var(--ink); }
+  @media (min-width:720px) { .nav-links { display:flex; } }
+  .book-btn { background:var(--ink); color:white; padding:10px 22px; border-radius:3px; font-size:12px; font-weight:600; letter-spacing:.14em; transition:all .2s; }
+  .book-btn:hover { transform:translateY(-1px); }
+  .breadcrumb { max-width:1280px; margin:0 auto; padding:24px 32px 0; font-size:11px; color:var(--ink-muted); letter-spacing:.1em; text-transform:uppercase; }
+  .breadcrumb a { color:var(--ink-soft); transition:color .15s; }
+  .breadcrumb a:hover { color:var(--ink); }
+  .breadcrumb .sep { margin:0 10px; opacity:.5; }
+  .breadcrumb .current { color:var(--ink); }
+  .hero { position:relative; height:80vh; min-height:540px; overflow:hidden; }
+  .hero-bg { position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.1) 0%,rgba(0,0,0,.5) 100%),url('images/hero-hakuba-view.jpg') center/cover; }
+  .hero-content { position:absolute; bottom:0; left:0; right:0; padding:0 32px 70px; color:white; max-width:1280px; margin:0 auto; }
+  .hero-eyebrow { font-size:11px; letter-spacing:.3em; text-transform:uppercase; opacity:.9; margin-bottom:18px; font-weight:500; }
+  .hero-title { font-size:clamp(40px,6vw,72px); line-height:1.1; font-weight:700; letter-spacing:-.02em; margin-bottom:20px; max-width:none; }
+  .hero-title span { white-space:nowrap; }
+  .hero-sub { font-size:clamp(14px,1.6vw,17px); opacity:.9; max-width:580px; line-height:1.6; }
+  .intro { padding:100px 32px 60px; background:var(--bg); }
+  .intro-wrap { max-width:880px; margin:0 auto; text-align:center; }
+  .intro-eyebrow { font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--ink-soft); font-weight:500; margin-bottom:18px; }
+  .intro-title { font-size:clamp(28px,4vw,42px); line-height:1.2; margin-bottom:24px; }
+  .intro-text { color:var(--ink-soft); font-size:16px; line-height:1.9; max-width:720px; margin:0 auto; }
+  .themes { padding:60px 32px 110px; background:var(--bg); }
+  .themes-wrap { max-width:1280px; margin:0 auto; }
+  .section-label { font-size:11px; letter-spacing:.25em; text-transform:uppercase; color:var(--ink-soft); font-weight:500; margin-bottom:16px; }
+  .section-h { font-size:clamp(28px,3.5vw,42px); margin-bottom:16px; font-weight:700; letter-spacing:-.02em; }
+  .section-sub { color:var(--ink-soft); font-size:15px; max-width:600px; }
+  .themes-grid { display:grid; grid-template-columns:1fr; gap:1px; background:var(--line); margin-top:50px; }
+  @media (min-width:720px) { .themes-grid { grid-template-columns:1fr 1fr; } }
+  @media (min-width:1100px) { .themes-grid { grid-template-columns:repeat(4,1fr); } }
+  .theme-card { background:white; cursor:pointer; transition:transform .3s,background .2s; display:flex; flex-direction:column; }
+  .theme-card:hover { background:#fafafa; }
+  .theme-img { aspect-ratio:5/4; background-size:cover; background-position:center; }
+  .theme-body { padding:30px 28px 36px; flex:1; display:flex; flex-direction:column; }
+  .theme-num { font-size:11px; letter-spacing:.25em; text-transform:uppercase; color:var(--ink-muted); font-weight:500; margin-bottom:12px; }
+  .theme-title { font-size:22px; margin-bottom:12px; font-weight:700; }
+  .theme-desc { font-size:13px; color:var(--ink-soft); line-height:1.7; flex:1; margin-bottom:20px; }
+  .theme-link { display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:var(--ink); }
+  .theme-link::after { content:'→'; transition:transform .2s; }
+  .theme-card:hover .theme-link::after { transform:translateX(4px); }
+  .spots { padding:110px 32px; background:white; border-top:1px solid var(--line); }
+  .spots-wrap { max-width:1280px; margin:0 auto; }
+  .map-block { margin-top:50px; border:1px solid var(--line); position:relative; height:480px; overflow:hidden; }
+  @media (max-width:720px) { .map-block { height:380px; } }
+  #map { width:100%; height:100%; z-index:1; background:#f4f4f0; }
+  .map-legend { position:absolute; bottom:14px; left:14px; z-index:1000; background:white; padding:12px 14px; border:1px solid var(--line); border-radius:3px; font-size:11px; letter-spacing:.04em; box-shadow:0 2px 8px rgba(0,0,0,.08); }
+  .map-legend > div { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+  .map-legend > div:last-child { margin-bottom:0; }
+  .map-legend .legend-unplan { width:14px; height:14px; background:var(--ink); border-radius:50%; border:2px solid white; box-shadow:0 0 0 1px var(--ink); }
+  .map-legend .legend-spot { width:14px; height:14px; background:white; border:2px solid var(--ink); border-radius:50%; }
+  .map-legend .legend-circle { width:14px; height:14px; border:1.5px dashed var(--ink-soft); border-radius:50%; }
+  .map-note { font-size:11px; color:var(--ink-muted); margin-top:14px; letter-spacing:.04em; }
+  .leaflet-marker-icon.unplan-pin { background:transparent !important; border:none !important; }
+  .unplan-marker { width:56px; height:56px; background:var(--ink); color:white; border:3px solid white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; letter-spacing:.05em; box-shadow:0 2px 12px rgba(0,0,0,.35); cursor:default; }
+  .leaflet-marker-icon.spot-pin { background:transparent !important; border:none !important; }
+  .spot-marker { width:32px; height:32px; background:white; border:2px solid var(--ink); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px; cursor:pointer; transition:transform .2s,z-index 0s; box-shadow:0 2px 6px rgba(0,0,0,.2); }
+  .spot-marker:hover { transform:scale(1.25); z-index:1000; }
+  .leaflet-tooltip { background:var(--ink); color:white; border:none; font-family:'Outfit','Noto Sans Thai','Noto Sans JP',sans-serif; font-size:12px; font-weight:600; padding:6px 10px; border-radius:3px; box-shadow:0 2px 8px rgba(0,0,0,.2); }
+  .leaflet-tooltip-top:before { border-top-color:var(--ink); }
+  .filter-bar { display:flex; gap:8px; overflow-x:auto; padding:0 0 4px; margin:30px 0 30px; -webkit-overflow-scrolling:touch; }
+  .filter-btn { padding:10px 22px; border:1px solid var(--line); border-radius:3px; background:white; color:var(--ink-soft); font-size:12px; font-weight:600; white-space:nowrap; transition:all .15s; letter-spacing:.1em; }
+  .filter-btn:hover { border-color:var(--ink); color:var(--ink); }
+  .filter-btn.active { background:var(--ink); color:white; border-color:var(--ink); }
+  .spots-grid { display:grid; grid-template-columns:1fr; gap:1px; background:var(--line); border:1px solid var(--line); }
+  @media (min-width:720px) { .spots-grid { grid-template-columns:repeat(2,1fr); } }
+  @media (min-width:1100px) { .spots-grid { grid-template-columns:repeat(3,1fr); } }
+  .spot-card { background:white; padding:24px; display:flex; gap:16px; align-items:flex-start; transition:background .15s; cursor:pointer; position:relative; }
+  .spot-card:hover { background:#fafafa; }
+  .spot-card::after { content:'→'; position:absolute; right:22px; top:50%; transform:translateY(-50%); color:var(--ink-muted); font-size:18px; opacity:0; transition:opacity .2s,transform .2s; }
+  .spot-card:hover::after { opacity:1; transform:translateY(-50%) translateX(2px); }
+  .spot-icon { width:48px; height:48px; background:var(--bg); display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0; }
+  .spot-info { flex:1; min-width:0; }
+  .spot-name { font-size:16px; font-weight:700; margin-bottom:6px; padding-right:18px; }
+  .spot-meta { font-size:11px; color:var(--ink-muted); margin-bottom:10px; display:flex; gap:12px; flex-wrap:wrap; letter-spacing:.08em; text-transform:uppercase; }
+  .spot-meta .km { color:var(--ink); font-weight:700; }
+  .spot-meta .pill.bike { color:var(--ink); font-weight:700; }
+  .spot-desc { font-size:13px; color:var(--ink-soft); line-height:1.6; }
+  .empty-msg { grid-column:1 / -1; text-align:center; padding:60px 20px; color:var(--ink-muted); font-size:14px; background:white; }
+  .modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:2000; display:none; align-items:flex-end; justify-content:center; opacity:0; transition:opacity .25s ease; }
+  @media (min-width:720px) { .modal-backdrop { align-items:center; padding:40px; } }
+  .modal-backdrop.show { display:flex; opacity:1; }
+  .modal { background:white; width:100%; max-width:600px; max-height:92vh; overflow-y:auto; position:relative; transform:translateY(40px); transition:transform .35s cubic-bezier(.2,.7,.3,1); }
+  @media (min-width:720px) { .modal { border-radius:4px; max-height:86vh; } }
+  .modal-backdrop.show .modal { transform:translateY(0); }
+  .modal-img { aspect-ratio:16/9; background-size:cover; background-position:center; background-color:var(--bg); display:flex; align-items:center; justify-content:center; font-size:80px; opacity:.35; }
+  .modal-close { position:absolute; top:16px; right:16px; width:40px; height:40px; background:rgba(255,255,255,.95); backdrop-filter:blur(8px); border-radius:50%; font-size:20px; line-height:1; color:var(--ink); display:flex; align-items:center; justify-content:center; transition:transform .2s; z-index:1; }
+  .modal-close:hover { transform:scale(1.1); }
+  .modal-body { padding:36px 32px 32px; }
+  .modal-meta { font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-muted); font-weight:600; margin-bottom:12px; }
+  .modal-title { font-size:30px; line-height:1.15; margin-bottom:18px; font-weight:700; }
+  .modal-pills { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px; }
+  .modal-pill { padding:6px 14px; background:var(--bg); border-radius:3px; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); font-weight:600; }
+  .modal-pill.km { background:var(--ink); color:white; }
+  .modal-pill.bike { background:#fff5e0; color:#855500; }
+  .modal-desc { font-size:15px; color:var(--ink-soft); line-height:1.85; margin-bottom:28px; }
+  .modal-note { background:#fff5e0; border-left:3px solid #c08800; padding:12px 16px; margin:20px 0; font-size:13px; color:var(--ink); line-height:1.6; }
+  .modal-info { border-top:1px solid var(--line); padding-top:24px; margin-bottom:24px; }
+  .modal-row { display:flex; gap:14px; align-items:flex-start; padding:10px 0; font-size:14px; }
+  .modal-row-icon { flex-shrink:0; font-size:16px; color:var(--ink-muted); width:24px; }
+  .modal-row-content { color:var(--ink); flex:1; line-height:1.5; }
+  .modal-row-content strong { font-weight:600; }
+  .modal-row a { color:var(--ink); border-bottom:1px solid var(--ink); }
+  .modal-actions { display:flex; flex-wrap:wrap; gap:10px; padding-top:4px; }
+  .modal-btn { padding:12px 20px; font-size:12px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; border-radius:3px; transition:all .2s; display:inline-flex; align-items:center; gap:8px; }
+  .modal-btn.primary { background:var(--ink); color:white; }
+  .modal-btn.primary:hover { transform:translateY(-2px); }
+  .modal-btn.secondary { border:1px solid var(--line); background:white; color:var(--ink); }
+  .modal-btn.secondary:hover { border-color:var(--ink); }
+  .info-section { background:var(--bg); padding:110px 32px; }
+  .info-wrap { max-width:1280px; margin:0 auto; }
+  .info-grid { display:grid; grid-template-columns:1fr; gap:1px; background:var(--line); margin-top:50px; }
+  @media (min-width:720px) { .info-grid { grid-template-columns:repeat(3,1fr); } }
+  .info-card { background:white; padding:36px 32px; }
+  .info-card h3 { font-size:18px; margin-bottom:16px; font-weight:700; padding-bottom:16px; border-bottom:1px solid var(--line); }
+  .info-card p, .info-card li { font-size:13px; color:var(--ink-soft); margin-bottom:6px; list-style:none; line-height:1.7; }
+  .info-card strong { color:var(--ink); font-weight:600; }
+  .info-card a { color:var(--ink); border-bottom:1px solid var(--line); }
+  .info-emergency { background:var(--ink); color:white; padding:14px 16px; margin-top:16px; font-size:13px; }
+  .info-emergency strong { color:white; font-size:14px; }
+  .info-emergency a { color:white; border-bottom-color:rgba(255,255,255,.4); }
+  .faq-section { padding:110px 32px; background:white; }
+  .faq-wrap { max-width:880px; margin:0 auto; }
+  details.faq { border-bottom:1px solid var(--line); padding:24px 0; }
+  details.faq summary { cursor:pointer; font-weight:700; font-size:16px; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:16px; }
+  details.faq summary::-webkit-details-marker { display:none; }
+  details.faq summary::after { content:'+'; font-size:22px; color:var(--ink-muted); transition:transform .3s; flex-shrink:0; }
+  details.faq[open] summary::after { transform:rotate(45deg); }
+  details.faq p { color:var(--ink-soft); font-size:14px; margin-top:14px; line-height:1.7; }
+  footer { background:var(--ink); color:rgba(255,255,255,.6); padding:80px 32px 40px; }
+  .footer-wrap { max-width:1100px; margin:0 auto; }
+  .footer-top { display:grid; grid-template-columns:1fr; gap:40px; padding-bottom:50px; border-bottom:1px solid rgba(255,255,255,.1); }
+  @media (min-width:720px) { .footer-top { grid-template-columns:1fr 2fr; } }
+  .footer-logo { font-family:'Outfit',sans-serif; font-weight:700; font-size:24px; letter-spacing:.2em; color:white; margin-bottom:16px; display:block; }
+  .footer-tagline { font-size:13px; line-height:1.8; }
+  .footer-links { display:grid; grid-template-columns:repeat(2,1fr); gap:30px; }
+  @media (min-width:720px) { .footer-links { grid-template-columns:repeat(3,1fr); } }
+  .footer-col h4 { font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:white; font-weight:600; margin-bottom:16px; }
+  .footer-col a, .footer-col p { display:block; font-size:13px; color:rgba(255,255,255,.6); line-height:1.8; margin-bottom:6px; transition:color .15s; }
+  .footer-col a:hover { color:white; }
+  .footer-bottom { padding-top:30px; text-align:center; font-size:11px; color:rgba(255,255,255,.4); letter-spacing:.1em; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="logo">UNPLAN Village Hakuba</a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="hakuba-th.html">← คู่มือท้องถิ่น</a>
+      <a href="stay-th.html">ที่พัก</a>
+      <a href="#themes">ธีม</a>
+      <a href="#spots">แผนที่ & สถานที่</a>
+      <a href="#faq">คำถามพบบ่อย</a>
+    </div>
+    <div class="lang-switch" style="display:flex; gap:2px; font-size:12px; color:#555; letter-spacing:.08em">
+      <a href="green-season.html" style="padding:4px 8px; opacity:.6">JP</a><span class="divider" style="opacity:.4; padding:0 2px">/</span><a href="green-season-en.html" style="padding:4px 8px; opacity:.6">EN</a><span class="divider" style="opacity:.4; padding:0 2px">/</span><a class="active" style="padding:4px 8px; font-weight:600; color:#000">TH</a>
+    </div>
+    <a href="https://go-uvh.reservation.jp/en" target="_blank" class="book-btn">BOOK NOW</a>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <a href="index.html">ยินดีต้อนรับ</a>
+  <span class="sep">/</span>
+  <a href="hakuba-th.html">สัมผัสฮาคุบะ</a>
+  <span class="sep">/</span>
+  <span class="current">Green Season</span>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">คู่มือ Green Season — ฮาคุบะ</div>
+    <h1 class="hero-title">Green Season ในฮาคุบะ</h1>
+    <p class="hero-sub">ที่ระดับความสูง 700 เมตร ฮาคุบะเย็นสบายตั้งแต่ฤดูใบไม้ผลิถึงฤดูใบไม้ร่วง เดินป่าบนเทือกเขาแอลป์ คาเฟ่ริมแม่น้ำ ออนเซ็นวิวภูเขา และโซบะตามฤดูกาลในบ้านชาวนาโบราณ — ฤดูเขียวเต็มไปด้วยความสุขแบบเงียบสงบและวัฒนธรรมท้องถิ่น</p>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="intro">
+  <div class="intro-wrap">
+    <div class="intro-eyebrow">Green Season ในฮาคุบะ</div>
+    <h2 class="intro-title">ภูเขา ทะเลสาบ และออนเซ็น<br>ฤดูร้อนคือฤดูที่เงียบสงบและอ่อนโยนที่สุดของฮาคุบะ</h2>
+    <p class="intro-text">ต่างจากฝูงชนเล่นสกีในฤดูหนาว ฮาคุบะในฤดูร้อนนั้นเงียบสงบ — เสียงนกร้อง ลำธารบนภูเขา และคืนที่เต็มไปด้วยดาว มีทั้งเดินป่า SUP เล่นริมทะเลสาบ เที่ยวออนเซ็น และคาเฟ่/ร้านโซบะโปรดของคนท้องถิ่น เลือกจังหวะของคุณจาก 4 ธีมด้านล่าง</p>
+  </div>
+</section>
+
+<!-- THEMES -->
+<section class="themes" id="themes">
+  <div class="themes-wrap">
+    <div class="section-label">4 วิธีเพลิดเพลิน</div>
+    <h2 class="section-h">4 วิธีเพลิดเพลินฤดูร้อน</h2>
+    <p class="section-sub">แตะธีมเพื่อกรองแผนที่และรายการสถานที่ด้านล่าง</p>
+
+    <div class="themes-grid">
+      <div class="theme-card" data-jump="spot">
+        <div class="theme-img" style="background-image:url('images/theme-hiking.jpg')"></div>
+        <div class="theme-body">
+          <div class="theme-num">01 — ธรรมชาติ</div>
+          <h3 class="theme-title">เดินป่า & ชมวิว</h3>
+          <p class="theme-desc">สระน้ำฮัปโปะ อุทยานธรรมชาติสึกาอิเคะ สวนโออิเดะ — ตั้งแต่พืชอัลไพน์ระดับ 2,000 เมตร ไปจนถึงภาพคลาสสิกของบ้านชาวนา สะพานแขวน และยอดเขาสามยอดฮาคุบะ</p>
+          <span class="theme-link">ดูสถานที่</span>
+        </div>
+      </div>
+
+      <div class="theme-card" data-jump="onsen">
+        <div class="theme-img" style="background-image:url('images/theme-onsen.jpg')"></div>
+        <div class="theme-body">
+          <div class="theme-num">02 — ออนเซ็น</div>
+          <h3 class="theme-title">เที่ยวออนเซ็น</h3>
+          <p class="theme-desc">น้ำแร่ด่างสูงที่สุดในญี่ปุ่นที่ Mimizuku no Yu วิวเทือกเขาแอลป์เหนือที่ Kurashita no Yu อ่างซีดาร์ที่ Iwatake no Yu หนึ่งวันเที่ยวออนเซ็นแบบไปเช้าเย็นกลับ</p>
+          <span class="theme-link">ดูออนเซ็น</span>
+        </div>
+      </div>
+
+      <div class="theme-card" data-jump="cafe">
+        <div class="theme-img" style="background-image:url('https://unplan.jp/wp-content/uploads/IMG_1727-scaled.jpg')"></div>
+        <div class="theme-body">
+          <div class="theme-num">03 — คาเฟ่ & ร้านอาหาร</div>
+          <h3 class="theme-title">คาเฟ่ & ร้านอาหาร</h3>
+          <p class="theme-desc">กาแฟคั่วเองในร้าน แซนด์วิชวัตถุดิบท้องถิ่น โซบะชินชู ยากินิกุ คราฟต์เบียร์ — สถานที่ที่ทีมงาน UNPLAN ไปจริง</p>
+          <span class="theme-link">ดูคาเฟ่ & ร้านอาหาร</span>
+        </div>
+      </div>
+
+      <div class="theme-card" data-jump="bike">
+        <div class="theme-img" style="background-image:url('https://unplan.jp/wp-content/uploads/IMG_7141-scaled.jpg')"></div>
+        <div class="theme-body">
+          <div class="theme-num">04 — จักรยาน</div>
+          <h3 class="theme-title">สำรวจด้วยจักรยาน</h3>
+          <p class="theme-desc">จาก UNPLAN มีสถานที่ 30+ แห่งที่ปั่นจักรยานได้ภายใน 8 กม. E-bike ทำให้ทุกอย่างง่าย เที่ยว Green Season ฮาคุบะบนจักรยาน 2 ล้อ</p>
+          <span class="theme-link">ดูสถานที่ปั่นจักรยานได้</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPOTS + MAP -->
+<section class="spots" id="spots">
+  <div class="spots-wrap">
+    <div class="section-label">แผนที่ & สถานที่ทั้งหมด</div>
+    <h2 class="section-h">สถานที่ทั้งหมด</h2>
+    <p class="section-sub">แผนที่แสดงระยะทางจาก UNPLAN แตะที่หมุดหรือการ์ดเพื่อดูรายละเอียด</p>
+
+    <div class="map-block">
+      <div id="map"></div>
+      <div class="map-legend">
+        <div><span class="legend-unplan"></span>UNPLAN</div>
+        <div><span class="legend-spot"></span>สถานที่</div>
+        <div><span class="legend-circle"></span>รัศมี 5 / 8 กม.</div>
+      </div>
+    </div>
+    <p class="map-note">📍 วงกลม 5 กม. / 8 กม. รอบ UNPLAN ภายในระยะ 8 กม. สามารถปั่นจักรยานได้</p>
+
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-filter="all">ทั้งหมด</button>
+      <button class="filter-btn" data-filter="bike">🚲 จักรยานได้</button>
+      <button class="filter-btn" data-filter="onsen">♨️ ออนเซ็น</button>
+      <button class="filter-btn" data-filter="cafe">☕ คาเฟ่</button>
+      <button class="filter-btn" data-filter="rest">🍽 ร้านอาหาร</button>
+      <button class="filter-btn" data-filter="cowork">💻 ทำงาน</button>
+      <button class="filter-btn" data-filter="spot">⭐ สถานที่</button>
+    </div>
+
+    <div class="spots-grid" id="spotsGrid"></div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modal">
+  <div class="modal" id="modalContent">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<!-- PRACTICAL INFO -->
+<section class="info-section" id="info">
+  <div class="info-wrap">
+    <div class="section-label">ข้อมูลสำคัญ</div>
+    <h2 class="section-h">ข้อมูลสำคัญ</h2>
+    <p class="section-sub">การเดินทาง การแพทย์ และเบอร์ติดต่อฉุกเฉิน</p>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>🚕 แท็กซี่</h3>
+        <ul>
+          <li><strong>Hakuba Kanko Taxi</strong></li>
+          <li>สถานีฮาคุบะ: <a href="tel:0261-72-2144">0261-72-2144</a></li>
+          <li>สาขาฮัปโปะ: <a href="tel:0261-72-2327">0261-72-2327</a></li>
+          <li style="margin-top:10px"><strong>Alps Daiichi Kotsu</strong></li>
+          <li>ฮาคุบะ: <a href="tel:0261-72-2221">0261-72-2221</a></li>
+          <li style="margin-top:10px"><strong>Alpico Taxi</strong></li>
+          <li>ฮาคุบะ: <a href="tel:0261-72-2236">0261-72-2236</a></li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>🏥 คลินิก</h3>
+        <p><strong>Hakuba International Clinic</strong></p>
+        <p style="margin:10px 0">เจ้าหน้าที่ทุกคนพูดภาษาอังกฤษได้</p>
+        <p>📞 <a href="tel:0261-85-2264">0261-85-2264</a></p>
+        <p>⏰ 10:00〜17:00 น.</p>
+        <p>📍 3020-1393 Hokujo, Hakuba-mura</p>
+        <p style="margin-top:10px"><a href="https://hic-med.com/en/home-en/" target="_blank">hic-med.com →</a></p>
+      </div>
+
+      <div class="info-card">
+        <h3>📍 UNPLAN Base</h3>
+        <p>เกสต์เฮาส์ในสึกาอิเคะโคเกน — ฐานพักที่เหมาะกับการซึมซับธรรมชาติของฮาคุบะ</p>
+        <p style="margin-top:14px"><strong>เช่าจักรยาน:</strong> ถามที่ฟรอนต์เดสก์</p>
+        <div class="info-emergency">
+          <strong>🆘 กรณีฉุกเฉิน</strong><br>
+          รถพยาบาล & เพลิงไหม้ <strong>119</strong><br>
+          ตำรวจ <strong>110</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="faq-wrap">
+    <div class="section-label">คำถามพบบ่อย</div>
+    <h2 class="section-h" style="margin-bottom:50px">คำถามพบบ่อย</h2>
+
+    <details class="faq">
+      <summary>ตอนกลางคืนหนาวไหม แม้ในเดือนสิงหาคม?</summary>
+      <p>ใช่ — กลางคืนอุณหภูมิอาจลดลงถึง 18–20℃ เสื้อแขนยาวหรือฮู้ดตัวบางช่วยได้ สำหรับพื้นที่สูง 1,400 เมตรขึ้นไป (Usagidaira, สระน้ำฮัปโปะ) ควรพกเสื้อฟลีซไปด้วย</p>
+    </details>
+    <details class="faq">
+      <summary>เดินเที่ยวด้วยรองเท้าแตะได้ไหม?</summary>
+      <p>บริเวณหมู่บ้านได้ แต่การเดินป่าที่สระน้ำฮัปโปะและอุทยานธรรมชาติสึกาอิเคะต้องใส่รองเท้าผ้าใบหรือรองเท้าเทรกกิ้ง เจ้าหน้าที่ลิฟต์จะเตือนคุณด้วย</p>
+    </details>
+    <details class="faq">
+      <summary>เที่ยวโดยไม่ใช้รถได้ไหม?</summary>
+      <p>ได้ ฮัปโปะ อิวาตาเกะ และสึกาอิเคะเข้าถึงได้ด้วยรถบัสและรถชัตเทิล คาเฟ่และอิซากายะในเอโคแลนด์เดินไปได้ และส่วนใหญ่อยู่ในระยะที่ปั่นจักรยานได้จาก UNPLAN</p>
+    </details>
+    <details class="faq">
+      <summary>เช่า E-bike ได้ไหม?</summary>
+      <p>ถามที่ฟรอนต์เดสก์ UNPLAN ร้านเช่าจักรยานหลายแห่งในหมู่บ้านมี E-bike ให้เช่าแล้ว จองล่วงหน้าในช่วงพีคซีซั่น</p>
+    </details>
+    <details class="faq">
+      <summary>ทำอะไรได้ถ้าฝนตก?</summary>
+      <p>คอมโบคลาสสิก: ทัวร์คาเฟ่ + ออนเซ็น + อิซากายะ Mountain Harbor อาจสวยแบบเซ็นเซชั่นเมื่อมีทะเลเมฆในวันที่มีหมอก บางครั้งวันที่พยากรณ์ว่ามีหมอกก็เป็นเวลาที่ดีที่สุดในการไป</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-wrap">
+    <div class="footer-top">
+      <div>
+        <a href="index.html" class="footer-logo">UNPLAN Village Hakuba</a>
+        <p class="footer-tagline">คู่มือท่องเที่ยว<br>โดย UNPLAN Village Hakuba</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>คู่มือ</h4>
+          <a href="index.html">ยินดีต้อนรับ</a>
+          <a href="hakuba-th.html">สัมผัสฮาคุบะ</a>
+          <a href="green-season-th.html">คู่มือ Green Season</a>
+        </div>
+        <div class="footer-col">
+          <h4>UNPLAN Hakuba</h4>
+          <a href="https://unplan.jp/hakuba" target="_blank">เว็บไซต์ทางการ</a>
+          <a href="https://go-uvh.reservation.jp/en" target="_blank">จองที่พัก</a>
+          <a href="https://www.instagram.com/unplan_village_hakuba/" target="_blank">Instagram</a>
+          <a href="https://unplan.jp/contact" target="_blank">ติดต่อ</a>
+        </div>
+        <div class="footer-col">
+          <h4>UNPLAN Group</h4>
+          <a href="https://unplan.jp" target="_blank">Grand Top</a>
+          <a href="https://unplan.jp/kagurazaka" target="_blank">Kagurazaka</a>
+          <a href="https://unplan.jp/shinjuku" target="_blank">Shinjuku</a>
+          <a href="https://unplan.jp/fukuoka" target="_blank">Fukuoka</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© UNPLAN — UNPLAN Village Hakuba, Tsugaike Kogen / Otari-mura, Nagano</div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const UNPLAN = [36.7488, 137.8716];
+const spots = [
+  { name: 'ツガベース', nameEn: 'Tsuga Base', icon: '🍔', cat: 'rest', km: 0.05, area: '栂池', lat: 36.74928, lon: 137.87148, desc: 'เดินได้จาก UNPLAN ร้านเบอร์เกอร์พร้อมบ่อน้ำแช่เท้า', bike: true, hours: '10:00–22:00 (แตกต่างตามวัน/ฤดู)', tip: 'อยู่ติด UNPLAN ที่กินที่ง่ายที่สุด' },
+  { name: '栂池高原のパノラマデッキ', nameEn: 'Tsugaike Panorama Deck', icon: '⭐', cat: 'spot', km: 0.05, area: '栂池', lat: 36.74921, lon: 137.87156, desc: 'เดิน 2 นาทีจาก UNPLAN ระเบียงชั้นบนดาดฟ้าติดกระเช้าสึกาอิเคะ — วิธีที่ง่ายที่สุดในการชมวิวฮาคุบะ', bike: true, hp: 'https://www.tsugaike.gr.jp/', ig: '@tsugaike_kogen', hours: 'เปิดตลอดปี ฟรี', tip: 'สวยที่สุดตอนพระอาทิตย์ตก (17–18 น.) จุดถ่ายภาพยอดเยี่ยมพร้อมเทือกเขาแอลป์เหนือเป็นฉากหลัง' },
+  { name: '栂池WOW!', nameEn: 'Tsugaike WOW!', icon: '🌳', cat: 'spot', km: 0.07, area: '栂池', lat: 36.74938, lon: 137.87154, desc: 'สวนสนุกผจญภัยที่ได้รับการพูดถึงระดับโลก — สำหรับคนที่ชอบกิจกรรม', bike: true, hp: 'https://www.tsugaike.gr.jp/green/wow', ig: '@hakuba_tsugaike_wow_info', hours: '9:00–16:00 (ฤดูเขียว)', tip: 'ปั่นจักรยานภูเขา ชิงช้าทาร์ซาน ซิปไลน์ สนุกทั้งเด็กและผู้ใหญ่', hidden: true },
+  { name: '栂池高原（石の前）', nameEn: 'Tsugaike Kogen (Ishi-no-mae)', icon: '🌾', cat: 'spot', km: 0.13, area: '栂池', lat: 36.74958, lon: 137.87238, desc: 'ผสมผสานระหว่างภูเขาและนาข้าวที่สวยงาม', bike: true, hours: '24 ชม.', tip: 'เดินได้จาก UNPLAN เทือกเขาแอลป์เหนือนาข้าวสวยมาก' },
+  { name: '栂池ウッドチップロード', nameEn: 'Tsugaike Woodchip Road', icon: '🌲', cat: 'spot', km: 0.16, area: '栂池', lat: 36.76307, lon: 137.8167, desc: 'เดิน 10 นาทีจาก UNPLAN จุดอาบป่าที่ยอดเยี่ยม', bike: true, hp: 'https://otarimura.com/wcr/b_tsugaike.html', hours: '24 ชม.', tip: 'แนะนำสำหรับการเดินตอนเช้าตรู่!' },
+  { name: 'HAKUBA BEER GARAGE', nameEn: 'Hakuba Beer Garage', icon: '🍺', cat: 'rest', km: 0.19, area: '栂池', lat: 36.74801, lon: 137.86973, desc: 'เปิดในเดือน ต.ค. 2022 ที่บริเวณ "Kane no Naru Oka" ของสึกาอิเคะโคเกน ผับในโรงเบียร์ พร้อมโต๊ะบิลเลียด', bike: true, hp: 'https://hakubacraft.jp/', ig: '@hakuba_beer_garage', hours: 'ศ.–อา. เป็นหลัก (แตกต่างตามฤดู)', tip: 'จุดคราฟต์เบียร์ยอดนิยมของคนท้องถิ่น' },
+  { name: '栂池パノラマ橋', nameEn: 'Tsugaike Panorama Bridge', icon: '🌉', cat: 'spot', km: 0.21, area: '栂池', lat: 36.75942, lon: 137.82097, desc: 'สะพานที่เปิดในเดือน พ.ย. 2013 วิวเทือกเขาสามยอดฮาคุบะและนาขั้นบันได เดิน 10 นาทีจาก UNPLAN', bike: true, hp: 'https://www.tsugaike.gr.jp/', hours: '24 ชม.', tip: 'พระอาทิตย์ตกจากสะพานสวยมาก' },
+  { name: '鐘の鳴る丘', nameEn: 'Kane no Naru Oka (Bell Hill)', icon: '🔔', cat: 'spot', km: 0.49, area: '栂池', lat: 36.74897, lon: 137.86615, desc: 'หอสีขาวปลายแหลม กล่าวกันว่าตีระฆังกับคนพิเศษแล้วจะพบความสุข', bike: true, hours: '24 ชม.', tip: 'สัญลักษณ์ของสึกาอิเคะโคเกน' },
+  { name: 'からすのパンやさん', nameEn: 'Karasu no Pan-ya-san (Crow Bakery)', icon: '🥐', cat: 'cafe', km: 1.97, area: '栂池', lat: 36.75992, lon: 137.88876, desc: 'ร้านเบเกอรี่จากหนังสือภาพยอดนิยม "Karasu no Pan-ya-san" ทำโดยเบเกอร์ที่ฝึกในเยอรมนี', bike: true, hours: '10:00–17:00 (ปิดอังคาร/พุธ จนหมด)', tip: 'ป้ายน่ารัก ซื้อกลับเท่านั้น' },
+  { name: '千国の庄史料館', nameEn: 'Chikuni-no-Sho Museum', icon: '🏛️', cat: 'spot', km: 2.15, area: '栂池', lat: 36.75633, lon: 137.89378, desc: 'พิพิธภัณฑ์ประวัติศาสตร์บูรณะจากด่านตรวจ "Chikuni Highway" (Salt Road) มีคลังเกลืออยู่ในพื้นที่', bike: true, hp: 'https://www.82bunka.or.jp/bunkashisetsu/detail.php?no=290', hours: '9:00–16:30 (ปิดฤดูหนาว)', tip: 'คลังเกลือสร้างโดยไม่ใช้ตะปูเหล็กเลย' },
+  { name: 'パン香房 一輪の華', nameEn: 'Pankobo Ichirin-no-Hana Bakery', icon: '🥖', cat: 'cafe', km: 4.62, area: '栂池', lat: 36.77779, lon: 137.90868, desc: 'ร้านเบเกอรี่ที่โด่งดังเรื่องเดนิช ลองครีมกล้วยดู', bike: true, hours: '9:00–18:00 (วันหยุดไม่แน่นอน จนหมด)', tip: 'ไม่มีที่นั่ง — ซื้อกลับเท่านั้น' },
+  { name: '栂池自然園', nameEn: 'Tsugaike Nature Park', icon: '🌼', cat: 'spot', km: 8.51, area: '栂池', lat: 36.7705, lon: 137.78, desc: 'พื้นที่ชุ่มน้ำอัลไพน์ 1,900 เมตร เส้นทางเดิน 5.5 กม. ผ่านพืชอัลไพน์และวิวเทือกเขาฮาคุบะ', bike: false, hp: 'https://www.tsugaike.gr.jp/green/', ig: '@shizenen', hours: '8:00–16:20 / ต้น มิ.ย.–ปลาย ต.ค.', note: '※ ต้องใช้กระเช้า + โรปเวย์ — จักรยานไม่ได้', tip: 'มิถุนายน = ดอก Skunk cabbage, ก.ค.–ส.ค. = พืชอัลไพน์, ก.ย.–ต.ค. = ใบไม้เปลี่ยนสี แนะนำแผนครึ่งวัน' },
+  { name: 'ホテルグリーンプラザ白馬', nameEn: 'Hotel Green Plaza Hakuba', icon: '🏨', cat: 'spot', km: 10.3, area: 'コルチナ', lat: 36.77565699, lon: 137.88780206, desc: 'โรงแรมรีสอร์ทหน้า Hakuba Cortina Ski Resort มีบริการออนเซ็นแบบไปเช้าเย็นกลับ', bike: false, hp: 'https://www.hgp.co.jp/hakuba/', hours: 'ออนเซ็นไปเช้าเย็นกลับ 12:00–15:00', tip: 'มีผ้าเช็ดตัวและร้านอาหาร ดูเหมือนหลุดมาจากยุโรป', note: '※ เกิน 10 กม. — แนะนำใช้รถ' },
+
+  { name: 'おびなたの湯', nameEn: 'Obinata no Yu', icon: '♨️', cat: 'onsen', km: 5.13, area: '八方', lat: 36.71937, lon: 137.8272, desc: 'ออนเซ็นที่ใกล้แหล่งกำเนิดมากที่สุด น้ำไฮโดรเจนธรรมชาติ — กล่าวกันว่าช่วยชะลอวัย', bike: true, hours: '12:00–18:00 (เฉพาะฤดูร้อน: กลาง ก.ค.–กลาง ต.ค. ฯลฯ)', tip: 'ออนเซ็นแหล่งกำเนิดที่มีเฉพาะฤดูร้อน หาที่ไหนไม่ได้' },
+  { name: 'みみずくの湯', nameEn: 'Mimizuku no Yu', icon: '♨️', cat: 'onsen', km: 5.37, area: '八方', lat: 36.69727168, lon: 137.85553354, desc: 'บ่ออาบน้ำกลางแจ้งพร้อมสันเขาฮัปโปะและเทือกเขาสามยอดฮาคุบะเป็นฉากหลัง', bike: true, hp: 'https://hakuba-happo-onsen.jp/mimizukunoyu/', hours: '10:00–21:30', tip: 'น้ำนุ่มๆ ช่วยเพิ่มความงาม' },
+  { name: '八方の湯', nameEn: 'Happo no Yu', icon: '♨️', cat: 'onsen', km: 5.82, area: '八方', lat: 36.6988, lon: 137.8523, desc: 'ออนเซ็นแบบไปเช้าเย็นกลับที่ใหญ่ที่สุดในฮัปโปะออนเซ็น บ่อกลางแจ้งไฮโดรเจนธรรมชาติ', bike: true, hp: 'https://hakuba-happo-onsen.jp/happonoyu/', hours: '9:00–22:00 (ตลอดปี)', tip: 'เดิน 2 นาทีจากท่ารถบัสฮัปโปะ' },
+  { name: '白馬焙煎工房', nameEn: 'Hakuba Roasting Studio', icon: '☕', cat: 'cafe', km: 6.03, area: '八方', lat: 36.69916, lon: 137.84444, desc: 'ร้านกาแฟคั่วในร้านสไตล์เก๋', bike: true, hp: 'https://www.hakubabaisen.com/', hours: '10:00–18:00 (ปิดอังคาร)', tip: 'มีเมล็ดกาแฟขายเป็นของฝาก' },
+  { name: '蕎麦酒房 膳', nameEn: 'Sobashubo Zen', icon: '🍶', cat: 'rest', km: 6.35, area: '八方', lat: 36.69491, lon: 137.84812, desc: 'มื้อค่ำ ยอดนิยมมาก — จองล่วงหน้า โซบะบัควีต 100% หมดเร็ว', bike: true, hp: 'http://zen.artbi.net/', hours: '11:30–14:00 / 17:30–21:00 (ปิดพุธ)', tip: 'ทั้งโซบะกลางวันและอิซากายะโซบะกลางคืนยอดนิยมทั้งคู่' },
+  { name: '蕎麦処 りき', nameEn: 'Sobadokoro Riki', icon: '🍜', cat: 'rest', km: 6.38, area: '八方', lat: 36.69451, lon: 137.84828, desc: 'โซบะ! ไปเร็ว — หมดเร็ว ข้าวก็อร่อยด้วย', bike: true, hp: 'https://sobadokororiki.com/', hours: '11:30–14:30 (ปิดศุกร์ จนหมด)', tip: 'เตรียมต่อคิว ไปเร็วๆ ชุดโซบะเทชโชคุแนะนำ' },
+  { name: '白馬タップルーム', nameEn: 'Hakuba Taproom', icon: '🍻', cat: 'rest', km: 6.0, area: '八方', lat: 36.69902, lon: 137.84548, desc: 'เบียร์หลากหลายชนิด บรรยากาศแบบบาร์ เบอร์เกอร์เนื้อแน่น', bike: true, hp: 'https://tenguproperties.com/jp/hakuba-taproom/', ig: '@hakubataproom', hours: '16:00–23:00 (ทุกวันในฤดูหนาว / สุดสัปดาห์ในฤดูเขียว)', tip: 'มีแขกต่างชาติเยอะ — บรรยากาศเป็นสากล' },
+  { name: 'どんぐりパノラマ展望台', nameEn: 'Donguri Panorama Lookout', icon: '🌳', cat: 'spot', km: 4.51, area: '八方', lat: 36.71496, lon: 137.84379, desc: 'ยอดนิยมสำหรับวิวพาโนรามาของเทือกเขาแอลป์เหนือและหมู่บ้านฮาคุบะ', bike: true, hours: '24 ชม.', tip: 'เข้าถึงด้วยรถได้ มีที่จอดรถ' },
+  { name: '白馬大橋', nameEn: 'Hakuba Ohashi Bridge', icon: '🌉', cat: 'spot', km: 4.21, area: '八方', lat: 36.71008, lon: 137.8558, desc: 'จุดชมวิวเทือกเขาสามยอดฮาคุบะจากบนสะพาน', bike: true, hp: 'https://www.vill.hakuba.nagano.jp/spots/hakuba-oohashi-bridge/', hours: '24 ชม.', tip: 'เช้าตรู่และเย็นเงียบที่สุด — ถ่ายภาพง่ายที่สุด' },
+  { name: '八方池', nameEn: 'Happo Pond', icon: '🌿', cat: 'spot', km: 9.15, area: '八方', lat: 36.6948, lon: 137.7942, desc: 'สระน้ำในตำนานสะท้อนเทือกเขาฮาคุบะ ระดับความสูง 2,060 เมตร ต้องนั่งกระเช้า + ลิฟต์ + เดิน 1 ชั่วโมง', bike: false, hp: 'https://www.vill.hakuba.nagano.jp/spots/happo-summer/', note: '※ ต้องใช้กระเช้า — จักรยานไม่ได้', tip: 'พระอาทิตย์ขึ้น (5–6 น.) สวยที่สุด ต้องใส่รองเท้ามั่นคง' },
+  { name: 'Bellcoffee', nameEn: 'Bellcoffee', icon: '☕', cat: 'cafe', km: 5.21, area: '八方', lat: 36.7022, lon: 137.865, desc: 'คาเฟ่ติดกระเช้าฮัปโปะ', bike: true, ig: '@bellcoffee_hakuba', hours: '8:00–16:00 (ตามฤดู)', tip: 'ตรวจสอบว่าเปิดหรือไม่ก่อนไป' },
+
+  { name: 'IWATAKE.ROCK\'S', nameEn: 'IWATAKE.ROCK\'S', icon: '🍔', cat: 'rest', km: 3.61, area: '岩岳', lat: 36.7178, lon: 137.8595, desc: 'เดิน 3 นาทีจากกระเช้าอิวาตาเกะ คาเฟ่ในลอดจ์', bike: true, hp: 'https://iwatake-rocks.nagano.info/', hours: '11:00–15:00 (ตามฤดู)', tip: 'เป็นจุดพักดื่มกาแฟก็ได้ ภายในเก๋' },
+  { name: 'en to en', nameEn: 'en to en', icon: '☕', cat: 'cafe', km: 3.6, area: '岩岳', lat: 36.7178, lon: 137.8598, desc: 'คาเฟ่สไตล์เก๋ที่อิวาตาเกะ', bike: true, cowork: true, hours: '10:00–16:00 (ไม่แน่นอน)', tip: 'ดูโซเชียลมีเดียเพื่อเช็คเวลาเปิดก่อนไป' },
+  { name: 'LOCARY IWATAKE', nameEn: 'LOCARY IWATAKE', icon: '🥪', cat: 'cafe', km: 3.74, area: '岩岳', lat: 36.71498, lon: 137.85214, desc: 'คาเฟ่แซนด์วิชโดยใช้วัตถุดิบท้องถิ่นชินชู แซนด์วิชแฮมฮาคุบะและฮอทดอกเป็นเมนูเด่น', bike: true, hp: 'https://hakubameshi.net/en/shop/locary-iwatake/', ig: '@locary_hakuba', cowork: true, hours: '7:30–16:00', tip: 'อยู่ใน Square8 HAKUBA RETREAT มีกาแฟและคราฟต์เบียร์ด้วย' },
+  { name: '岩岳の湯', nameEn: 'Iwatake no Yu', icon: '♨️', cat: 'onsen', km: 4.01, area: '岩岳', lat: 36.7138, lon: 137.8606, desc: 'น้ำมาจาก Hakuba Himekawa Onsen บ่ออาบน้ำเพื่อความงาม', bike: true, hp: 'https://iwatake-mountain-resort.com/onsen', hours: '13:00–21:00 (ในฤดูกาล)', tip: 'ออนเซ็นแบบไปเช้าเย็นกลับขนาดเล็ก' },
+  { name: '倉下の湯', nameEn: 'Kurashita no Yu', icon: '♨️', cat: 'onsen', km: 4.14, area: '岩岳', lat: 36.70925362, lon: 137.84867927, desc: 'บ่ออาบน้ำกลางแจ้งซีดาร์ลึกกว้าง จุได้ 15 คนสบายๆ', bike: true, hp: 'https://www.kurashitanoyu.com/', hours: '10:00–21:00', tip: 'น้ำสีน้ำตาลไหลจากแหล่งกำเนิดโดยไม่ผ่านกระบวนการ' },
+
+  { name: '青鬼の棚田', nameEn: 'Aoni Rice Terraces', icon: '🌾', cat: 'spot', km: 3.6, area: '白馬駅周辺', lat: 36.7268, lon: 137.9013, desc: 'วิวพาโนรามาเทือกเขาฮาคุบะ — หนึ่งใน "100 นาขั้นบันไดที่ดีที่สุดของญี่ปุ่น"', bike: true, hp: 'https://www.vill.hakuba.nagano.jp/spots/aoni/', hours: '24 ชม. (แนะนำกลางวัน)', tip: 'หมู่บ้านนี้ยังเป็นเขตประวัติศาสตร์ที่ได้รับการกำหนดในระดับชาติ หมอกเช้าตรู่สวยมาก' },
+  { name: '野平の一本桜', nameEn: 'Nodaira Lone Cherry Tree', icon: '🌸', cat: 'spot', km: 3.87, area: '白馬駅周辺', lat: 36.70773, lon: 137.88445, desc: 'จุดถ่ายภาพต้นซากุระเดี่ยวๆ กับเทือกเขาแอลป์เหนืออันสง่างาม!', bike: true, hp: 'https://www.vill.hakuba.nagano.jp/spots/nodaira/', hours: '24 ชม. (พีค: กลาง–ปลายเมษายน)', tip: 'ฤดูซากุระคนเยอะ — ไปเร็ว' },
+  { name: '絶景の道「天神坂」', nameEn: 'Tenjin-zaka Scenic Road', icon: '⛰️', cat: 'spot', km: 4.38, area: '白馬駅周辺', lat: 36.6926792, lon: 137.8688052, desc: '"Tenjinzaka" — ตั้งชื่อโดยพนักงาน Hakuba Highland Hotel มีชื่อเสียงเรื่องภาพสะท้อนน้ำและใบไม้เปลี่ยนสีสามชั้น', bike: true, hours: '24 ชม.', tip: 'ฤดูดำนา = เห็นสะท้อนน้ำ, ฤดูใบไม้ร่วง = ใบไม้สามชั้น' },
+  { name: 'とんかつ ちとせ', nameEn: 'Tonkatsu Chitose', icon: '🍱', cat: 'rest', km: 5.76, area: '白馬駅周辺', lat: 36.69883, lon: 137.85474, desc: 'ร้านทงคัตสึ (หมูชุบเกล็ดขนมปังทอด) เก่าแก่ในฮาคุบะ', bike: true, hours: '11:30–14:00 / 17:30–20:00', tip: 'อาจซื้อกลับเท่านั้น — เช็คก่อน' },
+  { name: 'Starbucks Coffee', nameEn: 'Starbucks Coffee', icon: '☕', cat: 'cafe', km: 5.85, area: '白馬駅周辺', lat: 36.69761, lon: 137.85669, desc: 'เปิดในเดือน เม.ย. 2020 ภายใน "Snow Peak Land Station Hakuba" — ออกแบบโดย Kengo Kuma', bike: true, cowork: true, hours: '8:00–21:00', tip: 'ยอดเขาฮาคุบะ + กาแฟ มีตลาดสุดสัปดาห์' },
+  { name: 'THE NORTH FACE GRAVITY 白馬', nameEn: 'THE NORTH FACE GRAVITY Hakuba', icon: '🧥', cat: 'cafe', km: 5.82, area: '白馬駅周辺', lat: 36.69723, lon: 137.86069, desc: 'คาเฟ่และร้านค้าวิวยอดเขาฮาคุบะที่ยอดเยี่ยม', bike: true, hp: 'https://www.thenorthface.jp/shoplist?id=0195', ig: '@tnf_gravity_hakuba', cowork: true, hours: '10:00–19:00 (มีคาเฟ่)', tip: 'กาแฟที่คาเฟ่ชั้น 2 พร้อมวิว' },
+  { name: '珈琲 せんじゅ', nameEn: 'Coffee Senju', icon: '☕', cat: 'cafe', km: 5.92, area: '白馬駅周辺', lat: 36.6962, lon: 137.8612, desc: 'คาเฟ่สไตล์ญี่ปุ่น', bike: true, hp: 'http://coffee.senjeu.com/', ig: '@coffee_senjeu', hours: '10:00–17:00 (ปิดพฤ. และศุกร์ที่ 3)', tip: 'พื้นที่เงียบสงบกับความอบอุ่นของไม้' },
+  { name: 'Hakuba Coffee Stand', nameEn: 'Hakuba Coffee Stand', icon: '☕', cat: 'cafe', km: 5.98, area: '白馬駅周辺', lat: 36.69548, lon: 137.86323, desc: 'สแตนด์กาแฟหน้าสถานี JR ฮาคุบะ', bike: true, hp: 'https://hakubacoffeestand.com/', ig: '@hakubacoffeestand', hours: '8:00–17:00 (วันหยุดไม่แน่นอน)', tip: 'อยู่ข้างสถานี — เหมาะกับการเติมพลังก่อน/หลังเดินป่า' },
+  { name: 'おおしも食堂', nameEn: 'Ooshimo Shokudo', icon: '🍚', cat: 'rest', km: 6.17, area: '白馬駅周辺', lat: 36.6938, lon: 137.8625, desc: 'ร้านเทชโชคุ (ชุดอาหาร) แบบทำเองที่บ้าน อบอุ่น', bike: true, hours: '11:00–14:00 / 17:30–20:00 (วันหยุดไม่แน่นอน)', tip: 'จุดรวมตัวคนท้องถิ่นสำหรับอาหารทำเอง' },
+  { name: 'らー麺 とっつぁん', nameEn: 'Ramen Tottsuan', icon: '🍜', cat: 'rest', km: 6.64, area: '白馬駅周辺', lat: 36.68991, lon: 137.85955, desc: 'ราเมนที่คนท้องถิ่นชื่นชอบ เมนูเยอะและคุ้มค่า', bike: true, hp: 'http://tottsuan.com/', hours: '11:30–14:00 / 17:30–22:00 (ปิดจันทร์)', tip: 'เปิดกลางวันและเย็น เกือบทุกวัน — สะดวก' },
+  { name: 'カフェカッカ', nameEn: 'Cafe Ka.kka', icon: '🍰', cat: 'cafe', km: 5.19, area: '白馬駅周辺', lat: 36.6992768, lon: 137.8553713, desc: 'เปิดในเดือน ม.ค. 2023 คาเฟ่น่ารักที่ขายเครื่องประดับด้วย', bike: true, ig: '@cafe_ka.kka', hours: '10:00–17:00 (วันหยุดไม่แน่นอน)', tip: 'เช็คโซเชียลมีเดียก่อนไป' },
+  { name: '古民家カフェ かっぱ亭', nameEn: 'Kominka Cafe Kappa-tei', icon: '☕', cat: 'cafe', km: 5.6, area: '白馬駅周辺', lat: 36.6985, lon: 137.875, desc: 'อาหารกลางวันที่ใช้หมูฮาคุบะ ปลาแซลมอนชินชู และผักออร์แกนิคปลูกเองตามฤดูกาล', bike: true, hp: 'https://kappateihakuba.wixsite.com/kappatei', ig: '@kappatei.hakuba', hours: '11:30–14:00 (ปิดอังคาร/พุธ, ปิดฤดูหนาว)', tip: 'มีชื่อเสียงเรื่องผักออร์แกนิคและอาหารกลางวันจากวัตถุดิบท้องถิ่น' },
+  { name: '大出公園', nameEn: 'Ooide Park', icon: '🏞️', cat: 'spot', km: 4.81, area: '白馬駅周辺', lat: 36.697089, lon: 137.87384, desc: 'วิวเทือกเขาแอลป์เหนือเหนือบ้านชาวนาและสะพานแขวน', bike: true, hp: 'https://www.vill.hakuba.nagano.jp/spots/ooide-park/', hours: '24 ชม.', tip: 'เช้ามีหมอกสวยที่สุด — 5–6 น. ดีสุด' },
+
+  { name: '焼肉 深山', nameEn: 'Yakiniku Miyama', icon: '🥩', cat: 'rest', km: 5.74, area: 'エコーランド', lat: 36.69905, lon: 137.85432, desc: 'ร้านพี่น้องของ Miyama Genghis Khan ยากินิกุที่ยอดนิยมที่สุดของฮาคุบะ', bike: true, hp: 'https://full-marks.com/miyama/', hours: '17:00–22:00 (ไม่แน่นอน ต้องจอง)', tip: 'แนะนำจองล่วงหน้า — ไปเร็วในสุดสัปดาห์' },
+  { name: '京華小吃 白馬店', nameEn: 'Jinghua Hakuba', icon: '🥟', cat: 'rest', km: 6.6, area: 'エコーランド', lat: 36.69221, lon: 137.84924, desc: 'ทันตันเมนอร่อย ปัจจุบันปิดชั่วคราว — เช็คก่อนไป', bike: true, ig: '@jinghua_official', hours: 'ปิด (เช็คก่อน)', tip: 'เช็ควันที่เปิดใหม่' },
+  { name: '猿楽', nameEn: 'Sarugaku', icon: '🍶', cat: 'rest', km: 6.83, area: 'エコーランド', lat: 36.69148, lon: 137.84409, desc: 'อิซากายะในเอโคแลนด์', bike: true, ig: '@sarugaku_hakuba', hours: '18:00–23:00 (วันหยุดไม่แน่นอน)', tip: 'ที่ที่ทีมงานโปรด' },
+  { name: 'サウンズ・ライク・カフェ', nameEn: 'Sounds Like Cafe', icon: '🍔', cat: 'rest', km: 6.99, area: 'エコーランド', lat: 36.69072, lon: 137.84156, desc: 'เบอร์เกอร์ขนาดใหญ่ — สิ่งที่ต้องกินในฮาคุบะ', bike: true, hp: 'https://sounds-like-cafe.com/', ig: '@soundslikecafe_hakuba', hours: '8:00–17:00 (ตามฤดู)', tip: 'ตั้งแต่เช้าจนถึงกลางวัน มีที่นั่งริมระเบียง' },
+  { name: 'Satoru Coffee', nameEn: 'Satoru Coffee', icon: '☕', cat: 'cafe', km: 7.24, area: 'エコーランド', lat: 36.68912, lon: 137.83903, desc: 'สแตนด์กาแฟเล็กๆ สวยเหมือนรูปทั้งข้างในและข้างนอก', bike: true, hours: '10:00–17:00 (ปิดอังคาร/พุธ)', tip: 'บรรยากาศชิลๆ เหมาะสำหรับทัวร์คาเฟ่' },
+
+  { name: '農かふぇ 白馬そだち', nameEn: 'Farm Cafe Hakuba Sodachi', icon: '🌽', cat: 'cafe', km: 9.13, area: '五竜', lat: 36.66861, lon: 137.84978, desc: 'อาหารบ้านๆ จากชาวนาฮาคุบะ — ใช้วัตถุดิบฮาคุบะ', bike: false, hp: 'https://www.farmhakuba.jp/', ig: '@farm_hakuba', hours: '9:00–17:00 (มื้อกลางวัน 11:30–14:00, ปิดพฤ.)', tip: 'เขาน่าจะทำเก็บบลูเบอร์รี่ด้วย', note: '※ เกิน 9 กม. — แนะนำ E-bike' },
+  { name: '利根川 蕎麦店', nameEn: 'Tonegawa Soba', icon: '🍜', cat: 'rest', km: 9.36, area: '五竜', lat: 36.6666, lon: 137.84883, desc: 'ร้านโซบะในบ้านชาวนาหลังคามุงจาก', bike: false, hours: '11:00–15:00 (ปิดพุธ, จนหมด)', tip: 'ตัวอาคารก็คุ้มค่าไปดู ประสบการณ์โซบะคลาสสิก', note: '※ เกิน 9 กม. — แนะนำ E-bike' },
+  { name: '自然派喫茶 Sol', nameEn: 'Shizenha Kissa Sol', icon: '🥗', cat: 'rest', km: 10.04, area: '五竜', lat: 36.66293, lon: 137.8367, desc: 'ไม่มีเนื้อหรือปลา มีเมนูปราศจากกลูเตนและวีแกนมาก', bike: false, hp: 'http://solorganicfood.com/', hours: '11:30–16:00 (ไม่แน่นอน แตกต่างตามฤดู)', tip: 'จุดหาได้ยากที่เป็นมิตรกับมังสวิรัติ/วีแกน', note: '※ 10 กม. — แนะนำ E-bike หรือรถ' },
+  { name: 'ベアーズカフェ', nameEn: 'Bears Cafe', icon: '🍦', cat: 'cafe', km: 6.0, area: '五竜', lat: 36.70649, lon: 137.82984, desc: 'ซันเดย์ที่สร้างเอง — คาเฟ่ที่ปลุกความเป็นเด็กในตัวคุณ', bike: true, hours: '10:00–17:00 (ตามฤดู วันหยุดไม่แน่นอน)', tip: 'ยอดนิยมกับครอบครัว' },
+  { name: '山人', nameEn: 'Yamanchu', icon: '🥢', cat: 'rest', km: 10.09, area: '五竜', lat: 36.65995, lon: 137.84882, desc: 'ร้านโซบะ เทมปุระอร่อย', bike: false, ig: '@ya.ma.n.chu', hours: '11:30–14:30 / 17:30–20:30 (ปิดพฤ.)', note: '※ เกิน 10 กม. แนะนำ E-bike' },
+  { name: '姫川源流自然探勝園', nameEn: 'Himekawa Genryu Nature Park', icon: '💧', cat: 'spot', km: 13.41, area: '五竜', lat: 36.62959, lon: 137.84862, desc: 'โอเอซิสริมทาง Chikuni Highway', bike: false, hours: '24 ชม. (เข้าฟรี)', note: '※ ไกล — แนะนำรถบัสหรือรถ' },
+
+  { name: '水仙街道', nameEn: 'Suisen Kaido (Daffodil Road)', icon: '🌼', cat: 'spot', km: 6.56, area: '中土', lat: 36.69, lon: 137.865, desc: 'ถนนดอกแดฟโฟดิลที่ปลูกโดยชาวบ้าน — ประมาณ 1 ล้านดอกตลอด 6 กม.', bike: true, hp: 'https://www.vill.hakuba.nagano.jp/nature/spring', hours: '24 ชม. (พีค: ต้น–กลางเมษายน)', tip: 'เฉพาะฤดูใบไม้ผลิ บางทีตรงกับซากุระ' },
+  { name: '喫茶 白月', nameEn: 'Kissa Hakugetsu', icon: '☕', cat: 'cafe', km: 8.45, area: '中土', lat: 36.80846, lon: 137.93036, desc: 'คาเฟ่หมู่บ้านภูเขาในโอตาริ เปิดในเดือน พ.ย. 2020', bike: false, ig: '@kissa_hakugetsu', hours: '11:00–16:00 (ไม่แน่นอน)', tip: 'วันเปิดจำกัด — เช็คอินสตาแกรม ขนมทำเองสุดยอด', note: '※ เกิน 8 กม. — แนะนำ E-bike' },
+  { name: 'cafe 十三月', nameEn: 'cafe Jusangatsu', icon: '🍧', cat: 'cafe', km: 9.29, area: '中土', lat: 36.82205, lon: 137.92166, desc: 'คาเฟ่เฉพาะฤดูร้อนในบ้านชาวนาโบราณ น้ำแข็งไสสุดยอด แกงกะหรี่ก็อร่อย', bike: false, hp: 'https://shop.13gatsu.net/', ig: '@cafe_13gatsu', hours: '10:00–18:00 (ปิดอังคาร/พุธ; ปิดกลาง ธ.ค.–กลาง เม.ย.)', tip: 'Hotaru → Jusangatsu = คอมโบสุดยอด!', note: '※ เฉพาะฤดูร้อน — แนะนำ E-bike' },
+  { name: '蕎麦屋 蛍', nameEn: 'Soba-ya Hotaru', icon: '🍜', cat: 'rest', km: 12.73, area: '中土', lat: 36.83832, lon: 137.96066, desc: 'ร้านโซบะเฉพาะฤดูร้อนในบ้านชาวนาโบราณ เทมปุระอร่อยมาก!', bike: false, hours: '11:30–17:00 (ปิดอังคาร/พุธ; อาจเปิดเย็นตามฤดู; ปิดฤดูหนาว)', tip: 'คุ้มค่าที่ไป! จับคู่กับ cafe Jusangatsu', note: '※ เฉพาะฤดูร้อน — แนะนำรถ' },
+
+  { name: 'コルチナ・アドベンチャーランド', nameEn: 'Cortina Adventure Land', icon: '🌲', cat: 'spot', km: 10.05, area: 'コルチナ', lat: 36.77565699, lon: 137.88780206, desc: 'ศูนย์กิจกรรมใน Hakuba Cortina Resort', bike: false, hp: 'https://www.hgp.co.jp/hakuba/green/adventureland/', ig: '@hakubacortina', hours: '9:00–17:00 (ฤดูเขียว)', note: '※ 10 กม. — แนะนำรถ' },
+  { name: '白馬コルチナ・イングリッシュガーデン', nameEn: 'Hakuba Cortina English Garden', icon: '🌹', cat: 'spot', km: 10.05, area: 'コルチナ', lat: 36.77565699, lon: 137.88780206, desc: 'สวนสไตล์อังกฤษภายใน Hakuba Cortina Resort', bike: false, hp: 'http://hakubacortina.jp/englishgarden/', ig: '@hakuba.cortina.eg', hours: '8:00–16:30 (ปลาย พ.ค.–ต.ค.)', note: '※ 10 กม. — แนะนำรถ' },
+  { name: '深山の湯', nameEn: 'Miyama no Yu', icon: '♨️', cat: 'onsen', km: 11.95, area: 'コルチナ', lat: 36.84552556, lon: 137.90047172, desc: 'ออนเซ็นติดกับ Michi-no-Eki Otari บ่ออาบน้ำกลางแจ้งและส่วนลดร้านอาหาร', bike: false, hours: 'จ-ศ 11:00–18:00 / ส-อา วันหยุด 11:00–19:00', note: '※ 12 กม. — แนะนำรถ' },
+
+  { name: '眺望の郷', nameEn: 'Choubou-no-Sato Viewpoint', icon: '🏔️', cat: 'spot', km: 4.22, area: '中土', lat: 36.782, lon: 137.791, desc: 'จุดชมวิวลับของคนท้องถิ่น มองลงไปที่หุบเขาโอตาริพร้อมเทือกเขาแอลป์เหนือเป็นฉากหลัง', bike: true, hp: 'https://www.vill.otari.nagano.jp/kanko/looking/choubou/index.html', hours: '24 ชม. (ปิดในฤดูหนาว)', tip: 'จุดชมวิว/ถ่ายภาพที่แนะนำ' },
+
+  { name: '中綱湖', nameEn: 'Lake Nakatsuna', icon: '💧', cat: 'spot', km: 18.46, area: '大町', lat: 36.597751, lon: 137.843156, desc: 'เล็กที่สุดในสามทะเลสาบ Nishina ในโอมาจิ นากาโนะ', bike: false, hp: 'https://kanko-omachi.gr.jp/spot/nakatsunako/', hours: '24 ชม.', note: '※ ไกล — แนะนำรถบัสหรือรถ' },
+  { name: 'ねまるちゃテラス', nameEn: 'Nemarucha Terrace', icon: '🥗', cat: 'rest', km: 22.95, area: '大町', lat: 36.5437, lon: 137.84294, desc: 'ระเบียงในแคมป์กราวด์ Lake Kizaki กินข้าวพร้อมวิวภูเขาและน้ำที่แวววาว', bike: false, hours: '9:00–17:00 (ในฤดูกาล)', note: '※ โอมาจิ — ไกล' },
+  { name: '青木湖', nameEn: 'Lake Aoki', icon: '💧', cat: 'spot', km: 24.12, area: '大町', lat: 36.61138277, lon: 137.85143984, desc: 'ใหญ่ที่สุดในสามทะเลสาบ Nishina หนึ่งในทะเลสาบที่ใสที่สุดของญี่ปุ่น มีกิจกรรมเยอะเช่นแคนู', bike: false, hp: 'https://kanko-omachi.gr.jp/spot/aokiko/', hours: '24 ชม.', note: '※ ไกล — แนะนำรถบัสหรือแท็กซี่', tip: 'มีเช่า SUP/แคนูเยอะในฤดูร้อน แคมป์ริมทะเลสาบยอดนิยมด้วย' },
+  { name: '北アルプス ブルワリー', nameEn: 'North Alps Brewery', icon: '🍻', cat: 'rest', km: 26.96, area: '大町', lat: 36.50656, lon: 137.85839, desc: 'โรงเบียร์และบาร์ท้องถิ่นในโอมาจิ ใช้น้ำสะอาดจากเทือกเขาแอลป์เหนือ', bike: false, ig: '@n.alpsbeer', hours: '11:00–22:00 (ปิดพุธ; แตกต่างตามฤดู)', note: '※ โอมาจิ — ต้องมีรถ', tip: 'ที่แสวงบุญสำหรับแฟนคราฟต์เบียร์ มีทัวร์โรงเบียร์' },
+  { name: 'Kuni\'s カントリーキッチン', nameEn: 'Kuni\'s Country Kitchen', icon: '🥩', cat: 'rest', km: 27.04, area: '大町', lat: 36.50848, lon: 137.82548, desc: 'คาเฟ่-ร้านอาหารบรรยากาศแบบ log-house', bike: false, hp: 'https://kanko-omachi.gr.jp/spot/countrykitchen/', ig: '@kunisrestaurant', hours: '11:00–15:00 / 17:30–21:00 (ปิดพฤ.)', note: '※ โอมาจิ — ต้องมีรถ' },
+
+  { name: 'そば神 白馬店', nameEn: 'Sobajin Hakuba', icon: '🍜', cat: 'rest', km: 5.98, area: '白馬駅周辺', lat: 36.69291219, lon: 137.86153635, desc: 'อาจารย์โซบะที่ฝึกในร้านญี่ปุ่นชื่อดัง — เส้นบัควีตทำมือมีแฟนคลับเยอะ', ig: '@hakuba_sobajin', bike: false, hours: '11:00–15:00 (ปิดพฤ.)', tip: 'ทงเทมปุระโซบะเป็นเมนูคลาสสิก น้ำจิ้มวอลนัทเด่นมาก' },
+  { name: 'そば処 松庵', nameEn: 'Sobadokoro Shoan', icon: '🍜', cat: 'rest', km: 5.89, area: '白馬駅周辺', lat: 36.697, lon: 137.8612, desc: 'ร้านโซบะดั้งเดิมใกล้สถานีฮาคุบะ', ig: '@shoan_soba', bike: false, hours: 'เฉพาะกลางวัน', tip: 'บรรยากาศสงบ เหมาะสำหรับกลางวันแบบง่ายๆ' },
+  { name: '手打そば 一ぷく', nameEn: 'Teuchi Soba Ippuku', icon: '🍜', cat: 'rest', km: 5.96, area: '白馬駅周辺', lat: 36.6963, lon: 137.8615, desc: 'โซบะทำมือ — ปิดเมื่อหมด', bike: false, hours: '11:00–15:00 (ปิดพุธ/พฤ.; หมด = ปิด)', tip: 'ไปเร็วเพื่อไม่ผิดหวัง' },
+  { name: 'グリンデル', nameEn: 'Grindel', icon: '🍽', cat: 'rest', km: 5.3, area: '白馬駅周辺', lat: 36.7023, lon: 137.8612, desc: 'ได้รับเลือกใน Tabelog Yoshoku EAST 100 (2025) มีชื่อเสียงเรื่องเบคอนสเต็กทำเองและแฮมเบิร์กชีส', bike: false, hours: '11:30–14:00 / 17:00–20:30 (อ. และ อา. กลางวันเท่านั้น; ปิดพุธ)', tip: 'อาหารตะวันตกที่ดังของฮาคุบะ แนะนำจอง' },
+  { name: 'グリルこうや', nameEn: 'Grill Koya', icon: '🍽', cat: 'rest', km: 6.82, area: '白馬駅周辺', lat: 36.69, lon: 137.852, desc: 'ร้านอาหารตะวันตกเล็กๆ มีข้าวไข่เจียว พาสต้า และแกงกะหรี่', ig: '@grillkouya', bike: false, hours: '11:30–14:00 / 17:00–20:00 (วันหยุดไม่แน่นอน)', tip: 'เมนูเยอะ — เลือกยาก คุ้มค่ามาก' },
+  { name: '来夢来人（ライムライト）', nameEn: 'Lime Light (Raimu Raito)', icon: '🍽', cat: 'rest', km: 5.26, area: '白馬駅周辺', lat: 36.70142015, lon: 137.86549868, desc: 'คนท้องถิ่นชอบ ชุดอาหารส่วนใหญ่ต่ำกว่า 1,000 เยน', ig: '@hakuba_limelight', bike: false, hours: '10:30–20:00 (ปิดอา. ที่ 2/4)', tip: 'ชุดแฮมเบิร์กตุ๋นเป็นเมนูหลัก' },
+  { name: 'ガーリック GARLIC', nameEn: 'Garlic', icon: '🍕', cat: 'rest', km: 5.75, area: '八方', lat: 36.68750679, lon: 137.8444464, desc: 'พิซซ่าสไตล์โรมันกรอบพร้อมชีสเยอะ', ig: '@pizza__garlic', bike: false, hours: '11:00–15:00 / 18:00–21:00 (ปิดพุธ)', tip: 'ทั้งพิซซ่าและพาสต้าดี' },
+  { name: '白馬農場 農かふぇ キッチン＆マルシェ', nameEn: 'Hakuba Farm Nou Cafe', icon: '🥗', cat: 'rest', km: 12.03, area: '五竜', lat: 36.643, lon: 137.846, desc: 'คาเฟ่และมาร์เชใช้ผักและข้าวจากไร่ข้างเคียง', hp: 'https://farmhakuba.jp/nohcafe/', ig: '@farm_hakuba', bike: false, hours: '9:00–17:00 / มื้อกลางวัน 11:30–14:00 (ปิดพฤ.; เปิดทุกวัน ก.ค.–ส.ค.)', tip: 'เดิน 4 นาทีจากสถานี Iimori คุ้มค่าเช็คในฤดูเก็บบลูเบอร์รี่' },
+  { name: 'シェフ', nameEn: 'Chef', icon: '🍽', cat: 'rest', km: 2.06, area: '栂池', lat: 36.713473, lon: 137.87148, desc: 'ร้านอาหารตะวันตกเก่าแก่ใกล้สถานี Shinano-Morigami', bike: true, hours: '10:00–15:00 / 17:00–21:30 (ปิดอังคาร; เปิด 7:00 น. วันเสาร์)', tip: 'หนึ่งในร้านอาหารตะวันตกที่ใกล้ UNPLAN ที่สุด' },
+  { name: 'グラヴィティー・ワークス Gravity Worx', nameEn: 'Gravity Worx', icon: '🍝', cat: 'rest', km: 6.48, area: '白馬駅周辺', lat: 36.692, lon: 137.858, desc: 'ร้านอิตาเลียนยอดนิยมที่ใช้ผักที่ปลูกในท้องถิ่น', bike: false, hours: '10:00–20:00 (ปิดอังคาร; เปิดทุกวันในฤดูหนาวและ ส.ค.)', tip: 'ทีไทม์ก็ยินดีต้อนรับ' },
+  { name: 'SANFERMO PIZZA ET BBQ', nameEn: 'Sanfermo Pizza et BBQ', icon: '🍕', cat: 'rest', km: 7.03, area: '八方', lat: 36.6905, lon: 137.8425, desc: 'พิซซ่าและ BBQ แท้จากร้านเนื้อ Yazawa Meat', ig: '@sanfermo_pizzaetbbq', bike: false, hours: 'จ-ศ 17-23 / ส-อา 11-15 & 17-23', tip: 'เนื้อเยี่ยม เตาพิซซ่าเป็นของแท้' },
+  { name: '桂花', nameEn: 'Keika', icon: '🥟', cat: 'rest', km: 4.77, area: '白馬駅周辺', lat: 36.68179114, lon: 137.85586772, desc: 'อาหารจีนสไตล์ยาสมุนไพรในฮาคุบะ', bike: true, hours: '11:30–14:00 / 17:30–21:30 (ปิดพุธ)', tip: 'อาหารจีนแบบสุขภาพดี' },
+  { name: 'HINABE 火鍋', nameEn: 'HINABE Hot Pot', icon: '🍲', cat: 'rest', km: 6.74, area: 'エコーランド', lat: 36.6981, lon: 137.8619, desc: 'หม้อไฟสไตล์เสฉวนแท้ในหม้อเดี่ยว น้ำซุปวัตถุดิบชินชูออริจินัล', bike: false, hours: '17:00–23:00 (ปิดพฤ.)', tip: 'สมบูรณ์แบบสำหรับอบอุ่นตัวในฤดูหนาว' },
+  { name: '深山成吉思汗（ジンギスカン）', nameEn: 'Miyama Jingisukan', icon: '🐑', cat: 'rest', km: 6.74, area: 'エコーランド', lat: 36.6915, lon: 137.8485, desc: 'เนื้อแกะย่างถ่านสด อร่อย', ig: '@miyama_genghis', bike: false, hours: '17:00–23:00 (ปิดพฤ.)', tip: 'ต้องไปสำหรับคนรักเนื้อแกะ' },
+  { name: 'まるかめ', nameEn: 'Marukame', icon: '🥩', cat: 'rest', km: 6.74, area: 'エコーランド', lat: 36.6915, lon: 137.8485, desc: 'ร้านยากินิกุแบบบ้านๆ ใกล้สถานีฮาคุบะ', bike: false, hours: '17:30–23:00 (ปิดพฤ.)', tip: 'บรรยากาศท้องถิ่นแท้' },
+  { name: '鉄板Dining やまなみ', nameEn: 'Teppan Dining Yamanami', icon: '🍳', cat: 'rest', km: 6.74, area: 'エコーランド', lat: 36.6915, lon: 137.8485, desc: 'เทปปันยากิที่มีเนื้อชินชู ปลาแซลมอนชินชู และผักท้องถิ่น', hp: 'https://yamanami-hakuba.style/', ig: '@yamanami2941', bike: false, hours: '17:30–21:00 (ปิดอา.; เวลาแตกต่างตามฤดู)', tip: 'เนื้อชินชู Premium เป็นเมนูเด่น' },
+  { name: 'NIKU雅（にくまさ）', nameEn: 'NIKU Masa', icon: '🥩', cat: 'rest', km: 6.87, area: '白馬駅周辺', lat: 36.692, lon: 137.8425, desc: 'ร้านสเต็กและแฮมเบิร์กลับๆ — จองเท่านั้น', hp: 'https://nikumasa-hakuba.amebaownd.com/', ig: '@nikumasa_hakuba', bike: false, hours: '12:00–14:30 / 18:00–22:00 (ปิดอังคาร และ พุธที่ 3)', tip: 'เพียง 12 ที่นั่ง จองล่วงหน้า' },
+  { name: '白馬ノルウェービレッジ', nameEn: 'Hakuba Norway Village', icon: '💻', cat: 'spot', km: 6.14, area: '白馬駅周辺', lat: 36.6942896, lon: 137.838319, desc: 'พื้นที่โคเวิร์กกิ้งฟรี (Wi-Fi ปลั๊ก จอ โต๊ะ) รีโนเวตจากเกสต์เฮาส์นอร์เวย์จากโอลิมปิกนากาโนะ 1998 บรรยากาศแบบนอร์ดิก มี Cafe Utflykt ในสถานที่สำหรับกาแฟดี', hp: 'https://hnv.jp/', bike: false, cowork: true, hours: 'จ-ศ 9:00–17:00 / เสาร์-อา 11:00–17:00', tip: 'พื้นที่ทำงานเงียบสงบยอดเยี่ยม มีคาเฟ่ติดกันซื้อกาแฟ/อาหารกลางวันได้' },
+  { name: 'Hakuba Share', nameEn: 'Hakuba Share', icon: '💻', cat: 'spot', km: 6.02, area: '白馬駅周辺', lat: 36.6963, lon: 137.8617, desc: 'พื้นที่โคเวิร์กกิ้ง & ออฟฟิศแชร์ เดิน 5 นาทีจากสถานีฮาคุบะ (MORI Building ชั้น 1) drop-in ได้', bike: false, cowork: true, hours: '11:00–19:00 (ปิดพุธ & พฤ.)' },
+  { name: '白馬グリーンスポーツの森', nameEn: 'Hakuba Green Sports Forest', icon: '🌲', cat: 'spot', km: 7.79, area: '白馬駅周辺', lat: 36.6804629, lon: 137.8554514, desc: 'ป่ากว้างสำหรับเดิน สนามเด็กเล่นแบบแอทเลติก ยอดนิยมสำหรับแคมป์ จุดยอดเยี่ยมสำหรับสุนัขและธรรมชาติ', bike: false, hours: 'กลางวันฟรี', tip: 'สนามแอทเลติกและพื้นที่ให้สุนัขวิ่งฟรีๆ' },
+  { name: 'スノーピークランドステーション白馬', nameEn: 'Snow Peak LAND STATION HAKUBA', icon: '🏕️', cat: 'spot', km: 5.9, area: '白馬駅周辺', lat: 36.6975729, lon: 137.856485, desc: 'คอมเพล็กซ์กลางแจ้ง Snow Peak — ร้านค้าอุปกรณ์ คาเฟ่ ร้านอาหาร และลอดจ์ เป็นมิตรกับสุนัข', hp: 'https://www.snowpeak.co.jp/locations/snowpeak-landstation-hakuba/', bike: false, hours: 'ดูเวลาคาเฟ่/ร้านค้าในสถานที่', tip: 'ใช้พื้นที่ร่วมกับ EN TO EN HAKUBA LODGE' },
+  { name: '白馬岩岳マウンテンリゾート', nameEn: 'Hakuba Iwatake Mountain Resort', icon: '⛰️', cat: 'spot', km: 3.77, area: '岩岳', lat: 36.7168942, lon: 137.8588322, desc: 'กระเช้าถึงยอดเขา MOUNTAIN HARBOR คาเฟ่ที่ยอด เป็นมิตรกับสุนัข', hp: 'https://iwatake-mountain-resort.com/', bike: true, hours: '8:30–17:00 (ตามฤดู)', tip: 'Yahho Swing และ Mountain Harbor ที่ยอด — วิวที่ต้องไปดู' },
+  { name: '白馬岩岳スノーフィールド', nameEn: 'Hakuba Iwatake Snow Field', icon: '⛷️', cat: 'spot', km: 3.95, area: '岩岳', lat: 36.7158815, lon: 137.856216, desc: 'ลานสกีเป็นมิตรกับครอบครัว สุนัขยินดีต้อนรับ', hp: 'https://iwatake-mountain-resort.com/winter', bike: true, hours: 'ฤดูหนาว', tip: 'มีชื่อเสียงเป็นลานสกีที่เป็นมิตรกับสุนัขในญี่ปุ่น' },
+  { name: 'Re:Pu Cafe（リパカフェ）', nameEn: 'Re:Pu Cafe', icon: '📚', cat: 'cafe', km: 5.82, area: '白馬駅周辺', lat: 36.697, lon: 137.8625, desc: 'บุ๊คคาเฟ่ใกล้สถานีฮาคุบะ — ร้านหนังสือรีโนเวต พื้นที่ทำงานเงียบสงบ', bike: false, cowork: true, hours: 'ดูเวลาที่คาเฟ่', tip: 'ล้อมรอบด้วยหนังสือ — เหมาะกับการทำงานสมาธิสูง' },
+  { name: 'Lion Cafe（ライオンカフェ）', nameEn: 'Lion Cafe', icon: '🦁', cat: 'cafe', km: 6.91, area: '八方', lat: 36.6929, lon: 137.8378, desc: 'เดิน 1 นาทีจากท่ารถบัสฮัปโปะ ตรงข้าม Happo Lawson เปิดตั้งแต่ 8 น.', hp: 'https://sites.google.com/view/lioncafe-hakuba/', bike: false, cowork: true, hours: '8:00–17:00 (LO 16:30)', tip: 'เมนูอาหารเช้าและ Wi-Fi' },
+  { name: 'HAKUBA MOUNTAIN HARBOR', nameEn: 'HAKUBA MOUNTAIN HARBOR', icon: '⛰️', cat: 'cafe', km: 3.73, area: '岩岳', lat: 36.7169, lon: 137.8586, desc: 'ระเบียงสวยที่ยอดอิวาตาเกะ (1,289 เมตร) กับ The City Bakery วิวพาโนรามาเทือกเขาแอลป์เหนือ', hp: 'https://iwatake-mountain-resort.com/hmh', bike: true, cowork: true, hours: '8:45–16:30 (เขียว) / 8:15–16:00 (ฤดูหนาว)', tip: 'จุด workation แบบ view-as-office ต้องมีบัตรกระเช้า' },
+  { name: '八方うさぎ平テラス Yeti（3F）', nameEn: 'Happo Usagidaira Terrace Yeti (3F)', icon: '☕', cat: 'cafe', km: 7.6, area: '八方', lat: 36.6973, lon: 137.8156, desc: 'คาเฟ่ Yeti ที่ Happo Usagidaira Terrace (1,400 เมตร) ทำงานพร้อมวิวพาโนรามาเทือกเขาแอลป์เหนือ', hp: 'https://www.happo-one.jp/usagidaira/', bike: false, cowork: true, hours: 'ตามเวลากระเช้าฮัปโปะ', tip: 'ต้องมีบัตรกระเช้าฮัปโปะ' },
+  { name: '栂池自然園ビジターセンター', nameEn: 'Tsugaike Shizenen Visitor Center', icon: '🌿', cat: 'spot', km: 0.38, area: '栂池', lat: 36.772988, lon: 137.814349, desc: 'ศูนย์ผู้เยี่ยมชมที่ทางเข้า Shizenen โรงหนัง ห้องสมุด เดินได้จาก UNPLAN', hp: 'https://sizenen.otarimura.com/visitorcenter/', bike: true, cowork: true, hours: 'พ.ค.–พ.ย. 8:00–16:40', tip: 'พื้นที่ทำงานยอดเยี่ยมในวันฝนตก' },
+  { name: '八方飯店', nameEn: 'Happo Hanten', icon: '🥟', cat: 'rest', km: 5.86, area: '八方', lat: 36.7015, lon: 137.8425, desc: 'ร้านอาหารจีนแบบสบายๆ ที่ฐานลานสกี Happo Ridge อาหารสบายพร้อมเมนูพิเศษคัดสรร', ig: '@happo_hanten', bike: false, hours: 'จ/อ/พุธ/ศ/ส 11:30–14:30 & 17:30–21:00 / พฤ. 11:30–14:30 & 17:30–20:30 / ปิดอา.' },
+  { name: 'Blue Star Cafe', nameEn: 'Blue Star Cafe', icon: '⭐', cat: 'cafe', km: 0.09, area: '栂池', lat: 36.7495, lon: 137.872, desc: 'เดิน 1 นาทีจากกระเช้าสึกาอิเคะ ใกล้ UNPLAN อาหารชินชู ไวน์ ค็อกเทล Happy hour 16–18 น.', hp: 'https://www.tsugaike-resort.com/gourmet/blue-star-cafe/', bike: true, hours: 'ดูเวลาที่คาเฟ่ (Happy hour 16:00–18:00)', tip: 'อยู่ข้าง UNPLAN' },
+  { name: '美麻珈琲', nameEn: 'Miasa Coffee', icon: '☕', cat: 'cafe', km: 20.06, area: '大町', lat: 36.56845, lon: 137.8764, desc: 'กาแฟคั่วในร้านกับเค้กและขนมอบทำเอง', bike: false, hours: '10:00–17:00 (ปิดพฤ.)', tip: '※ โอมาจิ — ต้องมีรถ' },
+  { name: 'Penguin Cafe Hakuba', nameEn: 'Penguin Cafe Hakuba', icon: '☕', cat: 'cafe', km: 6.89, area: 'エコーランド', lat: 36.69107, lon: 137.84339, desc: 'คาเฟ่พี่น้องของ HAKUBA COFFEE STAND แซนด์วิชร้อน โต๊ะกว้าง', ig: '@penguincafehakuba', bike: false, hours: '9:00–17:00 (ไม่แน่นอน)' },
+  { name: '雨飾高原露天風呂', nameEn: 'Amakazari Kogen Open-Air Bath', icon: '♨️', cat: 'onsen', km: 16.66, area: '中土', lat: 36.86775, lon: 137.98539, desc: 'ออนเซ็นภูเขาลับๆ พร้อมบ่ออาบน้ำแหล่งกำเนิด มีทั้งบ่อในและกลางแจ้ง', hp: 'https://www.michinoeki-otari.com/facility/hotspring/', bike: false, hours: '10:00–21:00 (กลาง พ.ค.–ต้น พ.ย.)', tip: '※ นาคัตสึจิ — ต้องมีรถ' },
+  { name: 'ぽかぽかランド美麻', nameEn: 'Pokapokaland Miasa', icon: '♨️', cat: 'onsen', km: 21.91, area: '大町', lat: 36.553, lon: 137.899, desc: 'ออนเซ็นธรรมชาติกับบ่ออาบน้ำเรเดียม "Hokutolite" ป้ายรถโรดไซด์และที่พักในสถานที่', hp: 'https://www.miasa-pokapokaland.com/', bike: false, hours: '10:00–21:00 (เข้าครั้งสุดท้าย 20:30)', tip: '※ โอมาจิ — ขับจากฮาคุบะ 15 นาที' },
+];
+
+const grid = document.getElementById('spotsGrid');
+const filterBar = document.getElementById('filterBar');
+let currentFilter = 'all';
+
+function areaLabel(area) {
+  const map = {'栂池':'สึกาอิเคะ','八方':'ฮัปโปะ','岩岳':'อิวาตาเกะ','白馬駅周辺':'สถานีฮาคุบะ','エコーランド':'เอโคแลนด์','五竜':'โกเรียว','中土':'นาคัตสึจิ','コルチナ':'คอร์ตินา','大町':'โอมาจิ'};
+  return map[area] || area;
+}
+function categoryLabel(cat) {
+  return { onsen: 'ออนเซ็น', cafe: 'คาเฟ่ & ร้านอาหาร', rest: 'ร้านอาหาร', spot: 'สถานที่' }[cat] || cat;
+}
+
+function filteredSpots() {
+  return spots.filter(s => {
+    if (s.hidden) return false;
+    if (currentFilter === 'all') return true;
+    if (currentFilter === 'bike') return s.bike;
+    if (currentFilter === 'cowork') return s.cowork === true;
+    return s.cat === currentFilter;
+  });
+}
+
+function renderList() {
+  const filtered = filteredSpots();
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="empty-msg">ไม่มีสถานที่ที่ตรงกับตัวกรอง</div>';
+    return;
+  }
+  grid.innerHTML = filtered.map(s => {
+    const idx = spots.indexOf(s);
+    return `
+    <div class="spot-card" data-idx="${idx}">
+      <div class="spot-icon">${s.icon}</div>
+      <div class="spot-info">
+        <div class="spot-name">${s.nameEn || s.name}</div>
+        <div class="spot-meta">
+          <span class="km">${s.km} km</span>
+          <span class="pill">${areaLabel(s.area)}</span>
+          ${s.bike ? '<span class="pill bike">🚲 จักรยานได้</span>' : ''}
+        </div>
+        <p class="spot-desc">${s.desc}</p>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+filterBar.addEventListener('click', e => {
+  if (e.target.matches('.filter-btn')) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    currentFilter = e.target.dataset.filter;
+    renderList();
+    renderMarkers();
+  }
+});
+
+document.querySelectorAll('.theme-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const jump = card.dataset.jump;
+    const btn = document.querySelector(`.filter-btn[data-filter="${jump}"]`);
+    if (btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = jump;
+      renderList();
+      renderMarkers();
+    }
+    document.getElementById('spots').scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+const modal = document.getElementById('modal');
+const modalBody = document.getElementById('modalBody');
+const modalClose = document.getElementById('modalClose');
+
+function openModal(spot) {
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.name + ' Hakuba')}`;
+  const igUrl = spot.ig ? `https://instagram.com/${spot.ig.replace('@','')}` : null;
+
+  modalBody.innerHTML = `
+    <div class="modal-body">
+      <div class="modal-meta">${categoryLabel(spot.cat)}</div>
+      <h2 class="modal-title">${spot.nameEn || spot.name}</h2>
+      <div class="modal-pills">
+        <span class="modal-pill km">${spot.km} km</span>
+        <span class="modal-pill">พื้นที่ ${areaLabel(spot.area)}</span>
+        ${spot.bike ? '<span class="modal-pill bike">🚲 จักรยานได้</span>' : ''}
+      </div>
+      <p class="modal-desc">${spot.desc}</p>
+      ${spot.note ? `<div class="modal-note">${spot.note}</div>` : ''}
+      ${spot.tip ? `<div class="modal-note" style="background:#e7f0e8;border-left-color:#3e6644"><strong>💡 คำแนะนำจากทีมงาน:</strong> ${spot.tip}</div>` : ''}
+      <div class="modal-info">
+        ${spot.hours ? `<div class="modal-row"><span class="modal-row-icon">⏰</span><div class="modal-row-content"><strong>เวลาทำการ:</strong> ${spot.hours}</div></div>` : ''}
+        <div class="modal-row"><span class="modal-row-icon">📍</span><div class="modal-row-content"><strong>จาก UNPLAN:</strong> ~${spot.km} km${spot.bike ? ' (ปั่นจักรยานได้)' : ''}</div></div>
+      </div>
+      <div class="modal-actions">
+        <a class="modal-btn primary" href="${mapsUrl}" target="_blank">📍 Google Maps</a>
+        ${spot.hp ? `<a class="modal-btn secondary" href="${spot.hp}" target="_blank">เว็บไซต์ทางการ</a>` : ''}
+        ${igUrl ? `<a class="modal-btn secondary" href="${igUrl}" target="_blank">Instagram</a>` : ''}
+      </div>
+    </div>
+  `;
+  modal.classList.add('show');
+  document.body.classList.add('locked');
+}
+
+function closeModal() {
+  modal.classList.remove('show');
+  document.body.classList.remove('locked');
+}
+
+modalClose.addEventListener('click', closeModal);
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && modal.classList.contains('show')) closeModal();
+});
+
+grid.addEventListener('click', e => {
+  const card = e.target.closest('.spot-card');
+  if (card) {
+    const idx = parseInt(card.dataset.idx);
+    if (!isNaN(idx) && spots[idx]) openModal(spots[idx]);
+  }
+});
+
+const map = L.map('map', {
+  center: [36.7100, 137.86],
+  zoom: 12,
+  scrollWheelZoom: false,
+  attributionControl: true
+});
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  maxZoom: 19
+}).addTo(map);
+
+const unplanIcon = L.divIcon({
+  className: 'unplan-pin',
+  html: '<div class="unplan-marker">UNPLAN</div>',
+  iconSize: [56, 56],
+  iconAnchor: [28, 28]
+});
+L.marker(UNPLAN, { icon: unplanIcon, zIndexOffset: 1000 }).addTo(map);
+
+L.circle(UNPLAN, { radius: 5000, color: '#000', weight: 1.5, fillOpacity: 0.02, dashArray: '6,6', opacity: 0.5 }).addTo(map);
+L.circle(UNPLAN, { radius: 8000, color: '#000', weight: 1.5, fillOpacity: 0.01, dashArray: '6,6', opacity: 0.35 }).addTo(map);
+
+let markerGroup = L.layerGroup().addTo(map);
+function renderMarkers() {
+  markerGroup.clearLayers();
+  const filtered = filteredSpots();
+  filtered.forEach(s => {
+    if (!s.lat || !s.lon) return;
+    const icon = L.divIcon({
+      className: 'spot-pin',
+      html: `<div class="spot-marker">${s.icon}</div>`,
+      iconSize: [32, 32],
+      iconAnchor: [16, 16]
+    });
+    const marker = L.marker([s.lat, s.lon], { icon }).addTo(markerGroup);
+    marker.bindTooltip(`${s.nameEn || s.name}<br>${s.km} km`, { direction: 'top', offset: [0, -16] });
+    marker.on('click', () => openModal(s));
+  });
+}
+
+renderList();
+renderMarkers();
+function refreshMap() { if (map) map.invalidateSize(true); }
+setTimeout(refreshMap, 100);
+setTimeout(refreshMap, 500);
+setTimeout(refreshMap, 1500);
+window.addEventListener('load', refreshMap);
+window.addEventListener('resize', refreshMap);
+const mapObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) refreshMap(); });
+}, { threshold: 0.1 });
+mapObserver.observe(document.getElementById('map'));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>คู่มือที่พัก | UNPLAN Village Hakuba</title>
+<meta name="description" content="คู่มือที่พัก UNPLAN Village Hakuba — การเดินทาง เช็คอิน ห้องพัก ซาวน่า บริการภายในที่พัก และกฎระเบียบ">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#eeeeee; --surface:#ffffff; --ink:#000000; --ink-soft:#555555; --ink-muted:#999999; --line:#dddddd; --shadow:0 4px 20px rgba(0,0,0,.06); }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  body { font-family:'Outfit','Noto Sans Thai','Noto Sans JP',-apple-system,BlinkMacSystemFont,sans-serif; background:var(--bg); color:var(--ink); font-size:14px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  h1,h2,h3,h4 { font-family:'Outfit','Noto Sans Thai','Noto Sans JP',sans-serif; font-weight:700; letter-spacing:-.01em; }
+  img { display:block; max-width:100%; height:auto; }
+  a { color:inherit; text-decoration:none; }
+  button { font:inherit; cursor:pointer; border:none; background:none; color:inherit; }
+  .nav { position:sticky; top:0; z-index:50; background:rgba(255,255,255,.96); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); padding:14px 32px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; }
+  .logo { font-family:'Outfit',sans-serif; font-weight:700; font-size:14px; letter-spacing:.12em; color:var(--ink); }
+  .nav-right { display:flex; align-items:center; gap:18px; }
+  .nav-links { display:none; gap:24px; font-size:12px; letter-spacing:.12em; }
+  .nav-links a { color:var(--ink-soft); transition:color .15s; }
+  .nav-links a:hover { color:var(--ink); }
+  @media (min-width:720px) { .nav-links { display:flex; } }
+  .lang-switch { display:flex; gap:2px; font-size:12px; color:var(--ink-soft); letter-spacing:.08em; }
+  .lang-switch a { padding:4px 8px; transition:opacity .2s; opacity:.6; }
+  .lang-switch a.active { color:var(--ink); opacity:1; font-weight:600; }
+  .lang-switch .divider { opacity:.4; padding:0 2px; }
+  .book-btn { background:var(--ink); color:white; padding:10px 22px; border-radius:3px; font-size:12px; font-weight:600; letter-spacing:.14em; transition:all .2s; }
+  .book-btn:hover { transform:translateY(-1px); }
+  .breadcrumb { max-width:1280px; margin:0 auto; padding:24px 32px 0; font-size:11px; color:var(--ink-muted); letter-spacing:.1em; text-transform:uppercase; }
+  .breadcrumb a { color:var(--ink-soft); transition:color .15s; }
+  .breadcrumb a:hover { color:var(--ink); }
+  .breadcrumb .sep { margin:0 10px; opacity:.5; }
+  .breadcrumb .current { color:var(--ink); }
+  .hero { position:relative; height:60vh; min-height:460px; overflow:hidden; }
+  .hero-bg { position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.55) 100%),url('https://unplan.jp/wp-content/uploads/hakuba-cafe-1.jpg') center/cover; }
+  .hero-content { position:absolute; bottom:0; left:0; right:0; padding:0 32px 60px; color:white; max-width:1280px; margin:0 auto; }
+  .hero-eyebrow { font-size:11px; letter-spacing:.3em; text-transform:uppercase; font-weight:500; margin-bottom:18px; opacity:.9; }
+  .hero-title { font-size:clamp(40px,6vw,78px); line-height:1.05; font-weight:700; letter-spacing:-.02em; margin-bottom:16px; max-width:880px; }
+  .hero-sub { font-size:clamp(14px,1.5vw,17px); max-width:640px; line-height:1.7; opacity:.9; }
+  .toc { max-width:1280px; margin:0 auto; padding:50px 32px 20px; }
+  .toc-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:10px; }
+  .toc a { background:var(--surface); padding:14px 18px; border-radius:3px; font-size:12px; color:var(--ink-soft); border:1px solid var(--line); transition:all .2s; letter-spacing:.04em; display:flex; align-items:center; gap:8px; }
+  .toc a:hover { color:var(--ink); transform:translateY(-1px); box-shadow:var(--shadow); }
+  .toc a .num { font-family:'Outfit',sans-serif; font-weight:700; color:var(--ink); opacity:.4; min-width:22px; }
+  .section { max-width:1100px; margin:0 auto; padding:60px 32px; border-bottom:1px solid var(--line); }
+  .section:last-of-type { border-bottom:none; }
+  .section-label { font-size:11px; letter-spacing:.25em; text-transform:uppercase; color:var(--ink-soft); font-weight:500; margin-bottom:14px; }
+  .section-h { font-size:clamp(28px,3.5vw,42px); margin-bottom:14px; font-weight:700; letter-spacing:-.02em; }
+  .section-sub { color:var(--ink-soft); font-size:15px; max-width:720px; margin-bottom:36px; }
+  .card { background:var(--surface); padding:28px; border-radius:3px; border:1px solid var(--line); margin-bottom:18px; }
+  .card-title { font-size:18px; font-weight:700; margin-bottom:12px; display:flex; align-items:center; gap:10px; }
+  .card-title .ic { font-size:22px; }
+  .card-body { color:var(--ink-soft); font-size:14px; line-height:1.8; }
+  .card-body strong { color:var(--ink); }
+  .info-table { width:100%; border-collapse:collapse; margin:16px 0; font-size:14px; }
+  .info-table th, .info-table td { padding:12px 14px; text-align:left; border-bottom:1px solid var(--line); }
+  .info-table th { background:#f8f8f8; font-weight:600; color:var(--ink); width:38%; font-size:13px; letter-spacing:.04em; }
+  .info-table td { color:var(--ink-soft); }
+  .info-table td strong { color:var(--ink); }
+  .callout { background:#f8f8f8; padding:18px 22px; border-left:3px solid var(--ink); margin:16px 0; font-size:14px; color:var(--ink-soft); line-height:1.7; }
+  .callout.warn { border-left-color:#c94545; background:#fdf3f3; }
+  .callout strong { color:var(--ink); }
+  .grid-2 { display:grid; grid-template-columns:1fr; gap:18px; }
+  @media (min-width:720px) { .grid-2 { grid-template-columns:1fr 1fr; } }
+  .grid-3 { display:grid; grid-template-columns:1fr; gap:18px; }
+  @media (min-width:720px) { .grid-3 { grid-template-columns:1fr 1fr 1fr; } }
+  .room-grid { display:grid; grid-template-columns:1fr; gap:16px; }
+  @media (min-width:720px) { .room-grid { grid-template-columns:1fr 1fr; } }
+  .room { background:var(--surface); border:1px solid var(--line); border-radius:3px; overflow:hidden; }
+  .room-img { height:200px; background-size:cover; background-position:center; background-color:#ddd; }
+  .room-body { padding:22px 24px; }
+  .room-name { font-size:16px; font-weight:700; margin-bottom:8px; letter-spacing:-.005em; }
+  .room-en { font-size:11px; color:var(--ink-muted); letter-spacing:.12em; text-transform:uppercase; margin-bottom:12px; }
+  .room-desc { font-size:13px; color:var(--ink-soft); line-height:1.7; }
+  .parking-maps { margin-top:18px; display:grid; grid-template-columns:1fr; gap:14px; }
+  @media (min-width:720px) { .parking-maps { grid-template-columns:1fr 1fr; } }
+  .parking-fig { background:var(--surface); border:1px solid var(--line); border-radius:3px; padding:14px; text-align:center; max-width:100%; }
+  .parking-fig a { display:block; }
+  .parking-fig img { width:100%; max-width:100%; height:auto; max-height:320px; object-fit:contain; border-radius:3px; transition:opacity .15s; }
+  .parking-fig a:hover img { opacity:.85; }
+  .parking-fig figcaption { margin-top:10px; font-size:12px; color:var(--ink-soft); letter-spacing:.04em; line-height:1.7; }
+  .parking-fig figcaption strong { color:var(--ink); }
+  .contact-box { background:var(--ink); color:white; padding:32px; border-radius:3px; text-align:center; }
+  .contact-box h3 { font-size:22px; margin-bottom:12px; }
+  .contact-box p { color:rgba(255,255,255,.7); margin-bottom:20px; font-size:14px; }
+  .contact-btns { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+  .contact-btn { background:white; color:var(--ink); padding:10px 18px; border-radius:3px; font-size:12px; font-weight:600; letter-spacing:.08em; }
+  .contact-btn.line { background:#06c755; color:white; }
+  .contact-btn.whatsapp { background:#25d366; color:white; }
+  .rules-list { counter-reset:rules; }
+  .rules-list li { list-style:none; counter-increment:rules; position:relative; padding:14px 0 14px 38px; border-bottom:1px solid var(--line); font-size:14px; color:var(--ink-soft); line-height:1.7; }
+  .rules-list li:before { content:counter(rules,decimal-leading-zero); position:absolute; left:0; top:14px; font-family:'Outfit',sans-serif; font-weight:700; color:var(--ink); font-size:13px; }
+  .rules-list li strong { color:var(--ink); }
+  footer { background:var(--ink); color:white; padding:60px 32px 36px; margin-top:40px; }
+  .footer-wrap { max-width:1280px; margin:0 auto; }
+  .footer-top { display:grid; grid-template-columns:1fr; gap:32px; padding-bottom:36px; border-bottom:1px solid rgba(255,255,255,.12); }
+  @media (min-width:720px) { .footer-top { grid-template-columns:2fr 1fr 1fr 1fr; } }
+  .footer-logo { font-family:'Outfit',sans-serif; font-weight:700; font-size:16px; letter-spacing:.18em; margin-bottom:12px; }
+  .footer-tagline { color:rgba(255,255,255,.7); font-size:13px; max-width:280px; line-height:1.7; }
+  .footer-col h4 { font-size:11px; letter-spacing:.2em; text-transform:uppercase; margin-bottom:14px; opacity:.7; font-weight:500; }
+  .footer-col a { display:block; padding:4px 0; color:rgba(255,255,255,.7); font-size:13px; transition:color .15s; }
+  .footer-col a:hover { color:white; }
+  .footer-bottom { padding-top:24px; color:rgba(255,255,255,.5); font-size:11px; letter-spacing:.1em; text-transform:uppercase; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="logo">UNPLAN Village Hakuba</a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="hakuba-th.html">สัมผัสฮาคุบะ</a>
+      <a href="stay-th.html">ที่พัก</a>
+      <a href="green-season-th.html">GREEN SEASON</a>
+    </div>
+    <div class="lang-switch">
+      <a href="stay.html">JP</a><span class="divider">/</span><a href="stay-en.html">EN</a><span class="divider">/</span><a class="active">TH</a>
+    </div>
+    <a href="https://go-uvh.reservation.jp/en" class="book-btn" target="_blank">BOOK NOW</a>
+  </div>
+</nav>
+
+<nav class="breadcrumb">
+  <a href="index.html">ยินดีต้อนรับ</a><span class="sep">/</span><span class="current">คู่มือที่พัก</span>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">คู่มือที่พัก</div>
+    <h1 class="hero-title">คู่มือการเข้าพักของคุณ</h1>
+    <p class="hero-sub">ยินดีต้อนรับสู่ UNPLAN Village Hakuba ทุกข้อมูลที่คุณต้องการเพื่อการเข้าพักที่ราบรื่น ตั้งแต่เช็คอิน ห้องพัก ซาวน่า บริการ และกฎระเบียบภายในที่พัก</p>
+  </div>
+</section>
+
+<div class="toc">
+  <div class="toc-grid">
+    <a href="#access"><span class="num">01</span>การเดินทาง</a>
+    <a href="#checkin"><span class="num">02</span>เช็คอิน</a>
+    <a href="#rooms"><span class="num">03</span>ห้องพัก</a>
+    <a href="#amenities"><span class="num">04</span>ของใช้ในห้อง</a>
+    <a href="#facilities"><span class="num">05</span>สิ่งอำนวยความสะดวก</a>
+    <a href="#services"><span class="num">06</span>บริการ</a>
+    <a href="#luggage"><span class="num">07</span>สัมภาระ&บัตร</a>
+    <a href="#nearby"><span class="num">08</span>บริเวณใกล้เคียง</a>
+    <a href="#contact"><span class="num">09</span>ติดต่อ</a>
+    <a href="#rules"><span class="num">10</span>กฎระเบียบ</a>
+  </div>
+</div>
+
+<section class="section" id="access">
+  <div class="section-label">01 — การเดินทาง</div>
+  <h2 class="section-h">การเดินทางมาที่พัก</h2>
+  <p class="section-sub">เดิน 1 นาทีจากป้ายรถบัส "Tsugaike Kogen" เช็คอินที่ UNPLAN Village Hakuba 1 ชั้น 1 บริเวณฟรอนต์เดสก์</p>
+
+  <div class="callout">
+    <strong>📮 ที่อยู่:</strong> 12840-1 Oaza Chikuni-Otsu, Otari-mura, Kitaazumi-gun, Nagano 399-9422<br>
+    กรุณาเช็คอินที่ UNPLAN Village Hakuba 1 (ชั้น 1)
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="ic">🚌</span>ด้วยขนส่งสาธารณะ</div>
+      <div class="card-body">
+        เดิน 1 นาทีจากป้ายรถบัส <strong>"Tsugaike Kogen"</strong><br>
+        มีรถบัสตรง (Alpico Kotsu) จากสถานีนากาโนะ สถานีมัตสึโมโตะ และท่ารถบัสชินจูกุ<br>
+        ดูตารางเวลาได้ที่หน้า <a href="hakuba-th.html" style="text-decoration:underline">สัมผัสฮาคุบะ</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="ic">🚗</span>ด้วยรถส่วนตัว</div>
+      <div class="card-body">
+        UNPLAN มี <strong>ที่จอดรถโดยเฉพาะ 2 ที่</strong> (ใครมาก่อนได้ก่อน)<br>
+        ใช้บริการได้: <strong>15:00 ของวันเช็คอิน — 10:00 ของวันเช็คเอาต์</strong><br>
+        หากเต็ม กรุณาใช้ <a href="https://maps.app.goo.gl/FchDS8bFuu3u5Z6S9" target="_blank" rel="noopener" style="color:inherit; text-decoration:underline;"><strong>ที่จอดรถ Tsugaike Daini</strong></a> (ฟรี เดิน ~10 นาที)
+      </div>
+    </div>
+  </div>
+
+  <div class="parking-maps">
+    <figure class="parking-fig">
+      <a href="images/Parking2.jpg" target="_blank">
+        <img src="images/Parking2.jpg" alt="แผนที่จอดรถ UNPLAN Village Hakuba (ภาพรวม)" loading="lazy">
+      </a>
+      <figcaption>
+        🗺️ <strong>ภาพรวม</strong> — เช็คอินที่ <strong>UNPLAN Village Hakuba 1 (ฟรอนต์เดสก์)</strong> ที่จอดรถ <strong>①</strong> (ข้างฟรอนต์เดสก์) และ <strong>②</strong> (หน้า Hakuba 2)
+      </figcaption>
+    </figure>
+    <figure class="parking-fig">
+      <a href="images/Parking3.jpg" target="_blank">
+        <img src="images/Parking3.jpg" alt="ที่จอดรถ UNPLAN Village Hakuba (ภาพดาวเทียม)" loading="lazy">
+      </a>
+      <figcaption>
+        📍 <strong>ภาพดาวเทียม</strong> — ตำแหน่งที่จอดรถจริง <strong>Parking 1</strong> (ข้างฟรอนต์เดสก์) และ <strong>Parking 2</strong> (หน้า Cloche)
+      </figcaption>
+    </figure>
+  </div>
+
+  <div class="callout warn" style="margin-top:18px">
+    <strong>📌 สำคัญ:</strong> กรุณา<strong>อย่า</strong>จอดหรือกลับรถในบริเวณที่พักอื่น และ<strong>ห้ามจอดริมถนนโดยเด็ดขาด</strong>
+  </div>
+</section>
+
+<section class="section" id="checkin">
+  <div class="section-label">02 — เช็คอิน / เช็คเอาต์</div>
+  <h2 class="section-h">เช็คอินและเช็คเอาต์</h2>
+
+  <table class="info-table">
+    <tr><th>เช็คอิน</th><td><strong>ตั้งแต่ 15:00 น.</strong> (เวลาทำการฟรอนต์เดสก์: 10:00 — 19:00 น.)</td></tr>
+    <tr><th>เช็คเอาต์</th><td><strong>ก่อน 10:00 น.</strong> (ไม่ต้องดำเนินการใดๆ)</td></tr>
+    <tr><th>ฟรอนต์เดสก์</th><td>10:00 — 19:00 น.</td></tr>
+  </table>
+
+  <div class="grid-2" style="margin-top:24px">
+    <div class="card">
+      <div class="card-title"><span class="ic">🔑</span>วิธีการเช็คอิน</div>
+      <div class="card-body">
+        เมื่อมาถึง กรุณามาที่ <strong>ฟรอนต์เดสก์ชั้น 1 ของ UNPLAN Village Hakuba 1</strong> ใช้แท็บเล็ตที่ฟรอนต์เดสก์เพื่อดำเนินการเช็คอิน<br><br>
+        ※ หากมาถึงหลัง 19:00 น. กรุณา<strong>แจ้งล่วงหน้า</strong>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="ic">🚪</span>วิธีการเช็คเอาต์</div>
+      <div class="card-body">
+        ไม่ต้องดำเนินการใดๆ<br>
+        สำหรับห้องส่วนตัว กรุณาคืนกุญแจในกล่องบน<strong>โต๊ะฟรอนต์เดสก์ชั้น 1</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="rooms">
+  <div class="section-label">03 — ประเภทห้องพัก</div>
+  <h2 class="section-h">ห้องพัก</h2>
+  <p class="section-sub">ตั้งแต่ห้องพักรวมสไตล์ดอร์มไปจนถึงห้องส่วนตัวพร้อมห้องน้ำในตัว เลือกที่เหมาะกับการเข้าพักของคุณ</p>
+
+  <div class="room-grid">
+    <div class="room">
+      <div class="room-img" style="background-image:url('images/room-bunk-dormitory.jpg')"></div>
+      <div class="room-body">
+        <div class="room-en">Bunk Bed Dormitory</div>
+        <div class="room-name">ห้องพักรวม (Mixed-Gender)</div>
+        <div class="room-desc">เตียงสองชั้นในห้องพักรวม แต่ละเตียงมีไฟอ่านหนังสือและปลั๊กไฟ ดีไซน์เตียงสองชั้นแบบกึ่งส่วนตัวเอกลักษณ์ของ UNPLAN ห้องอาบน้ำและห้องน้ำใช้ร่วมกัน</div>
+      </div>
+    </div>
+    <div class="room">
+      <div class="room-img" style="background-image:url('images/room-family.jpg')"></div>
+      <div class="room-body">
+        <div class="room-en">Family Room</div>
+        <div class="room-name">ห้องพักรวมส่วนตัว (4 หรือ 6 เตียง)</div>
+        <div class="room-desc">จองห้องพักรวมทั้งห้องสำหรับครอบครัวหรือกลุ่ม มีแบบ 4 เตียงและ 6 เตียง ห้องอาบน้ำและห้องน้ำใช้ร่วมกัน</div>
+      </div>
+    </div>
+    <div class="room">
+      <div class="room-img" style="background-image:url('images/room-double-shared.jpg')"></div>
+      <div class="room-body">
+        <div class="room-en">Double Room (Shared Bathroom)</div>
+        <div class="room-name">ห้องเตียงคู่ (Double)</div>
+        <div class="room-desc">ห้องส่วนตัวพร้อมเตียงคู่ พักได้สูงสุด 3 คนโดยเพิ่มฟูตอน ห้องอาบน้ำและห้องน้ำใช้ร่วมกัน</div>
+      </div>
+    </div>
+    <div class="room">
+      <div class="room-img" style="background-image:url('images/room-triple-shared.jpg')"></div>
+      <div class="room-body">
+        <div class="room-en">Triple Room (Shared Bathroom)</div>
+        <div class="room-name">ห้อง 3 เตียง (Triple)</div>
+        <div class="room-desc">ห้องส่วนตัวพร้อมเตียงเดี่ยว 3 เตียง ห้องอาบน้ำและห้องน้ำใช้ร่วมกัน</div>
+      </div>
+    </div>
+    <div class="room">
+      <div class="room-img" style="background-image:url('images/room-double-ensuite.jpg')"></div>
+      <div class="room-body">
+        <div class="room-en">Double Room (Ensuite)</div>
+        <div class="room-name">ห้องเตียงคู่พร้อมห้องน้ำในตัว</div>
+        <div class="room-desc">ห้องส่วนตัวพร้อมเตียงคู่และฝักบัวในตัว รวมตู้เย็น ผ้าเช็ดตัว พรมเช็ดเท้า และไดร์เป่าผม</div>
+      </div>
+    </div>
+    <div class="room">
+      <div class="room-img" style="background-image:url('images/room-twin-ensuite.jpg')"></div>
+      <div class="room-body">
+        <div class="room-en">Twin / Triple Room (Ensuite)</div>
+        <div class="room-name">ห้อง Twin หรือ Triple พร้อมห้องน้ำในตัว</div>
+        <div class="room-desc">เตียงเดี่ยว 2 หรือ 3 เตียง ฝักบัวในตัว รวมตู้เย็น ผ้าเช็ดตัว พรมเช็ดเท้า และไดร์เป่าผม</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="amenities">
+  <div class="section-label">04 — ของใช้ในห้อง</div>
+  <h2 class="section-h">ของใช้ภายในห้อง</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="ic">🛏️</span>ห้องส่วนตัว / ห้องครอบครัว</div>
+      <div class="card-body">
+        มี<strong>ผ้าเช็ดตัว</strong>ให้<br>
+        ในห้องอาบน้ำรวม: แชมพู ครีมนวด สบู่อาบน้ำ ไดร์เป่าผม
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="ic">🛁</span>ห้องส่วนตัวพร้อมห้องน้ำในตัว</div>
+      <div class="card-body">
+        ผ้าเช็ดตัว / พรมเช็ดเท้า / แชมพู / ครีมนวด / สบู่อาบน้ำ / ไดร์เป่าผม / <strong>ตู้เย็น</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    ※ ห้องพักรวมสไตล์ดอร์มไม่มีของใช้ส่วนตัวให้ ของใช้จำเป็นมีให้ในห้องอาบน้ำรวม
+  </div>
+
+  <h3 style="font-size:18px; margin:30px 0 14px">ของใช้เพิ่มเติม (ค่าใช้จ่าย)</h3>
+  <table class="info-table">
+    <tr><th>แปรงสีฟัน</th><td>¥100</td></tr>
+    <tr><th>ผ้าถูตัว</th><td>¥100</td></tr>
+    <tr><th>รองเท้าใส่ในห้อง</th><td>¥200</td></tr>
+    <tr><th>มีดโกน</th><td>¥100</td></tr>
+    <tr><th>เช่าผ้าเช็ดตัว (ฟรีสำหรับห้องส่วนตัว)</th><td>¥200</td></tr>
+  </table>
+  <p style="font-size:12px; color:var(--ink-muted); margin-top:10px">
+    ※ จำหน่ายที่จุด amenity bar ชั้น 1 (UNPLAN 1) ผ้าเช็ดตัวจำหน่ายที่ฟรอนต์เดสก์เฉพาะเวลาทำการเท่านั้น
+  </p>
+</section>
+
+<section class="section" id="facilities">
+  <div class="section-label">05 — สิ่งอำนวยความสะดวก</div>
+  <h2 class="section-h">สิ่งอำนวยความสะดวกภายในที่พัก</h2>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title"><span class="ic">📶</span>Wi-Fi ฟรี</div>
+      <div class="card-body">
+        ใช้ได้ทั่วอาคาร<br><br>
+        <strong>SSID:</strong> UNPLAN<br>
+        <strong>PASS:</strong> stayunplan
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="ic">💻</span>โคเวิร์กกิ้งชั้น 1</div>
+      <div class="card-body">
+        <strong>เข้าใช้ได้ 24 ชั่วโมง</strong>สำหรับผู้เข้าพัก<br>
+        มีปลั๊กไฟและกาแฟ/เครื่องดื่มฟรี
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="ic">🍳</span>ครัวส่วนกลางชั้น B1</div>
+      <div class="card-body">
+        ตู้เย็น / ตู้แช่แข็ง / เตา IH / กระทะ / หม้อ / มีด / เขียง / หม้อหุงข้าว / ช้อนส้อม<br>
+        วัตถุดิบพื้นฐาน: เกลือ น้ำตาล น้ำมัน
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="ic">🧺</span>ห้องซักผ้าชั้น 1</div>
+      <div class="card-body">
+        เครื่องซักผ้า: <strong>¥300 / ครั้ง</strong> (น้ำยาซักผ้าฟรี)<br>
+        เครื่องอบผ้า: <strong>¥100 / 30 นาที</strong>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="ic">🚿</span>ห้องอาบน้ำชั้น 2</div>
+      <div class="card-body">
+        มีแชมพู ครีมนวด สบู่อาบน้ำ<br>
+        ใช้ได้ 24 ชั่วโมง<br><br>
+        <em style="font-size:12px">※ ในช่วงกลางคืน กรุณาระวังเสียงรบกวน (ไดร์เป่าผม การพูดคุย)</em>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="ic">🚭</span>การสูบบุหรี่</div>
+      <div class="card-body">
+        อาคารทั้งหมดเป็นเขต<strong>ห้ามสูบบุหรี่</strong><br>
+        มีที่เขี่ยบุหรี่วางไว้ทั้งในและนอกอาคาร กรุณาอย่าทิ้งขยะ
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="services">
+  <div class="section-label">06 — บริการภายในที่พัก</div>
+  <h2 class="section-h">บริการ</h2>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">🧖‍♀️</span>ซาวน่าส่วนตัว DIVE ชั้น 1</div>
+    <div class="card-body">
+      ซาวน่าส่วนตัวเต็มรูปแบบในโอตาริ ซาวน่าของคุณ เพลงของคุณ การดำดิ่งของคุณเอง<br><br>
+      <table class="info-table">
+        <tr><th>เวลาทำการ</th><td>แตกต่างตามฤดูกาล</td></tr>
+        <tr><th>จำนวนคน</th><td>ซาวน่า A: 3 คน / 120 นาที &nbsp;&nbsp;|&nbsp;&nbsp; ซาวน่า B: 2 คน / 90 นาที</td></tr>
+        <tr><th>ของใช้</th><td>หมวกซาวน่า (เสียเงิน) / ลำโพงบลูทูธ / ผ้าเช็ดตัว / พรมเช็ดเท้า / โทนเนอร์ / โลชั่น / ทิชชู่ / ไดร์เป่าผม</td></tr>
+        <tr><th>เช่า</th><td>ชุดว่ายน้ำ (ชาย L/XL หรือ หญิง M/L) — ¥300 ต่อชุด</td></tr>
+      </table>
+      <a href="https://reserva.be/divesauna" target="_blank" style="display:inline-block; margin-top:12px; padding:10px 20px; background:var(--ink); color:white; border-radius:3px; font-size:12px; letter-spacing:.08em; font-weight:600">จองเวลา →</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">🥐</span>อาหารเช้าแบบ Self-serve BAG</div>
+    <div class="card-body">
+      รับ "ถุงอาหารเช้า" ที่ร้านคาเฟ่ชั้น 1 — ชุดอาหารเช้าพกพาที่ทำจากวัตถุดิบชินชู<br><br>
+      <table class="info-table">
+        <tr><th>เวลาทำการ</th><td>5:00 — 12:00 น.</td></tr>
+        <tr><th>ราคา</th><td>¥1,000 / ชุด (รวมภาษี)<br>※ ฟรีสำหรับแขกที่จองแพ็คเกจรวมอาหารเช้า</td></tr>
+        <tr><th>เนื้อหา</th><td>ขนมปังหลายชนิด / สลัดผัก / น้ำสลัดชินชู / น้ำผลไม้ / "โอยากิ" / โยเกิร์ต / กราโนลาหรือซีเรียล / กาแฟหรือชา / ซุปสำเร็จรูป</td></tr>
+      </table>
+      <p style="font-size:12px; color:var(--ink-muted); margin-top:10px">
+        ※ หากต้องการเพิ่มถุงอาหารเช้า กรุณาจองที่ฟรอนต์เดสก์ก่อน 17:00 น. ของวันก่อนหน้า เนื้อหาอาจเปลี่ยนแปลงตามวัตถุดิบที่มี
+      </p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="ic">🛒</span>UNPLAN KIOSK ชั้น B1 & 1</div>
+    <div class="card-body">
+      ร้านค้ามินิแบบ self-serve บริเวณโถงบันไดและชั้น 1 ของ UNPLAN Village Hakuba 1<br>
+      มีเครื่องดื่มและของว่างเล็กๆ ชำระด้วย <strong>PayPay หรือเงินสด</strong>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="luggage">
+  <div class="section-label">07 — สัมภาระและบัตร</div>
+  <h2 class="section-h">บริการรับฝากสัมภาระและบัตรลิฟต์</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="ic">🧳</span>รับฝากสัมภาระ</div>
+      <div class="card-body">
+        รับฝากฟรีตั้งแต่ <strong>2 วันก่อนเช็คอิน</strong> วันเช็คอิน และวันเช็คเอาต์<br><br>
+        <strong>ที่อยู่จัดส่ง:</strong><br>
+        UNPLAN Village Hakuba 1 Reception<br>
+        12840-1 Oaza Chikuni-Otsu, Otari-mura, Kitaazumi-gun, Nagano 399-9422<br><br>
+        <em style="font-size:12px">※ กรุณาระบุวันเช็คอินและชื่อ-นามสกุลของผู้จอง<br>※ ส่งมาที่ UNPLAN 1 ไม่ว่าจะพักที่ UNPLAN 1 หรือ 2<br>※ เราไม่รับผิดชอบต่อการสูญหายหรือถูกขโมย</em>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="ic">🎫</span>บัตรกระเช้า / โรปเวย์</div>
+      <div class="card-body">
+        บัตรกระเช้าไป-กลับสำหรับ <strong>Tsugaike, Iwatake, และ Happo</strong> จำหน่ายที่ฟรอนต์เดสก์ — <strong>ถูกกว่าที่จุดจำหน่าย</strong> สอบถามที่ฟรอนต์เดสก์ในเวลาทำการ (10:00–19:00 น.)
+
+        <div style="margin-top:18px; overflow-x:auto;">
+          <table style="width:100%; border-collapse:collapse; font-size:13px; min-width:520px;">
+            <thead>
+              <tr style="background:#f0f8ed; border-bottom:2px solid #3e6644;">
+                <th style="padding:10px; text-align:left; font-weight:600;">รีสอร์ท / เส้นทาง</th>
+                <th style="padding:10px; text-align:center; font-weight:600; color:#3e6644;">UNPLAN<br>ผู้ใหญ่ / เด็ก</th>
+                <th style="padding:10px; text-align:center; font-weight:500; color:var(--ink-muted);">จุดจำหน่าย<br>ผู้ใหญ่ / เด็ก</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--line);">
+                <td style="padding:10px;"><strong>Happo-one / Alpen Line</strong><br><span style="color:var(--ink-soft); font-size:11px;">กระเช้า Happo "Adam" + Alpen Lift + Grat Lift (ไป-กลับ)</span></td>
+                <td style="padding:10px; text-align:center; color:#3e6644; font-weight:700;">¥3,300 / ¥2,100</td>
+                <td style="padding:10px; text-align:center; color:var(--ink-muted); text-decoration:line-through;">¥3,500 / ¥2,300</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--line);">
+                <td style="padding:10px;"><strong>Tsugaike Kogen / Ropeway</strong><br><span style="color:var(--ink-soft); font-size:11px;">กระเช้า Tsugaike "Eve" + โรปเวย์ + สวน Shizenen</span></td>
+                <td style="padding:10px; text-align:center; color:#3e6644; font-weight:700;">¥3,700 / ¥2,000</td>
+                <td style="padding:10px; text-align:center; color:var(--ink-muted); text-decoration:line-through;">¥4,000 / ¥2,200</td>
+              </tr>
+              <tr>
+                <td style="padding:10px;"><strong>Hakuba Iwatake Mountain Resort</strong><br><span style="color:var(--ink-soft); font-size:11px;">กระเช้า Iwatake + No.5 South Lift (ไป-กลับ)</span></td>
+                <td style="padding:10px; text-align:center; color:#3e6644; font-weight:700;">¥2,700 / ¥1,500</td>
+                <td style="padding:10px; text-align:center; color:var(--ink-muted); text-decoration:line-through;">¥2,900 / ¥1,600</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="margin-top:14px; font-size:12px; color:var(--ink-soft); line-height:1.7;">
+          ※ ทุกบัตรเป็นไป-กลับ <strong>เด็ก</strong> = เด็กระดับประถม (อายุ 6–12) เด็กก่อนวัยเรียนอาจนั่งฟรี — กรุณาสอบถาม<br>
+          ※ <strong>ช่วงเปิดให้บริการ (2026):</strong> Happo 5/30, 5/31 &amp; 6/6–11/3 ／ Tsugaike 6/6–10/25 ／ Iwatake 4/23–11/15<br>
+          ※ <a href="images/lift-ticket-pricing.pdf" target="_blank" style="text-decoration:underline">ดาวน์โหลดตารางราคา (PDF)</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:18px; background:#f0f8ed; border-left-color:#3e6644">
+    <strong>🦁 โบนัสสำหรับแขก:</strong> ใช้โค้ด <strong style="color:#c94545">GreenUNPLAN10</strong> เพื่อรับ<strong>ส่วนลด 10%</strong> สำหรับทุกกิจกรรมที่ Lion Adventure! ใส่โค้ดในช่องหมายเหตุตอนจอง<br>
+    <a href="https://hakuba.lion-adventure.com/" target="_blank" style="text-decoration:underline; color:var(--ink)">จองที่ Lion Adventure →</a>
+  </div>
+</section>
+
+<section class="section" id="nearby">
+  <div class="section-label">08 — บริเวณใกล้เคียง</div>
+  <h2 class="section-h">สถานที่ใกล้เคียง</h2>
+  <p class="section-sub">สิ่งจำเป็นในบริเวณใกล้ๆ สำหรับคู่มือท้องถิ่นแบบเต็ม ดูได้ที่ <a href="hakuba-th.html" style="text-decoration:underline">สัมผัสฮาคุบะ</a> / <a href="green-season-th.html" style="text-decoration:underline">คู่มือ Green Season</a></p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="ic">🏪</span>ร้านสะดวกซื้อ</div>
+      <div class="card-body">
+        <strong>7-Eleven Hakuba Iwatake</strong> — 24 ชั่วโมง / ขับ ~10 นาที<br>
+        <strong>7-Eleven Hakuba Misorano</strong> — 24 ชั่วโมง / ขับ ~15 นาที
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="ic">🛒</span>ซูเปอร์มาร์เก็ต</div>
+      <div class="card-body">
+        <strong>Delicia Hakuba</strong> — 9:00–21:00 / ขับ ~10 นาที<br>
+        <strong>A-Coop Hakuba</strong> — 9:30–19:30 / ขับ ~15 นาที
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="ic">🚉</span>สถานีรถไฟใกล้ที่สุด</div>
+      <div class="card-body">
+        <strong>สถานี Hakuba-Oike</strong> — ขับ ~5 นาที<br>
+        <strong>สถานี Hakuba</strong> — ขับ ~15 นาที
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="ic">⛰️</span>สถานที่ท่องเที่ยวและรีสอร์ท</div>
+      <div class="card-body">
+        <strong>สวน Tsugaike Nature Park / ลานสกี</strong> — เดิน ~3 นาที (ถึงกระเช้า)<br>
+        <strong>Iwatake Mountain Resort</strong> — ขับ ~10 นาที<br>
+        <strong>ทะเลสาบ Aoki</strong> — ขับ ~20 นาที
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="section-label">09 — ติดต่อ</div>
+  <h2 class="section-h">ติดต่อเรา</h2>
+  <p class="section-sub">มีคำถามก่อนหรือระหว่างการเข้าพัก? ติดต่อได้ตลอดเวลา เวลาตอบกลับ: 10:00 — 19:00 น.</p>
+
+  <div class="contact-box">
+    <h3>ติดต่อเรา</h3>
+    <p>นอกเวลาทำการฟรอนต์เดสก์ การตอบกลับ LINE/ฟอร์มอาจล่าช้า ขออภัยในความไม่สะดวก</p>
+    <div class="contact-btns">
+      <a href="https://lin.ee/jKbiTud" target="_blank" class="contact-btn line">Official LINE</a>
+      <a href="https://wa.me/819057544187" target="_blank" class="contact-btn whatsapp">WhatsApp</a>
+      <a href="https://mj3doa45pxo.typeform.com/to/kLxLSeZX#pid=11654208821007&client=unplan&formvia=webform" target="_blank" class="contact-btn">แบบฟอร์มติดต่อ</a>
+      <a href="tel:09057544187" class="contact-btn">📞 090-5754-4187</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="rules">
+  <div class="section-label">10 — กฎระเบียบ</div>
+  <h2 class="section-h">กฎระเบียบภายในที่พัก</h2>
+  <p class="section-sub">เพื่อความปลอดภัยและความสบายของทุกท่าน กรุณาปฏิบัติตามกฎต่อไปนี้ระหว่างการเข้าพัก</p>
+
+  <h3 style="font-size:16px; margin:24px 0 12px">ความปลอดภัย</h3>
+  <ol class="rules-list">
+    <li>มี<strong>แผนผังการอพยพ</strong>ติดไว้ในแต่ละห้อง กรุณาตรวจสอบเมื่อมาถึง</li>
+    <li>เมื่อออกจากห้อง อย่าลืม<strong>รหัสผ่านหรือกุญแจ</strong>ของคุณ ค่าธรรมเนียมกรณีทำกุญแจหาย <strong>¥5,000</strong></li>
+    <li>เฉพาะแขกที่ลงทะเบียนเท่านั้นที่พักได้ ไม่อนุญาตให้ผู้มาเยี่ยมเข้าห้องพัก</li>
+    <li>อาคารทั้งหมดเป็นเขต<strong>ห้ามสูบบุหรี่</strong> กรุณาอย่าสูบบุหรี่ในห้อง</li>
+    <li>ห้ามนำหรือใช้อุปกรณ์ทำความร้อน/ทำอาหาร หรือเตารีดในห้อง</li>
+    <li>งดเว้นการกระทำที่อาจก่อให้เกิดไฟไหม้</li>
+    <li>กรุณา<strong>อย่าเข้าพื้นที่พนักงานเท่านั้น</strong> เช่น หลังบ้านหรือครัว</li>
+    <li>ในเวลาทำการของคาเฟ่ พื้นที่คาเฟ่ชั้น 1 <strong>ให้ความสำคัญกับลูกค้าคาเฟ่ก่อน</strong></li>
+  </ol>
+
+  <h3 style="font-size:16px; margin:30px 0 12px">ของมีค่าและของหาย</h3>
+  <ol class="rules-list">
+    <li>กรุณา<strong>ดูแลเงินสดและของมีค่าด้วยตัวคุณเอง</strong> เราไม่รับผิดชอบต่อการโจรกรรมหรือสูญหาย</li>
+    <li>ของหายจะถูกเก็บรักษาไว้ <strong>30 วัน</strong> (นับจากวันที่ได้รับหรือค้นพบ) หลังจากนั้นจะดำเนินการตามกฎหมายที่เกี่ยวข้อง</li>
+  </ol>
+</section>
+
+<footer>
+  <div class="footer-wrap">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">UNPLAN Village Hakuba</div>
+        <p class="footer-tagline">สถานที่ที่การเดินทางแบบไม่มีแผนอาจนำไปสู่การพบเจอที่ไม่คาดคิดและวิวที่คุณไม่เคยเห็นมาก่อน</p>
+      </div>
+      <div class="footer-col">
+        <h4>คู่มือ</h4>
+        <a href="index.html">ยินดีต้อนรับ</a>
+        <a href="hakuba-th.html">สัมผัสฮาคุบะ</a>
+        <a href="stay-th.html">คู่มือที่พัก</a>
+        <a href="green-season-th.html">คู่มือ Green Season</a>
+      </div>
+      <div class="footer-col">
+        <h4>ติดต่อ</h4>
+        <a href="tel:09057544187">090-5754-4187</a>
+        <a href="https://lin.ee/jKbiTud" target="_blank">Official LINE</a>
+        <a href="https://www.instagram.com/unplan_village_hakuba/" target="_blank">Instagram</a>
+      </div>
+      <div class="footer-col">
+        <h4>UNPLAN Group</h4>
+        <a href="https://unplan.jp/hakuba?lang=en" target="_blank">Hakuba Official</a>
+        <a href="https://unplan.jp/kagurazaka?lang=en" target="_blank">Kagurazaka</a>
+        <a href="https://unplan.jp/shinjuku?lang=en" target="_blank">Shinjuku</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© UNPLAN — UNPLAN Village Hakuba, Tsugaike Kogen / Otari-mura, Nagano</div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -7,7 +7,7 @@
 <meta name="description" content="UNPLAN Village Hakuba | 宿泊情報と白馬ローカルガイド。Welcome to UNPLAN Village Hakuba.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #eeeeee;
@@ -21,7 +21,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   body {
-    font-family: 'Outfit', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Outfit', 'Noto Sans JP', 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--bg);
     color: var(--ink);
     font-size: 14px;
@@ -29,7 +29,7 @@
     -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3, h4 {
-    font-family: 'Outfit', 'Noto Sans JP', sans-serif;
+    font-family: 'Outfit', 'Noto Sans JP', 'Noto Sans Thai', sans-serif;
     font-weight: 700; letter-spacing: -.01em;
   }
   img { display: block; max-width: 100%; height: auto; }
@@ -148,55 +148,50 @@
     margin-bottom: 32px; max-width: 480px;
   }
   .section-btn {
-    display: inline-flex; align-items: center; gap: 12px;
+    display: inline-block; padding: 14px 30px;
     background: var(--ink); color: white;
-    padding: 14px 28px; border-radius: 3px;
-    font-size: 12px; font-weight: 600; letter-spacing: .16em;
-    transition: all .2s; width: fit-content;
+    font-size: 12px; font-weight: 600; letter-spacing: .18em;
+    border-radius: 2px; text-transform: uppercase;
+    transition: transform .2s;
+    align-self: flex-start;
   }
-  .section-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,.15); }
-  .section-btn::after { content: '→'; transition: transform .2s; }
-  .section-btn:hover::after { transform: translateX(4px); }
-  .section-btn.disabled {
-    background: #ccc; color: var(--ink-soft); cursor: not-allowed;
-  }
-  .section-btn.disabled:hover { transform: none; box-shadow: none; }
+  .section-btn:hover { transform: translateY(-2px); }
 
   /* QUICK INFO */
   .quick {
-    padding: 80px 32px; background: white; border-top: 1px solid var(--line);
+    background: var(--surface); padding: 100px 32px;
   }
   .quick-wrap { max-width: 1100px; margin: 0 auto; }
   .quick-eyebrow {
-    font-size: 11px; letter-spacing: .25em; text-transform: uppercase;
-    color: var(--ink-soft); font-weight: 500; margin-bottom: 12px;
+    font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--ink-muted); text-align: center; margin-bottom: 12px;
   }
   .quick-title {
-    font-size: clamp(26px, 3vw, 36px); margin-bottom: 40px; font-weight: 700;
+    text-align: center; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.15;
+    margin-bottom: 60px; letter-spacing: -.01em;
   }
   .quick-grid {
-    display: grid; grid-template-columns: 1fr; gap: 0;
-    border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
   }
-  @media (min-width: 720px) { .quick-grid { grid-template-columns: repeat(3, 1fr); } }
   .quick-item {
-    padding: 32px 28px; border-bottom: 1px solid var(--line);
+    padding: 30px 26px; border-radius: 6px; background: #f9f9f9;
+    transition: transform .2s;
   }
-  @media (min-width: 720px) {
-    .quick-item { border-bottom: none; border-right: 1px solid var(--line); }
-    .quick-item:last-child { border-right: none; }
-  }
+  .quick-item:hover { transform: translateY(-3px); }
   .quick-num {
-    font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600;
-    letter-spacing: .15em; color: var(--ink-muted); margin-bottom: 16px;
+    font-family: 'Outfit', monospace; font-size: 11px; letter-spacing: .2em;
+    color: var(--ink-muted); margin-bottom: 12px;
   }
-  .quick-item h3 { font-size: 18px; margin-bottom: 10px; font-weight: 600; }
-  .quick-item p { font-size: 13px; color: var(--ink-soft); line-height: 1.7; }
-  .quick-item strong { color: var(--ink); font-weight: 600; }
+  .quick-item h3 {
+    font-size: 17px; margin-bottom: 12px; letter-spacing: -.005em;
+  }
+  .quick-item p {
+    font-size: 13px; color: var(--ink-soft); line-height: 1.7;
+  }
   .quick-tel {
     display: inline-block; font-family: 'Outfit', sans-serif;
-    font-size: 24px; font-weight: 700; color: var(--ink);
-    letter-spacing: -.01em; margin: 6px 0 10px;
+    font-size: 17px; font-weight: 700; color: var(--ink);
     padding: 6px 0; text-decoration: none;
     transition: opacity .15s;
   }
@@ -227,8 +222,12 @@
     font-family: 'Outfit', monospace; font-weight: 700;
     color: var(--ink); font-size: 15px; letter-spacing: .02em;
   }
-  body.en .wifi-row .wifi-label.lang-jp { display: none; }
-  body:not(.en) .wifi-row .wifi-label.lang-en { display: none; }
+  body.en .wifi-row .wifi-label.lang-jp,
+  body.en .wifi-row .wifi-label.lang-th,
+  body.th .wifi-row .wifi-label.lang-jp,
+  body.th .wifi-row .wifi-label.lang-en { display: none; }
+  body:not(.en):not(.th) .wifi-row .wifi-label.lang-en,
+  body:not(.en):not(.th) .wifi-row .wifi-label.lang-th { display: none; }
   .contact-row {
     display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
   }
@@ -280,11 +279,17 @@
   }
 
   /* Language toggle */
-  .lang-en { display: none; }
-  body.en .lang-jp { display: none; }
+  .lang-en, .lang-th { display: none; }
+  body.en .lang-jp, body.en .lang-th { display: none; }
   body.en .lang-en { display: block; }
   body.en span.lang-en, body.en .inline.lang-en { display: inline; }
-  body.en h1.lang-jp, body.en h2.lang-jp, body.en h3.lang-jp, body.en p.lang-jp, body.en div.lang-jp { display: none; }
+  body.en h1.lang-jp, body.en h2.lang-jp, body.en h3.lang-jp, body.en p.lang-jp, body.en div.lang-jp,
+  body.en h1.lang-th, body.en h2.lang-th, body.en h3.lang-th, body.en p.lang-th, body.en div.lang-th { display: none; }
+  body.th .lang-jp, body.th .lang-en { display: none; }
+  body.th .lang-th { display: block; }
+  body.th span.lang-th, body.th .inline.lang-th { display: inline; }
+  body.th h1.lang-jp, body.th h2.lang-jp, body.th h3.lang-jp, body.th p.lang-jp, body.th div.lang-jp,
+  body.th h1.lang-en, body.th h2.lang-en, body.th h3.lang-en, body.th p.lang-en, body.th div.lang-en { display: none; }
 </style>
 </head>
 <body>
@@ -296,6 +301,8 @@
       <button data-lang="jp" class="active">JP</button>
       <span class="divider">/</span>
       <button data-lang="en">EN</button>
+      <span class="divider">/</span>
+      <button data-lang="th">TH</button>
     </div>
     <a href="https://go-uvh.reservation.jp/ja" target="_blank" class="book-btn">BOOK NOW</a>
   </div>
@@ -308,8 +315,10 @@
     <div class="hero-eyebrow">UNPLAN Village Hakuba</div>
     <h1 class="hero-title lang-jp">ようこそ、<br>白馬へ。</h1>
     <h1 class="hero-title lang-en">Welcome to<br>Hakuba.</h1>
+    <h1 class="hero-title lang-th">ยินดีต้อนรับสู่<br>ฮาคุบะ</h1>
     <p class="hero-sub lang-jp">UNPLAN Village Hakuba は、四季を通じて自然と触れ合い、様々な野外アクティビティが楽しめる長野県白馬山麓エリアにあるホステルです。</p>
     <p class="hero-sub lang-en">UNPLAN Village Hakuba is a hostel in the Hakuba foothills of Nagano, perfect for outdoor adventures across all four seasons.</p>
+    <p class="hero-sub lang-th">UNPLAN Village Hakuba คือโฮสเทลที่ตั้งอยู่บริเวณเชิงเขาฮาคุบะ จังหวัดนากาโนะ เหมาะสำหรับการสัมผัสธรรมชาติและกิจกรรมกลางแจ้งได้ทุกฤดูกาล</p>
   </div>
   <div class="scroll-cue">SCROLL</div>
 </div>
@@ -321,10 +330,13 @@
     <div class="section-eyebrow">01 — Your Stay</div>
     <h2 class="section-title lang-jp">宿泊のご案内</h2>
     <h2 class="section-title lang-en">Your Stay</h2>
+    <h2 class="section-title lang-th">ข้อมูลการเข้าพัก</h2>
     <p class="section-body lang-jp">チェックイン／アウト、Wi-Fi、アクセス、館内・アメニティ、荷物預け、リフト券、サウナのご利用方法など、UNPLAN Village Hakuba での滞在に必要な情報をまとめています。</p>
     <p class="section-body lang-en">Everything you need for your stay — check-in/out, Wi-Fi, access, facilities, amenities, luggage storage, lift tickets, and how to use the sauna.</p>
+    <p class="section-body lang-th">ข้อมูลทั้งหมดที่จำเป็นสำหรับการเข้าพัก — เช็คอิน/เช็คเอาต์ Wi-Fi การเดินทาง สิ่งอำนวยความสะดวก ของใช้ภายในห้อง บริการฝากสัมภาระ บัตรลิฟต์ และวิธีใช้ซาวน่า</p>
     <a href="stay.html" class="section-btn lang-jp">詳しく見る</a>
     <a href="stay-en.html" class="section-btn lang-en">Learn More</a>
+    <a href="stay-th.html" class="section-btn lang-th">ดูรายละเอียด</a>
   </div>
 </section>
 
@@ -335,10 +347,13 @@
     <div class="section-eyebrow">02 — Explore</div>
     <h2 class="section-title lang-jp">白馬を、楽しむ。</h2>
     <h2 class="section-title lang-en">Explore Hakuba.</h2>
+    <h2 class="section-title lang-th">สัมผัสฮาคุบะ</h2>
     <p class="section-body lang-jp">スポット、夏冬のアクティビティ、温泉、飲食、交通、E-bike まで。白馬を深く楽しむためのスタッフ厳選ローカルガイド。</p>
     <p class="section-body lang-en">Spots, summer & winter activities, onsen, food, transport and e-bikes — your local guide curated by UNPLAN staff.</p>
+    <p class="section-body lang-th">สถานที่ท่องเที่ยว กิจกรรมฤดูร้อน/ฤดูหนาว ออนเซ็น ร้านอาหาร การเดินทาง และ E-bike — คู่มือท้องถิ่นที่คัดสรรโดยทีมงาน UNPLAN</p>
     <a href="hakuba.html" class="section-btn lang-jp">ガイドを見る</a>
     <a href="hakuba-en.html" class="section-btn lang-en">Open Guide</a>
+    <a href="hakuba-th.html" class="section-btn lang-th">เปิดคู่มือ</a>
   </div>
 </section>
 
@@ -348,21 +363,24 @@
     <div class="quick-eyebrow">Quick Info</div>
     <h2 class="quick-title lang-jp">困ったときは</h2>
     <h2 class="quick-title lang-en">In case you need help</h2>
+    <h2 class="quick-title lang-th">เมื่อต้องการความช่วยเหลือ</h2>
 
     <div class="quick-grid">
       <div class="quick-item">
         <div class="quick-num">01 Wi-Fi</div>
         <h3 class="lang-jp">館内 Wi-Fi</h3>
         <h3 class="lang-en">House Wi-Fi</h3>
+        <h3 class="lang-th">Wi-Fi ภายในที่พัก</h3>
         <div class="wifi-box">
-          <div class="wifi-row"><span class="wifi-label lang-jp">SSID</span><span class="wifi-label lang-en">Network</span><span class="wifi-val">UNPLAN</span></div>
-          <div class="wifi-row"><span class="wifi-label lang-jp">パスワード</span><span class="wifi-label lang-en">Password</span><span class="wifi-val">stayunplan</span></div>
+          <div class="wifi-row"><span class="wifi-label lang-jp">SSID</span><span class="wifi-label lang-en">Network</span><span class="wifi-label lang-th">เครือข่าย</span><span class="wifi-val">UNPLAN</span></div>
+          <div class="wifi-row"><span class="wifi-label lang-jp">パスワード</span><span class="wifi-label lang-en">Password</span><span class="wifi-label lang-th">รหัสผ่าน</span><span class="wifi-val">stayunplan</span></div>
         </div>
       </div>
       <div class="quick-item quick-item-call">
         <div class="quick-num">02 Front Desk</div>
         <h3 class="lang-jp">フロントへのご連絡</h3>
         <h3 class="lang-en">Contact Front Desk</h3>
+        <h3 class="lang-th">ติดต่อฟรอนต์เดสก์</h3>
         <a href="tel:09057544187" class="quick-tel">📞 090-5754-4187</a>
         <div class="contact-row">
           <a href="https://line.me/R/ti/p/@125taplw?ts=01101429&oat_content=url" target="_blank" rel="noopener" class="contact-btn line">LINE</a>
@@ -370,13 +388,16 @@
         </div>
         <p class="contact-hours lang-jp">📱 LINE / WhatsApp：滞在前・滞在中（10:00〜19:00）</p>
         <p class="contact-hours lang-en">📱 LINE / WhatsApp: Before & during stay (10:00–19:00)</p>
+        <p class="contact-hours lang-th">📱 LINE / WhatsApp: ก่อนและระหว่างเข้าพัก (10:00–19:00)</p>
       </div>
       <div class="quick-item">
         <div class="quick-num">03 Emergency</div>
         <h3 class="lang-jp">緊急時 / Emergency</h3>
         <h3 class="lang-en">Emergency</h3>
+        <h3 class="lang-th">กรณีฉุกเฉิน</h3>
         <p class="lang-jp"><strong>🚑 119</strong> 救急車・火事<br><strong>🚓 110</strong> 警察</p>
         <p class="lang-en"><strong>🚑 119</strong> Ambulance & Fire<br><strong>🚓 110</strong> Police</p>
+        <p class="lang-th"><strong>🚑 119</strong> รถพยาบาล / เพลิงไหม้<br><strong>🚓 110</strong> ตำรวจ</p>
       </div>
     </div>
   </div>
@@ -426,7 +447,9 @@
     btn.addEventListener('click', () => {
       document.querySelectorAll('.lang-switch button').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      document.body.classList.toggle('en', btn.dataset.lang === 'en');
+      document.body.classList.remove('en', 'th');
+      if (btn.dataset.lang === 'en') document.body.classList.add('en');
+      else if (btn.dataset.lang === 'th') document.body.classList.add('th');
     });
   });
 </script>

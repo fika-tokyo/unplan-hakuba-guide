@@ -7,7 +7,7 @@
 
 ## 移行先
 
-- [`apps/hakuba/unplan-guide`](https://github.com/fika-tokyo/FikaHub/tree/main/apps/hakuba/unplan-guide)
+- [`apps/yamaai-crew/all-company/all/unplan-guide`](https://github.com/fika-tokyo/FikaHub/tree/main/apps/yamaai-crew/all-company/all/unplan-guide)
 
 ## このリポジトリを変更できる例外
 
